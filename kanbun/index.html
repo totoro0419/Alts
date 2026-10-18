@@ -93,11 +93,11 @@ const items=()=>poems.flatMap(p=>p.lines.map((l,i)=>({p,i,l,key:p.id+"-"+i})));
 const status=(key)=>state.scores[key]||0;
 function metrics(){const a=items();return{all:a.length,known:a.filter(x=>status(x.key)===2).length,review:a.filter(x=>status(x.key)===1).length,untouched:a.filter(x=>status(x.key)===0).length};}
 function button(text,action,style){return '<button class="btn '+(style||"")+'" data-act="'+escapeHTML(action)+'">'+text+"</button>"}
-function top(kicker,title,desc){return '<div class="topline"><span class="eyebrow">'+kicker+'</span><span class="pill">学校プリント・原典に基づく</span></div><h1 class="page-title">'+title+'</h1><p class="lead">'+desc+'</p>'}
+function pageHeader(kicker,title,desc){return '<div class="topline"><span class="eyebrow">'+kicker+'</span><span class="pill">学校プリント・原典に基づく</span></div><h1 class="page-title">'+title+'</h1><p class="lead">'+desc+'</p>'}
 function navTo(name){nav=name;document.querySelectorAll("[data-nav]").forEach(x=>x.classList.toggle("active",x.dataset.nav===name));render();window.scrollTo({top:0,behavior:"instant"})}
 function home(){
  const m=metrics(),pct=Math.round(m.known/m.all*100);
- return top("FOCUSED LEARNING","短い時間で、確実に。","白文からの書き下し・読みを中心に、わかったところを飛ばして苦手だけを繰り返す。")+
+ return pageHeader("FOCUSED LEARNING","短い時間で、確実に。","白文からの書き下し・読みを中心に、わかったところを飛ばして苦手だけを繰り返す。")+
  '<div class="notice"><strong>このページは教材原本の照合前です。</strong> 漢詩の原文や訓読は複数の版があります。下の解答を学校で指定された正答として確定しないでください。『史記』・文法演習・コラム・授業書き込みは未収録です。</div>'+
  '<div class="section"><div class="cards"><div class="card"><div class="metriclabel">暗記できた句</div><div class="metric mono">'+m.known+'<span style="font-size:15px;color:#9eabc1"> / '+m.all+'</span></div><div class="progress"><span style="width:'+pct+'%"></span></div><div class="metricmeta">この端末に保存</div></div><div class="card"><div class="metriclabel">もう一度確認</div><div class="metric mono" style="color:#bc761c">'+m.review+'</div><div class="metricmeta">間違えた・自信がない句</div></div><div class="card"><div class="metriclabel">未学習</div><div class="metric mono">'+m.untouched+'</div><div class="metricmeta">まずは一度、白文を見る</div></div></div></div>'+
  '<div class="section"><div class="section-head"><h2 class="section-title">すぐに学習する</h2></div><div class="btnrow">'+button("白文暗記を始める →","goto-recall","primary")+button("苦手だけ演習","weak-test","ghost")+button("試験範囲を確認","goto-scope","")+'</div></div>'+
@@ -106,7 +106,7 @@ function home(){
 }
 function study(){
  const p=poems.find(x=>x.id===current)||poems[0];
- let a=top(mode==="study"?"UNDERSTAND THE TEXT":"ACTIVE RECALL",mode==="study"?"文章の意味をつかむ":"白文だけで思い出す",mode==="study"?"口語訳でもわかりにくいところを、一句ずつ普通の日本語で説明。":"書き下しと読みを頭の中で答えてから、解答を開いて自己判定。");
+ let a=pageHeader(mode==="study"?"UNDERSTAND THE TEXT":"ACTIVE RECALL",mode==="study"?"文章の意味をつかむ":"白文だけで思い出す",mode==="study"?"口語訳でもわかりにくいところを、一句ずつ普通の日本語で説明。":"書き下しと読みを頭の中で答えてから、解答を開いて自己判定。");
  a+='<div class="study-switch">'+poems.map(x=>'<button class="'+(x.id===p.id?"active":"")+'" data-poem="'+x.id+'">'+escapeHTML(x.title)+'</button>').join("")+'</div>';
  a+='<div class="study-panel"><div class="poem-head"><div class="eyebrow">'+escapeHTML(p.author)+' ・ '+p.form+'</div><h2>'+escapeHTML(p.title)+'</h2><p>全'+p.lines.length+'句 ／ 原典の異同・訓読は学校教材で要確認</p></div>';
  a+='<div class="blurb"><strong>一言でいうと：</strong> '+escapeHTML(p.topic)+'<br><strong>ポイント：</strong> '+escapeHTML(p.tip)+'</div>';
@@ -125,7 +125,7 @@ function resetTest(weakOnly){
  testIndex=0;revealed=false;navTo("test");
 }
 function test(){
- let a=top("PRACTICE","白文・実戦演習","答えを思い出してから開き、「できた」「もう一度」を選択。苦手が自動で記録されます。");
+ let a=pageHeader("PRACTICE","白文・実戦演習","答えを思い出してから開き、「できた」「もう一度」を選択。苦手が自動で記録されます。");
  a+='<div class="btnrow" style="margin-bottom:18px">'+button("全句をランダム出題","new-test","") +button("未習得だけ出題","weak-test","ghost")+'</div>';
  if(!testQueue.length)return a+'<div class="card"><h2>出題する句がありません</h2><p class="helper">新しい演習を開始してください。すべて習得済みなら、全句テストで再確認できます。</p></div>';
  if(testIndex>=testQueue.length)return a+'<div class="test-card"><h2>今回の演習終了</h2><p class="helper">お疲れさまでした。間違えた句は「未習得だけ出題」で復習できます。</p>'+button("苦手だけもう一度","weak-test","primary")+'</div>';
@@ -137,7 +137,7 @@ function test(){
  return a;
 }
 function scopeView(){
- let a=top("OFFICIAL SCOPE","先生の指定した試験範囲","出題範囲は先生のコメントに基づいて記載。未提供の資料は必ず未収録と明示しています。");
+ let a=pageHeader("OFFICIAL SCOPE","先生の指定した試験範囲","出題範囲は先生のコメントに基づいて記載。未提供の資料は必ず未収録と明示しています。");
  a+='<div class="notice"><strong>最重要：</strong> 本文は白文で出題。『体系漢文法演習』は本文12〜17だけでなく右下・左下も範囲。授業中の書き込み・漢文知識も対象。初見は少量。</div>';
  a+='<div class="section"><h2 class="section-title">網羅状況</h2><div class="card" style="margin-top:12px">'+scope.map((s,i)=>'<div class="listline"><span class="bullet">'+(i+1)+'</span><div><strong>'+escapeHTML(s[0])+'</strong><div class="smallmeta">'+escapeHTML(s[1])+'</div></div></div>').join("")+'</div></div>';
  a+='<div class="section"><h2 class="section-title">教材を完成させるために必要なもの</h2><div class="card" style="margin-top:12px"><p class="plain">①『史記会注考証』の指定ページ、②『体系漢文法演習』12〜17の本文と左右下のコラム、③授業プリントの手書き箇所、④漢詩の教科書本文（特に秋浦歌の何首か・燕子楼の異文）を確認します。資料到着後に対応する箇所を置き換えます。</p></div></div>';
