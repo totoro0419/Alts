@@ -100,7 +100,7 @@ function study(){
  a+='<div class="study-panel"><div class="poem-head"><div class="eyebrow">'+escapeHTML(p.author)+' ・ '+p.form+'</div><h2>'+escapeHTML(p.title)+'</h2><p>全'+p.lines.length+'句 ／ 原典の異同・訓読は学校教材で要確認</p></div>';
  a+='<div class="blurb"><strong>一言でいうと：</strong> '+escapeHTML(p.topic)+'<br><strong>ポイント：</strong> '+escapeHTML(p.tip)+'</div>';
  a+='<div class="verse-list">'+p.lines.map((l,i)=>{
- const k=p.id+"-"+i,isOpen=mode==="study"||!!studyRevealed[k],s=status(k);
+ const k=p.id+"-"+i,isOpen=mode==="study"?studyRevealed[k]!==false:!!studyRevealed[k],s=status(k);
  let r='<article class="verse '+(isOpen?"open":"")+'"><div class="verse-top"><span class="verse-no">LINE '+String(i+1).padStart(2,"0")+' ／ '+(s===2?"✓ 習得":s===1?"↻ 復習":"未確認")+'</span><button class="link" data-toggle="'+k+'">'+(isOpen?"解答を隠す":"解答を見る")+'</button></div>';
  r+='<p class="kanbun">'+escapeHTML(l[0])+'</p>';
  if(isOpen)r+='<div class="answer"><div class="answer-grid"><div class="answer-label">書き下し（参考・暫定）</div><p class="kakikudashi">'+escapeHTML(l[1])+'</p><div class="answer-label">読み（参考・暫定）</div><p class="reading">'+escapeHTML(l[2])+'</p><div class="answer-label">普通の日本語でいうと</div><div class="translation">'+escapeHTML(l[3])+'</div><div class="answer-label">試験で押さえること</div><p class="plain">'+escapeHTML(l[4])+'</p></div><div class="btnrow verse-actions"><button class="btn green" data-rate="'+k+'" data-score="2">✓ できた</button><button class="btn warn" data-rate="'+k+'" data-score="1">↻ まだ不安</button></div></div>';
@@ -139,7 +139,7 @@ document.addEventListener("click",e=>{
  const el=e.target.closest("button");if(!el)return;
  if(el.dataset.nav){mode=el.dataset.nav==="recall"?"recall":"study";navTo(el.dataset.nav);return;}
  if(el.dataset.poem){current=el.dataset.poem;studyRevealed={};navTo(mode==="recall"?"recall":"study");return;}
- if(el.dataset.toggle){const k=el.dataset.toggle;studyRevealed[k]=!studyRevealed[k]&&mode!=="study";if(mode==="study")studyRevealed[k]=false;render();return;}
+ if(el.dataset.toggle){const k=el.dataset.toggle;const isOpen=mode==="study"?studyRevealed[k]!==false:!!studyRevealed[k];studyRevealed[k]=!isOpen;render();return;}
  if(el.dataset.rate){state.scores[el.dataset.rate]=Number(el.dataset.score);save();render();return;}
  if(el.dataset.testscore){state.scores[testQueue[testIndex].key]=Number(el.dataset.testscore);save();testIndex++;revealed=false;render();return;}
  const act=el.dataset.act;
