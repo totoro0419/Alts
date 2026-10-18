@@ -8,8 +8,7 @@ frame.addEventListener("load",()=>{
  const win=frame.contentWindow,doc=frame.contentDocument;
  const dom=()=>doc.body.textContent,click=(selector)=>{const b=doc.querySelector(selector);if(!b)throw Error("Missing control: "+selector);b.click();};
  const info=win.__KANBUN_DIAGNOSTICS__;
- check("App renders and route is available",!!doc.querySelector(".layout")&&!!info);
- check("Pink visual theme is applied",win.getComputedStyle(doc.documentElement).getPropertyValue("--primary").trim()==="#b82e72");
+ check("App renders with pink theme",!!doc.querySelector(".layout")&&!!info&&win.getComputedStyle(doc.documentElement).getPropertyValue("--primary").trim()==="#b82e72");
  check("Twelve lessons on home",doc.querySelectorAll(".lesson-card").length===12);
  check("Correct total across lines, facts and columns",info.count()===161&&JSON.stringify(info.kinds())===JSON.stringify({line:104,column:6,fact:51}));
  click('[data-act="all"]');check("Full-course mode starts and includes every item",info.session().length===161&&info.session().pos===0&&win.location.hash==="#session");
