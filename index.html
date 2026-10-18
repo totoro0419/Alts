@@ -2,23 +2,119 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex">
-  <title>Sideworks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sideworks は、独立した Web ページ・学習教材・小規模ツールをパス単位で公開する場所です。ここには運用ルールを掲載しています。">
+  <meta name="theme-color" content="#f6f8fc">
+  <title>Publication Rules — Sideworks</title>
+  <!-- AI / maintainers: This root page documents the publication rules. Read /README.md and /AGENTS.md in the GitHub repository BEFORE creating or editing any project. Never turn this root page into a central application. -->
   <style>
-    :root { color-scheme: light dark; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans JP", sans-serif; }
-    body { margin: 0; min-height: 100svh; display: grid; place-items: center; background: light-dark(#f9fafc,#10141e); color: light-dark(#202737,#e6eaf4); }
-    main { padding: 2rem; width: min(34rem, 100%); box-sizing: border-box; }
-    h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); letter-spacing: -.035em; margin: 0 0 1rem; }
-    p { line-height: 1.8; font-size: .95rem; color: light-dark(#586275,#a5afc0); }
-    code { font-size: .94em; word-break: break-word; }
+    :root {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      color-scheme: light dark;
+      --bg: light-dark(#f6f8fc, #10141d);
+      --surface: light-dark(#fff, #181d29);
+      --text: light-dark(#1b2535, #eef2fa);
+      --muted: light-dark(#58687d, #a9b6ca);
+      --line: light-dark(#e3e9f2, #303849);
+      --accent: light-dark(#385db7, #adc2ff);
+      --soft: light-dark(#eaf0fc, #232c42);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.8; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 3px; }
+    .wrap { max-width: 960px; margin-inline: auto; padding-inline: clamp(20px, 5vw, 44px); }
+    header { padding-block: 56px 36px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 750; letter-spacing: -.03em; font-size: 1.05rem; }
+    .mark { display: grid; place-items: center; width: 30px; height: 30px; background: var(--soft); color: var(--accent); border-radius: 9px; font-weight: 800; }
+    .eyebrow { margin: 48px 0 14px; color: var(--accent); text-transform: uppercase; font-size: .75rem; letter-spacing: .14em; font-weight: 750; }
+    h1 { font-size: clamp(2.15rem, 6vw, 4.1rem); line-height: 1.2; letter-spacing: -.055em; margin: 0; }
+    .lead { font-size: clamp(1rem, 2.5vw, 1.2rem); color: var(--muted); max-width: 720px; margin: 22px 0 0; }
+    .notice { margin-top: 30px; padding: 18px 22px; border: 1px solid var(--line); border-left: 4px solid var(--accent); background: var(--surface); border-radius: 11px; }
+    .notice strong { color: var(--text); }
+    main { padding-bottom: 64px; }
+    section { margin-top: 46px; }
+    h2 { font-size: 1.32rem; line-height: 1.4; letter-spacing: -.025em; margin: 0 0 16px; }
+    p { margin: 0 0 12px; }
+    code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; font-size: .92em; }
+    .url { display: block; padding: 17px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; font-size: clamp(.79rem, 2.4vw, 1.03rem); font-weight: 680; }
+    .small { font-size: .88rem; color: var(--muted); }
+    .rule-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0; list-style: none; counter-reset: rules; }
+    .rule-list li { counter-increment: rules; background: var(--surface); border: 1px solid var(--line); border-radius: 13px; padding: 21px; min-width: 0; }
+    .rule-list li::before { content: counter(rules, decimal-leading-zero); display: block; color: var(--accent); font: 700 .75rem/1 ui-monospace, monospace; letter-spacing: .06em; margin-bottom: 12px; }
+    .rule-list strong { display: block; margin-bottom: 6px; line-height: 1.5; }
+    .rule-list p { font-size: .89rem; color: var(--muted); margin: 0; }
+    .workflow { background: var(--surface); border: 1px solid var(--line); border-radius: 13px; padding: 18px 26px 18px 44px; }
+    .workflow li { padding: 3px 0 3px 4px; }
+    .docs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .docs a { display: inline-flex; align-items: center; justify-content: center; padding: 10px 15px; border: 1px solid var(--line); background: var(--surface); border-radius: 9px; font-weight: 650; text-decoration: none; }
+    .docs a:hover { border-color: var(--accent); }
+    footer { border-top: 1px solid var(--line); padding-block: 23px 40px; font-size: .86rem; color: var(--muted); }
+    @media (max-width: 680px) {
+      header { padding-top: 32px; }
+      .eyebrow { margin-top: 34px; }
+      .rule-list { grid-template-columns: 1fr; }
+      .rule-list li { padding: 17px 19px; }
+    }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Sideworks</h1>
-    <p>独立したページ・ツール・学習資料を、それぞれのURLパスで公開しています。</p>
-    <p>このルートはメインアプリではありません。各コンテンツのURL（<code>/Alts/&lt;slug&gt;/</code>）へ直接アクセスしてください。</p>
+  <header class="wrap">
+    <div class="brand"><span class="mark" aria-hidden="true">S</span>Sideworks</div>
+    <p class="eyebrow">Repository policy / AI instructions</p>
+    <h1>公開・運用ルール</h1>
+    <p class="lead">学習資料、Webツール、実験ページなどを、ひとつのリポジトリからそれぞれ独立したURLで公開するための共通規約です。</p>
+    <div class="notice">
+      <strong>最重要：ここはメインアプリではありません。</strong>
+      <div>公開物は個別のパスで提供し、互いに影響しないように管理します。次回以降、このリポジトリを編集するAIは作業前に <a href="https://github.com/totoro0419/Alts/blob/main/AGENTS.md">AGENTS.md</a> と <a href="https://github.com/totoro0419/Alts/blob/main/README.md">README.md</a> を必ず確認してください。</div>
+    </div>
+  </header>
+  <main class="wrap">
+    <section aria-labelledby="url-title">
+      <h2 id="url-title">公開URLの基本形</h2>
+      <code class="url">https://totoro0419.github.io/Alts/&lt;slug&gt;/</code>
+      <p class="small">例：<code>/Alts/kanbun/</code>・<code>/Alts/math-tools/</code>（例示であり公開済みページとは限りません）。GitHub Pages の有効化と実際の公開状態は別途確認が必要です。</p>
+    </section>
+    <section aria-labelledby="rules-title">
+      <h2 id="rules-title">必須ルール — 全12項目</h2>
+      <ol class="rule-list">
+        <li><strong>パス単位で公開</strong><p>新しい公開物ごとに専用の <code>/&lt;slug&gt;/</code> を用意します。ルートにアプリ本体や全プロジェクト共通ルーターを作りません。</p></li>
+        <li><strong>重複しない命名</strong><p>slug は英小文字・数字・ハイフンを使い、先頭・末尾は英数字にします。既存のパスや予約済み名称を流用しません。</p></li>
+        <li><strong>独立した入口</strong><p>各公開物に <code>&lt;slug&gt;/index.html</code> を配置し、個別URLへの直接アクセスと再読み込みで表示できるようにします。</p></li>
+        <li><strong>他の公開物を保護</strong><p>CSS・JS・画像・キャッシュ・データは原則として個別管理。他サイトのファイルを無断で変更・移動・削除しません。</p></li>
+        <li><strong>パスに合った参照</strong><p><code>/Alts/</code> という大文字小文字を含む接頭辞を維持し、相対パスを基本とします。<code>/assets/...</code> のような誤ったルート絶対パスを避けます。</p></li>
+        <li><strong>ルーティングの制約</strong><p>通常のHTMLページまたはハッシュルーティングを優先。履歴型SPAの深いURLは、リロード対策を検証せずに採用しません。</p></li>
+        <li><strong>静的公開を基本とする</strong><p>HTML・CSS・JavaScript・画像・PDFなどを使用。GitHub Pagesで動かないサーバー処理や秘密のサーバー環境変数に依存しません。</p></li>
+        <li><strong>ルートは中立に維持</strong><p>全ページ共通のCSS・JS・サービスワーカー、強制リダイレクトや統合アプリを追加しません。各ページは単独で動くことを優先します。</p></li>
+        <li><strong>保存領域を分離</strong><p>localStorage・IndexedDB・キャッシュ名にはプロジェクト識別子を使用。サービスワーカーを設ける場合は担当パス内にスコープを限定します。</p></li>
+        <li><strong>公開して安全な内容だけ</strong><p>パスワード・API秘密鍵・個人情報・非公開資料・権利侵害のある素材をコミットしません。公開リポジトリであることを前提にします。</p></li>
+        <li><strong>変更は必要最小限</strong><p>依頼された公開物だけを編集し、既存機能を守ります。リポジトリ全体に影響するビルド構成・CI変更は個別に承認を得ます。</p></li>
+        <li><strong>確認してから完了報告</strong><p>直接表示・再読み込み・内部リンク・アセット・画面幅・動作を確認します。実際の公開URLを検証できなければ「公開未確認」と明示します。</p></li>
+      </ol>
+    </section>
+    <section aria-labelledby="process-title">
+      <h2 id="process-title">新しいページの追加手順</h2>
+      <ol class="workflow">
+        <li>既存と重複しない slug を決める。</li>
+        <li>専用ディレクトリに <code>index.html</code> と必要なアセットを作る。</li>
+        <li>対象パスだけを編集し、既存公開物への影響を調べる。</li>
+        <li>直接URL・アセット参照・画面幅・操作をテストする。</li>
+        <li>コミットし、公開確認後に <code>/Alts/&lt;slug&gt;/</code> のURLを報告する。</li>
+      </ol>
+    </section>
+    <section aria-labelledby="ai-title">
+      <h2 id="ai-title">AI・開発者への引き継ぎ</h2>
+      <p><strong>正式な詳細ルールは README.md、AI向けの必須作業指示は AGENTS.md にあります。</strong> このページは、人間とAIの両方が確認できるルールの一覧です。実装・修正前に両文書を読み、矛盾がある場合は依頼内容を確認してルールを適切に更新してください。</p>
+      <div class="docs">
+        <a href="https://github.com/totoro0419/Alts/blob/main/README.md">README.md — 正式ルール ↗</a>
+        <a href="https://github.com/totoro0419/Alts/blob/main/AGENTS.md">AGENTS.md — AI向け指示 ↗</a>
+        <a href="https://github.com/totoro0419/Alts">GitHub Repository ↗</a>
+      </div>
+    </section>
   </main>
+  <footer>
+    <div class="wrap">Sideworks · Independent pages, one repository · <code>totoro0419/Alts</code></div>
+  </footer>
 </body>
 </html>
