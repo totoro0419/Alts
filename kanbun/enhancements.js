@@ -93,4 +93,7 @@ document.addEventListener("change",e=>{if(e.target.id==="lessonPicker"){current=
 const extraCss=document.createElement("style");
 extraCss.textContent=".pickwrap{display:flex;align-items:center;gap:10px;margin:18px 0;flex-wrap:wrap}.pickwrap label{font-size:12px;color:var(--muted);font-weight:800}.pickwrap select{padding:12px 14px;min-width:200px;flex:1;border:1px solid var(--line);border-radius:12px;background:white;color:var(--ink);font-weight:700}.noted{border:1px solid var(--line);border-radius:14px;background:#fff;margin:10px 0;overflow:hidden}.noted summary{padding:16px;font-size:13px;display:flex;justify-content:space-between;gap:12px;cursor:pointer;align-items:center}.noted summary span{color:var(--muted);font-size:11px}.notedbody{padding:4px 16px 14px;display:grid;grid-template-columns:1fr 1fr;gap:18px;color:#475773;font-size:13px;line-height:1.9}@media(max-width:600px){.notedbody{grid-template-columns:1fr;gap:0}}";
 document.head.appendChild(extraCss);
+if("serviceWorker" in navigator && location.protocol==="https:"){
+ navigator.serviceWorker.register("./sw.js").catch(()=>{});
+}
 render();
