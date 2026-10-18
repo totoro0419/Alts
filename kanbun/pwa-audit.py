@@ -89,7 +89,7 @@ check("All project-only offline files exist",
       all((HERE / p.removeprefix("./")).exists() for p in shell if p != "./"))
 check("Cache is versioned and old project-only caches removed",
       'const CACHE="alts-kanbun-v7"' in sw
-      and 'k.startsWith("alts-kanbun-")' in sw
+      and '.startsWith("alts-kanbun-")' in sw
       and 'self.clients.claim()' in sw)
 check("Worker rejects out-of-scope requests",
       'url.origin!==self.location.origin' in sw
