@@ -29,7 +29,7 @@ const poems=[
 ["独在異郷為異客","独り異郷に在りて異客と為る","ひとりいきょうにありていかくとなる","自分だけが故郷を離れ、よその土地に暮らしている。","「異」を繰り返して、故郷から離れた境遇を示す。"],
 ["毎逢佳節倍思親","佳節に逢ふ毎に倍親を思ふ","かせつにあうごとにますますしんをおもう","祝いの日が来るたびに、家族がいっそう恋しくなる。","佳節はここでは九月九日の重陽の節句。"],
 ["遥知兄弟登高処","遥かに知る兄弟高きに登る処","はるかにしるけいていたかきにのぼるところ","遠い故郷で、兄弟たちが高い所に登っている様子を思い浮かべる。","「知」はその場を見たのではなく、想像している。"],
-["遍挿茱萸少一人","遍く茱萸を挿して一人を少くを","あまねくしゅゆをさしていちにんをかくを","皆が茱萸を身につけて集まるが、自分だけがそこにいない。","少一人＝欠けている一人は作者自身。"]
+["遍挿茱萸少一人","遍く茱萸を挿して一人を少く","あまねくしゅゆをさしていちにんをかく","皆が茱萸を身につけて集まるが、自分だけがそこにいない。","少一人＝欠けている一人は作者自身。"]
 ]},
 {id:"du",title:"登高",author:"杜甫",form:"七言律詩",topic:"秋の高台から厳しい自然を眺め、遠く故郷を離れた身や病気、人生の苦難を重ねて嘆く。",tip:"前半四句は景色、後半四句は作者の境遇と嘆き。八句・七言の律詩で、対句の確認が重要。",source:"https://zh.wikisource.org/wiki/登高",lines:[
 ["風急天高猿嘯哀","風急に天高くして猿嘯哀し","かぜきゅうにてんたかくしてえんしょうかなし","風は激しく、空は高い。猿の声は物悲しい。","風・天・猿の音と景色が秋の寂しさをつくる。"],
@@ -55,7 +55,7 @@ const poems=[
 ]},
 {id:"bai",title:"燕子楼 其一",author:"白居易",form:"七言絶句",topic:"燕子楼で一人暮らす女性の孤独な秋の長い夜を、その冷たさと時間の長さから描く。",tip:"「満窗（窓）」と「満床」など底本による字句の異同がある。学校教材の表記を優先。",source:"https://zh.wikisource.org/wiki/燕子樓三首",lines:[
 ["満窗明月満簾霜","満窓の明月満簾の霜","まんそうのめいげつまんれんのしも","窓からは月光、すだれの周りには霜。冷え切った秋の夜。","異本に「満床明月」がある。学校教材で必ず照合。"],
-["被冷灯残払臥床","被冷ややかに灯残して臥床を払ふ","ひひややかにともしびのこりてがしょうをはらう","掛け布団は冷え、灯火は消えかかる。床を整えて一人で眠ろうとする。","冷たさと灯火の弱さで孤独を際立たせる。"],
+["被冷灯残払臥床","被冷ややかに灯残りて臥床を払ふ","ふすまひややかにともしびのこりてがしょうをはらう","掛け布団は冷え、灯火は消えかかる。床を整えて一人で眠ろうとする。","冷たさと灯火の弱さで孤独を際立たせる。"],
 ["燕子楼中霜月夜","燕子楼中霜月の夜","えんしろうちゅうそうげつのよる","燕子楼にいる、霜が降り月が照る寒い夜。","場所と夜の情景を改めて強調。"],
 ["秋来只為一人長","秋来たりて只一人の為に長し","あききたりてただいちにんのためにながし","秋の夜は、この孤独な一人にとってとりわけ長く感じられる。","実際の夜の長さ以上に、孤独による主観的な長さを示す。"]
 ]}
@@ -159,19 +159,19 @@ document.addEventListener("click",e=>{
  if(act==="reveal"){revealed=true;render()}
  if(act==="new-test")resetTest(false);
  if(act==="weak-test")resetTest(true);
- if(act==="reset"&&confirm("この端末の学習履歴を削除します。よろしいですか？")){state={scores:{}};save();render()}
+ if(act==="reset"&&confirm("この端末の学習履歴を削除します。よろしいですか？")){state={scores:{},factScores:{}};save();render()}
  if(act==="export"){
- const blob=new Blob([JSON.stringify({version:1,scores:state.scores,exportedAt:new Date().toISOString()},null,2)],{type:"application/json"});
+ const blob=new Blob([JSON.stringify({version:2,scores:state.scores,factScores:state.factScores,exportedAt:new Date().toISOString()},null,2)],{type:"application/json"});
  const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download="kanbun-study-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);
  }
  if(act==="import")document.getElementById("import-input")?.click();
 });
 document.addEventListener("change",async e=>{
  if(e.target.id!=="import-input"||!e.target.files?.[0])return;
- try{let d=JSON.parse(await e.target.files[0].text());if(!d||d.version!==1||!d.scores||typeof d.scores!=="object"||Array.isArray(d.scores))throw Error();
+ try{let d=JSON.parse(await e.target.files[0].text());if(!d||![1,2].includes(d.version)||!d.scores||typeof d.scores!=="object"||Array.isArray(d.scores))throw Error();
  let allowed=new Set(items().map(x=>x.key)),scores={};
  for(const [k,v] of Object.entries(d.scores)){if(allowed.has(k)&&[0,1,2].includes(v))scores[k]=v;}
- state.scores=scores;save();alert("学習履歴を読み込みました。");render();}
+ state.scores=scores;state.factScores=(d.factScores&&typeof d.factScores==="object")?Object.fromEntries(Object.entries(d.factScores).filter(([k,v])=>/^[0-9]+$/.test(k)&&Number(k)<window.KANBUN_FACTS.length&&[0,1,2].includes(v))):{};save();alert("学習履歴を読み込みました。");render();}
  catch{alert("形式が正しいバックアップではありません。");}finally{e.target.value="";}
 });
 resetTest(false);navTo("home");
