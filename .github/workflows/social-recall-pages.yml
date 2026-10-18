@@ -58,3 +58,25 @@ jobs:
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify public Social Recall URL and assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://totoro0419.github.io/Alts/social-recall/"
+          ok=0
+          for attempt in {1..15}; do
+            if curl --fail --location --silent --show-error --max-time 15 "${URL}" -o /tmp/social-recall-page.html && grep -q 'Social Recall' /tmp/social-recall-page.html; then
+              ok=1
+              break
+            fi
+            echo "Live URL not yet ready (attempt ${attempt}/15)"
+            sleep 6
+          done
+          test "${ok}" -eq 1
+          for asset in "assets/app.css" "assets/app.js" "assets/data.json"; do
+            curl --fail --location --silent --show-error --max-time 15 "${URL}${asset}" -o /tmp/social-recall-asset
+            test -s /tmp/social-recall-asset
+            echo "LIVE verified: ${asset}"
+          done
+          curl --fail --location --silent --show-error --max-time 15 "${URL}" | grep -q "Social Recall"
+          echo "LIVE verified: ${URL} (including a second direct request)"
