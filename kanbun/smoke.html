@@ -13,7 +13,7 @@ frame.addEventListener("load",()=>{
  check("Correct total across lines, facts and columns",info.count()===161&&JSON.stringify(info.kinds())===JSON.stringify({line:104,column:6,fact:51}));
  click('[data-act="all"]');check("Full-course mode starts and includes every item",info.session().length===161&&info.session().pos===0&&win.location.hash==="#session");
  click('[data-act="reveal"]');check("Reveal marks opened item as pending review",!!doc.querySelector(".answer")&&info.totals().weak===1);
- click('[data-act="grade"][data-score="2"]');check("Pass advances and persists",info.session().pos===1&&info.totals().done===1);
+ click('[data-act="grade"][data-score="2"]');check("Pass advances and persists",info.session().pos===1&&info.totals().done===1&&JSON.parse(win.localStorage.getItem("sideworks:kanbun:progress:v3")).scores["line:shiji:0"]===2);
  click('[data-act="reveal"]');click('[data-act="grade"][data-score="1"]');
  check("Incorrect answer advances and is remembered",info.session().pos===2&&info.totals().weak===1);
  click('[data-act="weak"]');check("Weak-only uses only failed item",info.session().mode==="weak"&&info.session().length===1);
@@ -23,7 +23,7 @@ frame.addEventListener("load",()=>{
  check("Unfinished mode excludes mastered items",info.session().length===159);
  click('[data-act="nav"][data-to="lesson"]');check("Shiji lesson loads in study mode",doc.querySelectorAll(".verse").length===23);
  click('[data-act="nav"][data-to="knowledge"]');
- check("Knowledge and column coverage is visible",doc.querySelectorAll(".column").length===6&&doc.querySelectorAll(".verse").length===51);
+ frame.width="375";check("Knowledge, columns and mobile layout work",doc.querySelectorAll(".column").length===6&&doc.querySelectorAll(".verse").length===51&&win.getComputedStyle(doc.querySelector(".mobile-nav")).display==="flex");
  out.textContent="PASS 12 / 12\n"+checks.map(x=>"✓ "+x.name).join("\n");
  }catch(e){out.textContent="FAIL "+checks.filter(x=>x.pass).length+" / 12\n"+checks.map(x=>x.pass?"✓ "+x.name:"✗ "+x.name).join("\n")+"\n"+String(e)+"\n"+(e.stack||"");}
 });
