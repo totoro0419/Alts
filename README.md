@@ -4,6 +4,8 @@
 
 **Sideworks** is the name of this publication space. The GitHub repository stays **`totoro0419/Alts`**, preserving its Pages URL.
 
+**For new AI sessions and contributors:** Read [AGENTS.md](./AGENTS.md) and this README before making changes. The public root [index.html](./index.html) visibly displays the 12 shared publication rules.
+
 This repository hosts unrelated, independently maintained static web pages, learning materials, small tools, and experiments. **It is not one unified application.** Every publication receives its own top-level URL path.
 
 ## Publication URL
@@ -20,7 +22,7 @@ Examples (illustrative; not yet published):
 - `/Alts/math-tools/` — 数学ツール
 - `/Alts/experiments/` — 実験ページ
 
-**Do not treat `/Alts/` as an application home.** The root may have a minimal neutral entry page, but publications are distributed and accessed by direct paths.
+**Do not treat `/Alts/` as an application home.** The root shows the publication rules for people and AI agents, but publications are distributed and accessed by direct paths.
 
 ## Repository layout
 
@@ -29,7 +31,7 @@ Examples (illustrative; not yet published):
 ├── README.md             # This policy and overview
 ├── AGENTS.md             # Rules for coding agents and contributors
 ├── .nojekyll             # Serve static content without Jekyll processing
-├── index.html            # Minimal neutral root page; not an app
+├── index.html            # Public, visible publication rules; not an app
 ├── kanbun/               # Example path; create only when requested
 │   ├── index.html
 │   ├── assets/
