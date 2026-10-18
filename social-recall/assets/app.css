@@ -2,3 +2,6 @@
 
 .remaining-pill{display:inline-block;margin-left:12px;color:#718879;font-size:11px;font-weight:650}.remaining-pill span{font-size:13px;color:#3d6954}.plain-passed:focus-visible{border-radius:3px;outline-offset:2px}
 @media(max-width:380px){.remaining-pill{display:block;margin-left:0;text-align:right}.controls{align-items:start}}
+
+/* Installation shortcut, local to Social Recall. */
+.install-shortcut{display:inline-flex;align-items:center;justify-content:center;flex:none;min-height:35px;padding:7px 12px;background:#e8f2eb;color:#2c674e;border:1px solid #d5e6db;border-radius:9px;text-decoration:none;font-size:12px;font-weight:750;white-space:nowrap}.install-shortcut:hover{background:#d8eadf}.install-shortcut[hidden]{display:none}@media(max-width:720px){.install-shortcut{font-size:11px;padding:7px 10px;min-height:33px}}

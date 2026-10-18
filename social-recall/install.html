@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f8f5">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Social Recall">
+<title>アプリのインストール | Social Recall</title>
+<link rel="stylesheet" href="./assets/app.css">
+<style>
+.install-shell{max-width:700px;margin:0 auto;padding:clamp(24px,6vw,58px) 20px 80px}
+.install-back{display:inline-block;color:#2d6b57;text-decoration:none;font-size:13px;font-weight:650;margin-bottom:24px}
+.install-heading{display:flex;align-items:center;gap:17px;margin-bottom:21px}
+.install-icon{width:72px;height:72px;border-radius:17px;flex:none}
+.install-title{font-size:clamp(23px,5vw,32px);letter-spacing:-.045em;margin:0 0 5px}
+.install-subtitle{font-size:12px;color:#718078;margin:0;line-height:1.7}
+.install-panel{padding:clamp(20px,4vw,30px);background:white;border:1px solid #e2eae4;border-radius:16px;box-shadow:0 7px 30px #253d2a05;margin:16px 0}
+.install-panel h2{font-size:17px;letter-spacing:-.025em;margin:0 0 15px}
+.install-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid #eef1ed;padding:12px 0;font-size:13px}
+.install-row span:last-child{font-weight:700;text-align:right;overflow-wrap:anywhere}
+.install-message{font-size:13px;color:#426b55;line-height:1.8;min-height:24px;margin:18px 0}
+.install-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.install-action{border:1px solid #d5e3d7;border-radius:10px;padding:12px 16px;font-size:13px;font-weight:750;color:#2d6b57;background:#f4faf6;min-height:44px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.install-action.primary{background:#2d6b57;color:white;border-color:#2d6b57}
+.install-help{color:#62796b;font-size:13px;line-height:2;margin:10px 0}
+.install-help strong{color:#304f3d}
+@media(max-width:400px){.install-icon{width:60px;height:60px}.install-actions .install-action{width:100%}.install-row{font-size:12px}}
+</style>
+<script type="module" src="./assets/pwa.js"></script>
+</head>
+<body>
+<main class="install-shell">
+<a class="install-back" href="./">← 日本史の学習に戻る</a>
+<header class="install-heading">
+<img class="install-icon" src="./assets/icons/icon-192.png" width="72" height="72" alt="Social Recallのアイコン">
+<div><h1 class="install-title">Social Recall</h1><p class="install-subtitle">日本史の虫食い学習をアプリとして使う</p></div>
+</header>
+<section class="install-panel" aria-labelledby="heading-install">
+<h2 id="heading-install">この端末にインストール</h2>
+<p class="install-help">インストールすると、ホーム画面やアプリ一覧から直接起動できます。学習の合格状況は削除しません。</p>
+<div class="install-actions">
+<button type="button" class="install-action primary" id="install-btn">この端末にインストール</button>
+<a class="install-action" href="./">教材を開く →</a>
+</div>
+<p class="install-message" id="install-status" role="status" aria-live="polite">インストール可能か確認しています。</p>
+</section>
+<section class="install-panel" aria-labelledby="heading-check">
+<h2 id="heading-check">インストール状態の確認</h2>
+<div class="install-row"><span>起動モード</span><span id="display-status">確認中</span></div>
+<div class="install-row"><span>このアプリの識別子</span><span id="manifest-status">確認中</span></div>
+<div class="install-row"><span>オフライン用プログラム</span><span id="worker-status">確認中</span></div>
+<div class="install-row"><span>教材のオフライン保存</span><span id="offline-status">確認中</span></div>
+<div class="install-actions" style="margin-top:20px"><button type="button" class="install-action" id="recheck-btn">状態を再確認</button></div>
+</section>
+<section class="install-panel" aria-labelledby="heading-help">
+<h2 id="heading-help">インストール画面が出ない場合</h2>
+<p class="install-help"><strong>Android：</strong>アプリ内ブラウザではなくChromeでこのページを開き、右上の「︙」から「アプリをインストール」または「ホーム画面に追加」を選んでください。</p>
+<p class="install-help"><strong>iPhone・iPad：</strong>Safariの共有メニューから「ホーム画面に追加」を選択してください。</p>
+<p class="install-help">「インストール済み」と表示される場合は、端末のアプリ一覧で「Social Recall」を検索してください。同じGitHub Pagesにある「漢文」とは別のアプリです。</p>
+</section>
+</main>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id);
+const EXPECTED_SCOPE='/Alts/social-recall/';
+let installPrompt=null;
+const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const set=(id,value)=>{$(id).textContent=value};
+addEventListener('beforeinstallprompt', event=>{
+ event.preventDefault();
+ installPrompt=event;
+ set('install-status','このブラウザからアプリをインストールできます。上のボタンを押してください。');
+});
+addEventListener('appinstalled',()=>{
+ installPrompt=null;
+ set('install-status','ブラウザからインストール完了の通知がありました。アプリ一覧に「Social Recall」があるか確認してください。');
+});
+$('install-btn').addEventListener('click',async()=>{
+ if(standalone()){
+  set('install-status','現在すでにアプリとして起動しています。');return;
+ }
+ if(!installPrompt){
+  set('install-status','ブラウザからインストール確認画面を開けません。Chromeの「︙」メニューからインストールしてください。アプリ一覧に「Social Recall」がある場合は起動できます。');return;
+ }
+ const prompt=installPrompt;installPrompt=null;
+ try{
+  await prompt.prompt();
+  const choice=await prompt.userChoice;
+  set('install-status',choice?.outcome==='accepted'?'インストールの操作を受け付けました。アプリ一覧で「Social Recall」を確認してください。':'インストールはキャンセルされました。もう一度試す場合は、このページを開き直してください。');
+ }catch{
+  set('install-status','このブラウザではインストール画面を表示できませんでした。Chromeのメニューからお試しください。');
+ }
+});
+async function check(){
+ set('display-status',standalone()?'アプリとして起動中':'ブラウザで表示中');
+ try{
+  const response=await fetch('./manifest.webmanifest',{cache:'no-store'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const m=await response.json();
+  set('manifest-status',m.id===EXPECTED_SCOPE&&m.start_url===EXPECTED_SCOPE&&m.scope===EXPECTED_SCOPE?'正常 · 社会専用':'設定の確認が必要');
+ }catch{set('manifest-status','取得できません（オフラインの可能性）');}
+ if(!('serviceWorker' in navigator)){
+  set('worker-status','このブラウザでは非対応');
+  set('offline-status','確認できません');return;
+ }
+ try{
+  const reg=await navigator.serviceWorker.register('./sw.js',{scope:'./'});
+  const active=reg.active||reg.waiting||reg.installing;
+  set('worker-status',active&&reg.scope===location.origin+EXPECTED_SCOPE?'正常 · 専用範囲':'登録処理中');
+  const cache=await caches.open('sideworks:social-recall:offline-v2');
+  const paths=['./index.html','./assets/app.js','./assets/app.css','./assets/data.json'];
+  const present=await Promise.all(paths.map(path=>cache.match(new URL(path,location.href).href)));
+  set('offline-status',present.every(Boolean)?'教材を保存済み':'初回ダウンロード・更新中');
+ }catch{set('worker-status','登録できませんでした');set('offline-status','確認できません');}
+}
+$('recheck-btn').addEventListener('click',check);
+check();
+})();
+</script>
+</body>
+</html>

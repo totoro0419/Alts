@@ -10,3 +10,8 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
     }
   }, { once: true });
 }
+
+// Installed app window does not need the browser-side installation shortcut.
+if (matchMedia("(display-mode: standalone)").matches || navigator.standalone === true) {
+  document.getElementById("install-link")?.setAttribute("hidden", "");
+}
