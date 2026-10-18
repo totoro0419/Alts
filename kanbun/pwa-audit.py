@@ -92,7 +92,7 @@ check("Cache is versioned and old project-only caches removed",
       and '.startsWith("alts-kanbun-")' in sw
       and 'self.clients.claim()' in sw)
 check("Worker rejects out-of-scope requests",
-      'url.origin!==self.location.origin' in sw
+      'url.origin!==ORIGIN' in sw
       and '!url.pathname.startsWith(SCOPE_PATH)' in sw
       and 'new URL("./",self.registration.scope).pathname' in sw)
 check("Update logic fetches scripts online before reusing cache", 
