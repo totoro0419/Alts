@@ -17,11 +17,11 @@ function makeFactQueue(weak){
  factIndex=0;factShown=false;
 }
 makeFactQueue(true);
-const oldTop=top;
-top=function(kicker,title,desc){return oldTop(kicker,title,desc).replace("暫定教材・照合待ち","授業プリント・原典を参照");};
+const oldTop=pageHeader;
+pageHeader=function(kicker,title,desc){return oldTop(kicker,title,desc).replace("暫定教材・照合待ち","授業プリント・原典を参照");};
 home=function(){
  const m=metrics(),pct=Math.round(m.known/m.all*100),fk=Object.values(state.factScores).filter(v=>v===2).length;
- let a=top("FOCUSED LEARNING","最短で、白文を攻略。","文章を理解 → 白文で書き下しと読みを思い出す → 間違えた項目だけ再確認。");
+ let a=pageHeader("FOCUSED LEARNING","最短で、白文を攻略。","文章を理解 → 白文で書き下しと読みを思い出す → 間違えた項目だけ再確認。");
  a+='<div class="notice"><strong>重要：</strong> 試験では本文が白文で出ます。全作品・『史記』・文法演習12〜17を収録。書き下しは独自に作成した練習用です。学校で習った訓読・表記と異なる場合は学校の解答を優先してください。</div>';
  a+='<div class="section"><div class="cards"><div class="card"><div class="metriclabel">白文の習得</div><div class="metric mono">'+m.known+'<span style="font-size:15px;color:#9eabc1"> / '+m.all+'</span></div><div class="progress"><span style="width:'+pct+'%"></span></div><div class="metricmeta">書き下し＋読み</div></div><div class="card"><div class="metriclabel">要復習</div><div class="metric mono" style="color:#bc761c">'+m.review+'</div><div class="metricmeta">つまずいた句のみ</div></div><div class="card"><div class="metriclabel">重要知識</div><div class="metric mono">'+fk+'<span style="font-size:15px;color:#9eabc1"> / '+window.KANBUN_FACTS.length+'</span></div><div class="metricmeta">授業・参考書コラム</div></div></div></div>';
  a+='<div class="section"><h2 class="section-title">すぐに学習する</h2><div class="btnrow" style="margin-top:12px"><button class="btn primary" data-extra="recall">白文を暗記する →</button><button class="btn" data-extra="facts">重要知識 51問</button><button class="btn ghost" data-extra="weak">苦手だけ復習</button></div><p class="helper">「できた」の句は自動的に次回の苦手演習から除外。覚えたことの繰り返しを削減します。</p></div>';
@@ -32,7 +32,7 @@ home=function(){
 };
 study=function(){
  const p=poems.find(x=>x.id===current)||poems[0],isRec=mode==="recall";
- let a=top(isRec?"ACTIVE RECALL":"UNDERSTAND",isRec?"白文から思い出す":"文章を理解する",isRec?"白文から書き下し・読みを再現してから開く。":"先に筋道を理解し、必要な解説だけ開いて学ぶ。");
+ let a=pageHeader(isRec?"ACTIVE RECALL":"UNDERSTAND",isRec?"白文から思い出す":"文章を理解する",isRec?"白文から書き下し・読みを再現してから開く。":"先に筋道を理解し、必要な解説だけ開いて学ぶ。");
  a+='<div class="study-panel"><div class="pickwrap"><label for="lessonPicker">教材を選択</label><select id="lessonPicker">'+poems.map(x=>'<option value="'+x.id+'" '+(x.id===p.id?"selected":"")+'>'+escapeHTML(x.title)+'</option>').join("")+'</select></div>';
  a+='<div class="poem-head"><div class="eyebrow">'+escapeHTML(p.author)+' ・ '+escapeHTML(p.form)+'</div><h2>'+escapeHTML(p.title)+'</h2><p>全'+p.lines.length+'区切り。出典と学校教材を基準に学習用訓読を作成。</p></div>';
  a+='<div class="blurb"><strong>まず話の流れ：</strong> '+escapeHTML(p.topic)+'<div style="margin-top:7px"><strong>試験のポイント：</strong> '+escapeHTML(p.tip)+'</div></div>';
@@ -46,7 +46,7 @@ study=function(){
  return a;
 };
 function factsPage(){
- let a=top("GRAMMAR & KNOWLEDGE","重要知識・コラム","左下・右下コラムの文法事項、授業メモ、人物や心情を短時間で復習。");
+ let a=pageHeader("GRAMMAR & KNOWLEDGE","重要知識・コラム","左下・右下コラムの文法事項、授業メモ、人物や心情を短時間で復習。");
  a+='<div class="btnrow" style="margin-bottom:16px"><button class="btn primary" data-extra="facts-weak">未習得だけ</button><button class="btn" data-extra="facts-all">全51問</button><button class="btn" data-extra="scope">範囲と出典</button></div>';
  a+='<div class="card"><div class="section-head"><h2 class="section-title">一問一答</h2><span class="helper">'+Math.min(factIndex+1,factQueue.length)+' / '+factQueue.length+'</span></div>';
  if(factIndex>=factQueue.length){a+='<p class="helper">今回の問題は終了しました。苦手な項目だけ繰り返せます。</p>';}
@@ -59,7 +59,7 @@ function factsPage(){
  return a;
 }
 scopeView=function(){
- let a=top("EXAM SCOPE & SOURCES","試験範囲・原典","先生が指定した『史記』、漢詩5作品、文法演習12〜17、コラム・授業知識を照合。");
+ let a=pageHeader("EXAM SCOPE & SOURCES","試験範囲・原典","先生が指定した『史記』、漢詩5作品、文法演習12〜17、コラム・授業知識を照合。");
  a+='<div class="notice">原典と教科書は文字・送り仮名に異同があります。教科書の正答は授業資料を優先。細い鉛筆の書き込みなど確証のない箇所を断定していません。</div>';
  a+='<div class="section"><h2 class="section-title">対象範囲</h2><div class="card" style="margin-top:12px">'+[
  ["『史記会注考証』5頁1行〜6頁4行","『史記』項羽本紀。挙兵に至る人物関係・句形。"],
