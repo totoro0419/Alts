@@ -82,19 +82,22 @@ if not match:
 shell = json.loads(match.group(1))
 check("Offline shell contains required documents and icons",
       all(x in shell for x in ("./","./index.html","./styles.css",
-                               "./editorial.css","./lessons.js","./poems.js",
+                               "./editorial.css","./install.html","./lessons.js","./poems.js",
                                "./columns.js","./app.js","./manifest.webmanifest",
                                "./icon-192.png","./icon-512.png","./icon.svg")))
 check("All project-only offline files exist",
       all((HERE / p.removeprefix("./")).exists() for p in shell if p != "./"))
 check("Cache is versioned and old project-only caches removed",
-      'const CACHE="alts-kanbun-v6"' in sw
+      'const CACHE="alts-kanbun-v7"' in sw
       and 'k.startsWith("alts-kanbun-")' in sw
       and 'self.clients.claim()' in sw)
 check("Worker rejects out-of-scope requests",
       'url.origin!==self.location.origin' in sw
       and '!url.pathname.startsWith(SCOPE_PATH)' in sw
       and 'new URL("./",self.registration.scope).pathname' in sw)
+check("Update logic fetches scripts online before reusing cache", 
+      'const response=await fetch(request)' in sw
+      and 'cache.put(request,response.clone())' in sw)
 check("Offline navigation falls back to cached entry point",
       'caches.match("./index.html")' in sw)
 
