@@ -1,0 +1,33 @@
+{
+  "name": "Social Recall — 日本史",
+  "short_name": "Social Recall",
+  "description": "教科書の流れで覚える日本史。虫食い・3段階難易度・苦手復習。",
+  "lang": "ja",
+  "id": "/Alts/social-recall/",
+  "start_url": "/Alts/social-recall/",
+  "scope": "/Alts/social-recall/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#f5f8f5",
+  "background_color": "#f5f8f5",
+  "icons": [
+    {
+      "src": "./assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
