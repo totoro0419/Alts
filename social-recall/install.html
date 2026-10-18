@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f8f5">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png?v=2">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Social Recall">
 <title>アプリのインストール | Social Recall</title>
@@ -36,7 +36,7 @@
 <main class="install-shell">
 <a class="install-back" href="./">← 日本史の学習に戻る</a>
 <header class="install-heading">
-<img class="install-icon" src="./assets/icons/icon-192.png" width="72" height="72" alt="Social Recallのアイコン">
+<img class="install-icon" src="./assets/icons/icon-192.png?v=2" width="72" height="72" alt="Social Recallのアイコン">
 <div><h1 class="install-title">Social Recall</h1><p class="install-subtitle">日本史の虫食い学習をアプリとして使う</p></div>
 </header>
 <section class="install-panel" aria-labelledby="heading-install">
@@ -111,7 +111,7 @@ async function check(){
   const reg=await navigator.serviceWorker.register('./sw.js',{scope:'./'});
   const active=reg.active||reg.waiting||reg.installing;
   set('worker-status',active&&reg.scope===location.origin+EXPECTED_SCOPE?'正常 · 専用範囲':'登録処理中');
-  const cache=await caches.open('sideworks:social-recall:offline-v2');
+  const cache=await caches.open('sideworks:social-recall:offline-v3');
   const paths=['./index.html','./assets/app.js','./assets/app.css','./assets/data.json'];
   const present=await Promise.all(paths.map(path=>cache.match(new URL(path,location.href).href)));
   set('offline-status',present.every(Boolean)?'教材を保存済み':'初回ダウンロード・更新中');
