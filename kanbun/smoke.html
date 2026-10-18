@@ -2,12 +2,15 @@
 <body><h1>Kanbun app browser tests</h1><pre id="result">RUNNING</pre><iframe id="frame" src="./index.html" width="940" height="700" title="app under test"></iframe>
 <script>
 const out=document.getElementById("result"),frame=document.getElementById("frame");
-frame.addEventListener("load",()=>{
+frame.addEventListener("load",async()=>{
  const checks=[],check=(name,pass)=>{checks.push({name,pass:!!pass});if(!pass)throw Error(name);};
  try{
  const win=frame.contentWindow,doc=frame.contentDocument;
  const dom=()=>doc.body.textContent,click=(selector)=>{const b=doc.querySelector(selector);if(!b)throw Error("Missing control: "+selector);b.click();};
  const info=win.__KANBUN_DIAGNOSTICS__;
+ const icon=new win.Image();icon.src=new URL("./icon-512.png",win.location.href).href;
+ await icon.decode();
+ check("Android PWA icon decodes as a 512px image",icon.naturalWidth===512&&icon.naturalHeight===512);
  check("Crimson-rose textbook styling and page load",!!doc.querySelector(".layout")&&!!info&&win.getComputedStyle(doc.documentElement).getPropertyValue("--primary").trim()==="#a33f51"&&win.getComputedStyle(doc.querySelector(".feature")).backgroundColor==="rgb(127, 43, 59)"&&win.getComputedStyle(doc.querySelector(".panel")).borderRadius==="6px");
  check("Twelve lessons on home",doc.querySelectorAll(".lesson-card").length===12);
  check("Correct total across lines, facts and columns",info.count()===161&&JSON.stringify(info.kinds())===JSON.stringify({line:104,column:6,fact:51}));
@@ -24,7 +27,7 @@ frame.addEventListener("load",()=>{
  click('[data-act="nav"][data-to="lesson"]');check("Shiji lesson loads in study mode",doc.querySelectorAll(".verse").length===23);
  click('[data-act="nav"][data-to="knowledge"]');
  frame.width="375";check("Knowledge, columns and mobile layout work",doc.querySelectorAll(".column").length===6&&doc.querySelectorAll(".verse").length===51&&win.getComputedStyle(doc.querySelector(".mobile-nav")).display==="flex");
- out.textContent="PASS 12 / 12\n"+checks.map(x=>"✓ "+x.name).join("\n");
- }catch(e){out.textContent="FAIL "+checks.filter(x=>x.pass).length+" / 12\n"+checks.map(x=>x.pass?"✓ "+x.name:"✗ "+x.name).join("\n")+"\n"+String(e)+"\n"+(e.stack||"");}
+ out.textContent="PASS 13 / 13\n"+checks.map(x=>"✓ "+x.name).join("\n");
+ }catch(e){out.textContent="FAIL "+checks.filter(x=>x.pass).length+" / 13\n"+checks.map(x=>x.pass?"✓ "+x.name:"✗ "+x.name).join("\n")+"\n"+String(e)+"\n"+(e.stack||"");}
 });
 </script></body></html>
