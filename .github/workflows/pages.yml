@@ -50,7 +50,7 @@ jobs:
               --virtual-time-budget=17000 --dump-dom \
               "http://127.0.0.1:8765/Alts/kanbun/$PAGE" \
               >"$OUTPUT" 2>"/tmp/kanbun-${PAGE}.err" || true
-            RESULT="$(python3 -c 'import re,sys,html; s=open(sys.argv[1],encoding="utf-8").read(); m=re.search(r"<pre id=\\"result\\">([^<]*)</pre>",s); print(html.unescape(m.group(1)).splitlines()[0].strip() if m else "MISSING")' "$OUTPUT")"
+            RESULT="$(python3 -c 'import re,sys,html; s=open(sys.argv[1],encoding="utf-8").read(); m=re.search(r"<pre id=.result.>([^<]*)</pre>",s); print(html.unescape(m.group(1)).splitlines()[0].strip() if m else "MISSING")' "$OUTPUT")"
             echo "Browser result: $RESULT"
             if [[ "$RESULT" != "$EXPECT" ]]; then
               echo "::error::Failed $PAGE; blocking publication"
