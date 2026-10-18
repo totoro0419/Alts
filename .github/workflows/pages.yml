@@ -26,11 +26,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Verify full study UI in Chrome
+      - name: Verify study UI and project-scoped PWA in Chrome
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/kanbun-http.log 2>&1 &
+          SITE_ROOT="$(dirname "$GITHUB_WORKSPACE")"
+          test -f "$SITE_ROOT/Alts/kanbun/index.html"
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory "$SITE_ROOT" >/tmp/kanbun-http.log 2>&1 &
           SERVER_PID=$!
           trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
           sleep 2
@@ -39,19 +41,24 @@ jobs:
             echo "::error::Headless Chrome is unavailable"
             exit 1
           fi
-          timeout 60 "$BROWSER" --headless=new --no-sandbox --disable-gpu \
-            --disable-dev-shm-usage --no-first-run --disable-background-networking \
-            --virtual-time-budget=9000 --dump-dom \
-            "http://127.0.0.1:8765/kanbun/smoke.html" \
-            > /tmp/kanbun-smoke-dom.html 2>/tmp/kanbun-chrome.err || true
-          grep -o 'PASS [0-9]* / [0-9]*' /tmp/kanbun-smoke-dom.html || true
-          if ! grep -q 'PASS 12 / 12' /tmp/kanbun-smoke-dom.html; then
-            echo "::error::Study app UI failed the real-browser smoke test; preventing publication"
-            grep -A 25 -B 2 '<pre id="result">' /tmp/kanbun-smoke-dom.html || true
-            tail -40 /tmp/kanbun-chrome.err || true
-            exit 1
-          fi
-          echo "12 UI assertions passed in headless Chrome"
+          for SPEC in "smoke.html:PASS 12 / 12" "pwa-smoke.html:PASS 9 / 9"; do
+            PAGE="${SPEC%%:*}"
+            EXPECT="${SPEC#*:}"
+            OUTPUT="/tmp/kanbun-${PAGE}.dom"
+            timeout 75 "$BROWSER" --headless=new --no-sandbox --disable-gpu \
+              --disable-dev-shm-usage --no-first-run --disable-background-networking \
+              --virtual-time-budget=17000 --dump-dom \
+              "http://127.0.0.1:8765/Alts/kanbun/$PAGE" \
+              >"$OUTPUT" 2>"/tmp/kanbun-${PAGE}.err" || true
+            grep -o 'PASS [0-9]* / [0-9]*' "$OUTPUT" || true
+            if ! grep -Fq "$EXPECT" "$OUTPUT"; then
+              echo "::error::Failed $PAGE; blocking publication"
+              grep -A 20 -B 2 '<pre id="result">' "$OUTPUT" || true
+              tail -35 "/tmp/kanbun-${PAGE}.err" || true
+              exit 1
+            fi
+            echo "Verified $PAGE: $EXPECT"
+          done
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload static site
