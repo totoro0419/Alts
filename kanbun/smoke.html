@@ -1,0 +1,36 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>漢文 UI smoke test</title></head>
+<body><h1>漢文 学習UI自動テスト</h1><pre id="result">RUNNING</pre><iframe id="app" src="./index.html" style="width:940px;height:700px;border:0"></iframe>
+<script>
+const out=document.getElementById("result");
+const frame=document.getElementById("app");
+frame.addEventListener("load",()=>{
+  const results=[];
+  const check=(label,ok)=>{results.push({label,ok:!!ok});if(!ok)throw Error(label);};
+  try{
+    const doc=frame.contentDocument,win=frame.contentWindow;
+    check("dashboard loaded",doc.querySelectorAll(".lesson").length===12);
+    check("history lesson present",doc.body.textContent.includes("史記・文法演習 12〜17"));
+    const history=doc.querySelector('[data-poem="shiji"]');
+    history.click();
+    check("shiji study loaded",doc.querySelectorAll(".verse").length===23);
+    check("shiji content present",doc.body.textContent.includes("項梁"));
+    doc.querySelector('[data-nav="recall"]').click();
+    check("blank text mode",doc.querySelectorAll(".verse .answer").length===0);
+    doc.querySelector(".verse [data-extra-toggle]").click();
+    check("show answer",doc.querySelectorAll(".verse .answer").length===1);
+    doc.querySelector(".verse [data-rate]").click();
+    check("recall records status",JSON.parse(win.localStorage.getItem("alts-kanbun-study-v1")).scores["shiji-0"]===2);
+    doc.querySelector('[data-nav="facts"]').click();
+    check("knowledge question",!!doc.querySelector('[data-extra="reveal-fact"]'));
+    doc.querySelector('[data-extra="reveal-fact"]').click();
+    check("knowledge answer shown",!!doc.querySelector(".test-answer"));
+    doc.querySelector('[data-factgrade="2"]').click();
+    check("knowledge result stored",Object.values(JSON.parse(win.localStorage.getItem("alts-kanbun-study-v1")).factScores).includes(2));
+    doc.querySelector('[data-nav="test"]').click();
+    check("test question exists",!!doc.querySelector(".test-kanbun"));
+    check("source scope link",win.location.pathname.endsWith("/kanbun/index.html"));
+    out.textContent="PASS "+results.length+" / "+results.length+"\n"+results.map(x=>"✓ "+x.label).join("\n");
+  }catch(e){out.textContent="FAIL\n"+results.map(x=>x.ok?"✓ "+x.label:"✗ "+x.label).join("\n")+"\n"+String(e)+"\n"+e.stack;}
+});
+window.addEventListener("error",e=>{if(out.textContent==="RUNNING")out.textContent="FAIL: "+e.message;});
+</script></body></html>
