@@ -1,0 +1,60 @@
+name: Publish Social Recall
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'social-recall/**'
+      - '.github/workflows/social-recall-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate Social Recall
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f social-recall/index.html
+          test -f social-recall/assets/app.css
+          test -f social-recall/assets/app.js
+          test -f social-recall/assets/data.json
+          node --check social-recall/assets/app.js
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('social-recall/assets/data.json').read_text())
+          token_list=[t for c in data['chapters'] for s in c['sections'] for p in s['paragraphs'] for t in p['tokens'] if 'answer' in t]
+          assert len(token_list)==data['counts']['total']
+          assert len({t['id'] for t in token_list})==len(token_list)
+          assert all(t['level'] in (1,2,3) for t in token_list)
+          for chapter in data['chapters']:
+              for section in chapter['sections']:
+                  for p in section['paragraphs']:
+                      assert section['pageStart'] <= p['page'] <= section['pageEnd']
+          print('Validated',len(token_list),'recall targets')
+          PY
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload complete Sideworks site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
