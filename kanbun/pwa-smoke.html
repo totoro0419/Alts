@@ -1,0 +1,42 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>Kanbun PWA checks</title></head>
+<body><h1>Kanbun PWA checks</h1><pre id="result">RUNNING</pre>
+<script>
+(async()=>{
+ const output=document.getElementById("result"),tests=[];
+ const check=(label,ok)=>{tests.push([label,!!ok]);if(!ok)throw Error(label)};
+ try{
+   const base=new URL("./",location.href);
+   check("Exact project base URL",base.pathname==="/Alts/kanbun/");
+   const html=await (await fetch("./index.html",{cache:"no-store"})).text();
+   check("Manifest and icons linked",html.includes('rel="manifest" href="./manifest.webmanifest"')&&html.includes('rel="apple-touch-icon"')&&html.includes('href="./icon.svg"'));
+   const res=await fetch("./manifest.webmanifest",{cache:"no-store"});
+   const manifest=await res.json();
+   check("Manifest is configured for standalone",res.ok&&manifest.name&&manifest.display==="standalone"&&manifest.lang==="ja");
+   check("PWA ID, start and scope cannot escape project",manifest.id==="/Alts/kanbun/"&&manifest.start_url==="/Alts/kanbun/"&&manifest.scope==="/Alts/kanbun/");
+   const icons=manifest.icons||[];
+   const png=[192,512].map(n=>icons.find(i=>i.type==="image/png"&&i.sizes===n+"x"+n));
+   check("192 and 512 pixel PNG declared",png.every(Boolean));
+   const sizeOf=src=>new Promise((resolve,reject)=>{
+      const img=new Image();
+      img.onload=()=>resolve([img.naturalWidth,img.naturalHeight]);
+      img.onerror=()=>reject(Error("Icon cannot decode: "+src));
+      img.src=new URL(src,base).href;
+   });
+   const sizes=await Promise.all(png.map(icon=>sizeOf(icon.src)));
+   check("Both PNG assets decode at their declared sizes",sizes.every((p,i)=>p[0]===[192,512][i]&&p[1]===[192,512][i]));
+   if(!("serviceWorker" in navigator))throw Error("Service Worker unavailable");
+   const reg=await navigator.serviceWorker.register("./sw.js",{scope:"./"});
+   await navigator.serviceWorker.ready;
+   check("Service Worker limited to kanbun path",reg.scope===base.href&&reg.active?.scriptURL===new URL("./sw.js",base).href);
+   const cache=await caches.open("alts-kanbun-v6");
+   const shell=["./","./index.html","./styles.css","./editorial.css","./lessons.js","./poems.js","./columns.js","./app.js","./manifest.webmanifest","./icon-192.png","./icon-512.png","./icon.svg"];
+   const matched=await Promise.all(shell.map(p=>cache.match(new URL(p,base).href)));
+   check("Entire offline shell precached",matched.every(Boolean));
+   const allCaches=await caches.keys();
+   check("No cross-project caches created by this PWA",allCaches.filter(k=>k.startsWith("alts-kanbun-")).every(k=>k==="alts-kanbun-v6"));
+   output.textContent="PASS "+tests.length+" / "+tests.length+"\n"+tests.map(([x])=>"✓ "+x).join("\n");
+ }catch(err){
+   output.textContent="FAIL "+tests.filter(x=>x[1]).length+" / 9\n"+tests.map(([x,ok])=>(ok?"✓ ":"✗ ")+x).join("\n")+"\n"+String(err)+"\n"+(err.stack||"");
+ }
+})();
+</script></body></html>
