@@ -52,6 +52,7 @@ function home(){
 const t=totals(),s=state.session,continueSession=s&&s.ids.length&&s.pos<s.ids.length;
 let a=title("STUDY SMARTER","白文から、確実に。","史記・漢詩5作品・漢文法演習12〜17。全範囲を通しで学び、苦手な問題だけを後から解き直せます。");
 a+='<div class="notice"><strong>試験対策の重点：</strong> 白文→書き下し・読み。授業プリントと解答を最優先にし、本文の意味・人物関係・左右下コラムまで確認します。細かい手書き注釈の全件照合は未完了です。</div>';
+a+='<p class="lead" style="margin:12px 0 0;font-size:12px">インストールしたのに開けない・アイコンが見つからない場合は、<a href="./install.html">アプリの状態を確認する ↗</a></p>';
 a+='<section class="section"><div class="grid3">'+metric("習得済み",t.done,t.all,"全文・コラム・知識の合計")+metric("苦手・復習待ち",t.weak,null,"解答を開いて未習得も含む")+metric("未学習",t.unseen,null,"まだ着手していない項目")+'</div></section>';
 a+='<section class="section"><div class="sectionheading"><h2>学習モード</h2><small>進捗は自動保存</small></div><div class="grid3">';
 a+='<button class="feature" data-act="all"><span class="symbol">▶</span><strong>全範囲を通しで</strong><small>白文104・コラム6・重要知識51＝161項目を連続演習</small></button>';
