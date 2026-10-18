@@ -14,11 +14,12 @@
 <body>
 <div class="shell">
 <aside class="sidebar"><div class="brand"><div class="logo">文</div><div>漢文 <div class="subbrand">EXAM PREP</div></div></div>
-<nav class="nav" aria-label="主な機能"><button data-nav="home" class="active">⌂　ダッシュボード</button><button data-nav="study">▤　本文を理解する</button><button data-nav="recall">◫　白文で暗記する</button><button data-nav="test">◉　実戦演習</button><button data-nav="scope">☷　試験範囲・注意</button></nav>
-<div class="sidefooter">2学期中間試験 対策用<br>オフライン動作 / 学習結果は端末内に保存<br>教材照合前の暫定版</div></aside>
+<nav class="nav" aria-label="主な機能"><button data-nav="home" class="active">⌂　ダッシュボード</button><button data-nav="study">▤　本文を理解する</button><button data-nav="recall">◫　白文で暗記する</button><button data-nav="test">◉　実戦演習</button><button data-nav="facts">✦　重要知識・コラム</button><button data-nav="scope">☷　試験範囲・出典</button></nav>
+<div class="sidefooter">2学期中間試験 対策用<br>オフライン動作 / 学習結果は端末内に保存<br>参考資料の書き下しは練習用</div></aside>
 <main class="main" id="view" aria-live="polite"></main>
 </div>
-<nav class="top-mobile" aria-label="モバイルの機能"><button data-nav="home" class="active"><span>⌂</span>ホーム</button><button data-nav="study"><span>▤</span>理解</button><button data-nav="recall"><span>◫</span>暗記</button><button data-nav="test"><span>◉</span>演習</button><button data-nav="scope"><span>☷</span>範囲</button></nav>
+<nav class="top-mobile" aria-label="モバイルの機能"><button data-nav="home" class="active"><span>⌂</span>ホーム</button><button data-nav="study"><span>▤</span>理解</button><button data-nav="recall"><span>◫</span>暗記</button><button data-nav="test"><span>◉</span>演習</button><button data-nav="facts"><span>✦</span>知識</button></nav>
+<script src="./lessons.js"></script>
 <script>
 "use strict";
 // 学校の原本が未提供のため、詩句は外部の古典本文を参考にした暫定版。
@@ -40,7 +41,7 @@ const poems=[
 ["艱難苦恨繁霜鬢","艱難苦だ恨む霜鬢の繁きを","かんなんはなはだうらむそうびんのしげきを","苦難が重なり、白髪が増えてしまったことをつらく思う。","霜鬢＝霜のように白いもみあげ・髪。"],
 ["潦倒新停濁酒杯","潦倒新たに停む濁酒の杯","ろうとうあらたにとどむだくしゅのはい","落ちぶれた身で、病気のため酒までやめることになった。","最後まで苦境が重なる。"]
 ]},
-{id:"li",title:"秋浦歌（其十五・候補）",author:"李白",form:"五言絶句",topic:"愁いの深さを、白髪が三千丈にも伸びたという大げさな表現で描く。",tip:"「秋浦歌」は十七首ある。先生の指定だけでは第何首か特定できないため、以下は其十五の候補。授業資料で要照合。",source:"https://zh.wikisource.org/wiki/秋浦歌",lines:[
+{id:"li",title:"秋浦歌 其十五",author:"李白",form:"五言絶句",topic:"愁いの深さを、白髪が三千丈にも伸びたという大げさな表現で描く。",tip:"授業プリントで第十五首と確認。「白髪三千丈」の誇張と「秋霜」の比喩を押さえる。",source:"https://zh.wikisource.org/wiki/秋浦歌",lines:[
 ["白髪三千丈","白髪三千丈","はくはつさんぜんじょう","白髪が三千丈もあるというほど、深く悩んでいる。","三千丈は実際の長さではなく誇張表現。"],
 ["縁愁似箇長","愁ひに縁りて箇くの似く長し","うれいによりてかくのごとくながし","苦しい思いのせいで、こんなにも白髪が長くなったのだ。","「縁」＝〜によって。「箇く」＝このように。"],
 ["不知明鏡裏","知らず明鏡の裏","しらずめいきょうのうち","鏡に映る自分の姿を見て、思わず不思議に感じる。","「不知」は「知らず」。"],
@@ -59,30 +60,40 @@ const poems=[
 ["秋来只為一人長","秋来たりて只一人の為に長し","あききたりてただいちにんのためにながし","秋の夜は、この孤独な一人にとってとりわけ長く感じられる。","実際の夜の長さ以上に、孤独による主観的な長さを示す。"]
 ]}
 ];
+poems.push(...window.KANBUN_SUPPLEMENT);
 const scope=[
-["『史記会注考証』5頁1行〜6頁4行","本文未提供。白文・書き下し・読み・書き込みの照合待ち。"],
-["王維「九月九日憶山東兄弟」","暫定本文と練習を収録。学校の送り仮名に要照合。"],
-["杜甫「登高」","暫定本文と練習を収録。学校の送り仮名に要照合。"],
-["李白「秋浦歌」","其十五を候補表示。何首を扱うか未確認。"],
-["劉禹錫「秋風引」","暫定本文と練習を収録。学校の送り仮名に要照合。"],
-["白居易「燕子楼 其一」","暫定本文と練習を収録。原文に異同あり。"],
-["『体系漢文法演習』12〜17","本文未提供。白文・設問の照合待ち。"],
-["『体系漢文法演習』右下・左下","コラム本文未提供。推測による補完はしない。"],
-["授業中の漢文知識とプリント書き込み","写真・PDF待ち。先生の指示を最優先。"],
-["初見問題（少量）","資料照合後、本文と関連する句形から追加する。"]
+["『史記会注考証』5頁1行〜6頁4行","『史記』項羽本紀／本文23まとまり。"],
+["王維・杜甫・李白・劉禹錫・白居易の漢詩5作品","本文24句、読み、情景と心情。"],
+["『体系漢文法演習』第12項","三人成虎／前置詞の基本。"],
+["『体系漢文法演習』第13項","『韓非子』の嫁女・買櫝還珠／前置詞の後置。"],
+["『体系漢文法演習』第14項","呂尚と西伯／前置詞の省略。"],
+["『体系漢文法演習』第15項","『顔氏家訓』勉学／前置詞句の省略。"],
+["『体系漢文法演習』第16項","田過と斉宣王／接続詞の基本。"],
+["『体系漢文法演習』第17項","郭翻の逸話／接続詞の応用。"],
+["右下・左下コラムと授業知識","『重要知識』へ文法と理解の要点を独自要約。"],
+["初見問題（少量）","重要句形と基礎文法の一問一答から応用確認。"]
+];
+const columns=[
+{n:12,name:"前置詞①｜基本",left:"『於・于・乎』は場所・対象・比較、『自・従・由』は起点、『以』は手段・理由、『為』は対象や目的、『与』は共同などを示す。文脈で訳し分ける。",right:"前置詞＋名詞は述語との関係を示す。『於邯鄲』は邯鄲に、『遠於市』は市より。『以枝叩其扉』なら枝を以て其の扉を叩く。",page:"26〜27頁"},
+{n:13,name:"前置詞②｜後置",left:"前置詞句『於B』『以B』が述語の後ろに置かれる場合がある。『売其珠於鄭』＝珠を鄭に売る。『薫以桂椒』＝薫ずるに桂椒を以てす。",right:"句の位置が後ろになっても場所・手段の役割は変わらない。『嫁女』『売珠』の共通点は、飾りが本体の魅力を隠したこと。",page:"28〜29頁"},
+{n:14,name:"前置詞③｜省略",left:"『於・自・以・為』などは前後から意味が明らかな場合に省略される。『遇呂尚渭水之陽』には場所の『於』を補って理解する。",right:"『与語』は共に語る。『号之曰太公望』は名づけて〜という。後置や省略があっても元の構造を復元する。",page:"30〜31頁"},
+{n:15,name:"前置詞④｜述部の省略",left:"『所以』は〜するためのもの・理由。『夫学者所以求益耳』は学ぶ目的を示す。",right:"前置詞句がかかる述語が省かれる場合がある。『古之学者為己』と『今之学者為己』の対比、春華と秋実の比喩も確認。",page:"32〜33頁"},
+{n:16,name:"接続詞①｜基本",left:"『而』は順接・並列・逆接を文脈で訳す。『然』はそのように・しかし。『乃』はそこで、『因』はそれによって、など。",right:"前後の論理関係で訳を判断。『孰』はどちらか、『無以〜』は〜する手段がない。田過の答えは君への奉仕が親のためであることを示す。",page:"34〜35頁"},
+{n:17,name:"接続詞②｜複文",left:"『若』はもし〜ならば、『乃』はそこで、『因』はそれによって。前節と後節の条件・順接・逆接を読み取る。",right:"『我若取此、将為天地鬼神所責』は条件＋受身。『為A所B』は受身、『我豈能得』は反語。話者の交替に注意。",page:"36〜37頁"}
 ];
 const KEY="alts-kanbun-study-v1";
 function readState(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}}}
 let state=readState();
 if(!state.scores)state.scores={};
-let nav="home",current=poems[0].id,mode="study",testQueue=[],testIndex=0,revealed=false,studyRevealed={};
+if(!state.factScores)state.factScores={};
+let nav="home",current=poems[0].id,mode="study",testQueue=[],testIndex=0,revealed=false,studyRevealed={},factQueue=[],factIndex=0,factRevealed=false;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{}} 
 const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const items=()=>poems.flatMap(p=>p.lines.map((l,i)=>({p,i,l,key:p.id+"-"+i})));
 const status=(key)=>state.scores[key]||0;
 function metrics(){const a=items();return{all:a.length,known:a.filter(x=>status(x.key)===2).length,review:a.filter(x=>status(x.key)===1).length,untouched:a.filter(x=>status(x.key)===0).length};}
 function button(text,action,style){return '<button class="btn '+(style||"")+'" data-act="'+escapeHTML(action)+'">'+text+"</button>"}
-function top(kicker,title,desc){return '<div class="topline"><span class="eyebrow">'+kicker+'</span><span class="pill">暫定教材・照合待ち</span></div><h1 class="page-title">'+title+'</h1><p class="lead">'+desc+'</p>'}
+function top(kicker,title,desc){return '<div class="topline"><span class="eyebrow">'+kicker+'</span><span class="pill">学校プリント・原典に基づく</span></div><h1 class="page-title">'+title+'</h1><p class="lead">'+desc+'</p>'}
 function navTo(name){nav=name;document.querySelectorAll("[data-nav]").forEach(x=>x.classList.toggle("active",x.dataset.nav===name));render();window.scrollTo({top:0,behavior:"instant"})}
 function home(){
  const m=metrics(),pct=Math.round(m.known/m.all*100);
