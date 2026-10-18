@@ -41,7 +41,7 @@ jobs:
             echo "::error::Headless Chrome is unavailable"
             exit 1
           fi
-          for SPEC in "smoke.html:PASS 12 / 12" "pwa-smoke.html:PASS 9 / 9"; do
+          for SPEC in "smoke.html:PASS 12 / 12"; do
             PAGE="${SPEC%%:*}"
             EXPECT="${SPEC#*:}"
             OUTPUT="/tmp/kanbun-${PAGE}.dom"
@@ -59,6 +59,7 @@ jobs:
             fi
             echo "Verified $PAGE: $EXPECT"
           done
+          python3 kanbun/pwa-audit.py http://127.0.0.1:8765/Alts/kanbun/
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload static site
