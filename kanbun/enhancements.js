@@ -9,7 +9,7 @@ const grammarColumns=[
 [16,"接続詞① 基本","「而」には順接・並列・逆接。「乃」はそこで、「因」はそのため、「然」はそうだ／しかしなど、前後の論理によって判断する。","「孰」はどちらか、「無以」は〜する方法がない。「君与父孰重」の対比。"],
 [17,"接続詞② 複文","「若」はもし〜ならば。「乃」「因」は前文を受ける。「以」は手段・理由。複文では前節が後節の条件・理由となる。","「為A所B」は受身。「我豈能得」は反語。誰が話しているか確認する。"]
 ];
-let factQueue=[],factIndex=0,factShown=false;
+factQueue=[];factIndex=0;let factShown=false;
 function makeFactQueue(weak){
  const data=window.KANBUN_FACTS;
  factQueue=data.map((_,i)=>i).filter(i=>!weak||state.factScores[i]!==2);
