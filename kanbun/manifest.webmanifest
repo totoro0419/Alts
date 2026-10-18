@@ -1,0 +1,29 @@
+{
+  "name": "漢文 Exam Prep",
+  "short_name": "漢文",
+  "description": "漢文の白文・書き下し・読み・文法を、通し学習と苦手復習で学ぶオフライン対応教材。",
+  "lang": "ja",
+  "id": "/Alts/kanbun/",
+  "start_url": "/Alts/kanbun/",
+  "scope": "/Alts/kanbun/",
+  "display": "standalone",
+  "background_color": "#f7f5f3",
+  "theme_color": "#a33f51",
+  "categories": [
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
