@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f8fd">
+<meta name="description" content="漢文の試験対策。白文から書き下し・読み・内容を最短で復習するオフライン対応教材。">
+<title>漢文 | 試験対策</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;color:#1b2844;background:#f6f8fd;--blue:#315dec;--ink:#1b2844;--muted:#6a7892;--line:#e4eaf3;--panel:#fff;--pale:#eef3ff;--green:#168570;--amber:#ae6b16}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh}button,input{font:inherit}button{cursor:pointer}a{color:var(--blue)}.shell{max-width:1240px;margin:auto;display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100vh}.sidebar{border-right:1px solid var(--line);padding:28px 19px;background:rgba(255,255,255,.82);position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.03em;font-size:19px}.logo{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#3c67f2,#8d9cff);font-size:21px}.subbrand{font-size:11px;font-weight:600;letter-spacing:.15em;color:var(--muted)}.nav{margin-top:38px;display:grid;gap:8px}.nav button{border:0;background:transparent;text-align:left;border-radius:13px;padding:13px 14px;color:#64738e;font-weight:700;display:flex;gap:12px;align-items:center}.nav button.active{background:#ebf0ff;color:var(--blue)}.sidefooter{position:absolute;bottom:22px;left:22px;right:22px;font-size:12px;color:#8390a6;line-height:1.8}.main{padding:32px 36px 90px;min-width:0}.topline{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.eyebrow{font-size:12px;color:var(--blue);font-weight:900;letter-spacing:.13em}.page-title{font-size:clamp(25px,3.8vw,37px);letter-spacing:-.035em;line-height:1.35;margin:8px 0 8px}.lead{color:var(--muted);font-size:14px;line-height:1.9;margin:0 0 23px}.pill{font-size:11px;border:1px solid #cbd9ff;color:#315bd8;background:#f0f4ff;border-radius:30px;padding:7px 12px;font-weight:800}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:var(--panel);border:1px solid var(--line);box-shadow:0 10px 28px rgba(36,61,121,.035);border-radius:19px;padding:20px}.metric{font-size:31px;font-weight:900;letter-spacing:-.04em}.metriclabel{color:var(--muted);font-size:12px;font-weight:700;margin-bottom:8px}.metricmeta{color:var(--muted);font-size:11px;margin-top:9px}.progress{height:7px;border-radius:8px;overflow:hidden;background:#e8eef9;margin-top:14px}.progress>span{display:block;height:100%;background:linear-gradient(90deg,#315dec,#7a94ff);transition:width .2s}.section{margin-top:32px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.section-title{font-size:19px;font-weight:900;margin:0}.helper{color:var(--muted);font-size:12px;line-height:1.8}.btn{border:1px solid var(--line);border-radius:12px;padding:11px 15px;background:#fff;color:var(--ink);font-size:13px;font-weight:800;transition:.15s}.btn:hover{transform:translateY(-1px);border-color:#afc1ff}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.ghost{background:#f1f4fc}.btn.green{background:#e3f6f0;color:#0d7c61;border-color:#cef0e5}.btn.warn{background:#fff5e8;color:#a16315;border-color:#f7e5c9}.btn:disabled{opacity:.45;cursor:not-allowed}.btnrow{display:flex;flex-wrap:wrap;gap:8px}.lesson-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.lesson{display:block;text-align:left;width:100%;min-height:148px;border:1px solid var(--line);background:#fff;border-radius:18px;padding:19px;transition:.16s}.lesson:hover{border-color:#abc0ff;transform:translateY(-2px)}.lesson-title{font-weight:850;font-size:16px;margin:10px 0 6px}.smallmeta{font-size:12px;color:var(--muted);line-height:1.7}.tag{display:inline-block;font-size:10px;font-weight:800;color:#506784;background:#edf1f7;border-radius:7px;padding:5px 8px}.tag.ready{background:#e6f6ef;color:#17806b}.tag.pending{background:#fff0df;color:#97661c}.notice{background:#fff9ef;border:1px solid #f3e4c9;border-radius:16px;padding:16px 18px;color:#76542b;line-height:1.85;font-size:12px}.notice strong{color:#7d5118}.study-panel{max-width:870px;margin:0 auto}.study-switch{display:flex;gap:7px;margin:18px 0;flex-wrap:wrap}.study-switch button{border:1px solid var(--line);background:#fff;border-radius:25px;padding:9px 14px;font-weight:800;font-size:12px;color:var(--muted)}.study-switch button.active{background:var(--blue);border-color:var(--blue);color:#fff}.poem-head{margin-top:10px}.poem-head h2{font-size:25px;margin:6px 0}.poem-head p{margin:0;color:var(--muted);font-size:13px}.blurb{line-height:1.95;font-size:14px;padding:16px 18px;background:#f2f6ff;border-radius:14px;margin-top:15px}.verse-list{display:grid;gap:10px;margin-top:17px}.verse{border:1px solid var(--line);border-radius:17px;background:#fff;padding:18px}.verse.open{border-color:#c3d2ff}.verse-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.verse-no{font-size:10px;font-weight:900;letter-spacing:.1em;color:#a0acc0}.kanbun{font-family:"Noto Serif CJK JP","Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(22px,3.4vw,28px);font-weight:650;letter-spacing:.08em;line-height:1.8;margin:10px 0 12px;overflow-wrap:anywhere}.answer{margin-top:15px;padding-top:14px;border-top:1px solid var(--line);animation:fade .2s ease}.answer-label{font-size:10px;font-weight:900;letter-spacing:.13em;color:var(--muted);margin-bottom:6px}.kakikudashi{font-size:17px;font-weight:800;line-height:1.8;margin:0 0 16px}.reading{font-size:14px;line-height:1.85;margin:0 0 15px}.translation{background:#f7f9fd;border-radius:12px;padding:14px;line-height:1.85;font-size:13px;margin-bottom:14px}.plain{font-size:13px;line-height:1.8;color:#344462}.answer-grid{display:grid;gap:4px}.verse-actions{margin-top:13px}.mono{font-variant-numeric:tabular-nums}.divider{height:1px;background:var(--line);margin:18px 0}.test-card{padding:28px;background:white;border-radius:22px;border:1px solid var(--line);max-width:720px}.prompt-title{color:#7988a3;text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:850}.test-kanbun{text-align:center;padding:24px 5px;font-family:"Noto Serif CJK JP","Yu Mincho",serif;font-size:clamp(25px,4vw,36px);line-height:1.6}.test-answer{background:#f0f4ff;padding:18px;border-radius:13px;line-height:2}.listline{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);line-height:1.7;font-size:13px}.listline:last-child{border:0}.bullet{background:#dce7ff;color:#315dec;border-radius:8px;min-width:24px;height:24px;display:grid;place-items:center;font-weight:900;font-size:11px}.span{color:var(--muted)}.link{background:none;border:0;color:var(--blue);padding:0;font-weight:850}.top-mobile{display:none}.hidden{display:none!important}@keyframes fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}@media(max-width:780px){.shell{display:block}.sidebar{display:none}.main{padding:22px 17px 98px}.top-mobile{display:flex;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);z-index:8;justify-content:space-around;padding:8px 3px max(8px,env(safe-area-inset-bottom))}.top-mobile button{background:none;border:0;padding:6px;color:#71809b;font-size:11px;font-weight:850;min-width:20%}.top-mobile button.active{color:var(--blue)}.top-mobile span{display:block;font-size:20px;margin-bottom:3px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cards .card:nth-child(3){grid-column:span 2}.lesson-grid{grid-template-columns:1fr}.card{padding:17px}.study-panel{max-width:100%}.kanbun{font-size:24px}.verse{padding:16px}.page-title{font-size:29px}.test-card{padding:20px}}@media print{.sidebar,.top-mobile,.btn,.topline .pill,.study-switch,.verse-top button{display:none!important}.shell{display:block}.main{padding:0}.verse .answer{display:block!important}.card,.lesson,.verse{break-inside:avoid}body{background:#fff}.main{max-width:100%}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar"><div class="brand"><div class="logo">文</div><div>漢文 <div class="subbrand">EXAM PREP</div></div></div>
+<nav class="nav" aria-label="主な機能"><button data-nav="home" class="active">⌂　ダッシュボード</button><button data-nav="study">▤　本文を理解する</button><button data-nav="recall">◫　白文で暗記する</button><button data-nav="test">◉　実戦演習</button><button data-nav="scope">☷　試験範囲・注意</button></nav>
+<div class="sidefooter">2学期中間試験 対策用<br>オフライン動作 / 学習結果は端末内に保存<br>教材照合前の暫定版</div></aside>
+<main class="main" id="view" aria-live="polite"></main>
+</div>
+<nav class="top-mobile" aria-label="モバイルの機能"><button data-nav="home" class="active"><span>⌂</span>ホーム</button><button data-nav="study"><span>▤</span>理解</button><button data-nav="recall"><span>◫</span>暗記</button><button data-nav="test"><span>◉</span>演習</button><button data-nav="scope"><span>☷</span>範囲</button></nav>
+<script>
+"use strict";
+// 学校の原本が未提供のため、詩句は外部の古典本文を参考にした暫定版。
+// 書き下し・送り仮名・異体字・校訂は授業資料の到着後に確定させる。
+const poems=[
+{id:"wang",title:"九月九日憶山東兄弟",author:"王維",form:"七言絶句",topic:"故郷を離れた自分が、重陽の節句を祝う家族を想像する。最後の「一人足りない」は作者自身。",tip:"転句で故郷の兄弟へ視点が移る。「親」は肉親、茱萸は重陽の節句に用いられる植物。",source:"https://zh.wikisource.org/wiki/九月九日憶山東兄弟",lines:[
+["独在異郷為異客","独り異郷に在りて異客と為る","ひとりいきょうにありていかくとなる","自分だけが故郷を離れ、よその土地に暮らしている。","「異」を繰り返して、故郷から離れた境遇を示す。"],
+["毎逢佳節倍思親","佳節に逢ふ毎に倍親を思ふ","かせつにあうごとにますますしんをおもう","祝いの日が来るたびに、家族がいっそう恋しくなる。","佳節はここでは九月九日の重陽の節句。"],
+["遥知兄弟登高処","遥かに知る兄弟高きに登る処","はるかにしるけいていたかきにのぼるところ","遠い故郷で、兄弟たちが高い所に登っている様子を思い浮かべる。","「知」はその場を見たのではなく、想像している。"],
+["遍挿茱萸少一人","遍く茱萸を挿して一人を少くを","あまねくしゅゆをさしていちにんをかくを","皆が茱萸を身につけて集まるが、自分だけがそこにいない。","少一人＝欠けている一人は作者自身。"]
+]},
+{id:"du",title:"登高",author:"杜甫",form:"七言律詩",topic:"秋の高台から厳しい自然を眺め、遠く故郷を離れた身や病気、人生の苦難を重ねて嘆く。",tip:"前半四句は景色、後半四句は作者の境遇と嘆き。八句・七言の律詩で、対句の確認が重要。",source:"https://zh.wikisource.org/wiki/登高",lines:[
+["風急天高猿嘯哀","風急に天高くして猿嘯哀し","かぜきゅうにてんたかくしてえんしょうかなし","風は激しく、空は高い。猿の声は物悲しい。","風・天・猿の音と景色が秋の寂しさをつくる。"],
+["渚清沙白鳥飛回","渚清く沙白くして鳥飛び回る","なぎさきよくすなしろくしてとりとびめぐる","水辺は澄み、砂は白く、鳥が旋回している。","渚・沙・鳥が対照的な景色をつくる。"],
+["無辺落木蕭蕭下","無辺の落木蕭蕭として下り","むへんのらくぼくしょうしょうとしてくだり","見渡す限り、落ち葉が寂しい音を立てて散り続ける。","蕭蕭は落葉の寂しい様子・音を表す。"],
+["不尽長江滾滾来","不尽の長江滾滾として来たる","ふじんのちょうこうこんこんとしてきたる","長江は尽きることなく、勢いよく流れてくる。","「無辺」と「不尽」、「蕭蕭」と「滾滾」が対応する。"],
+["万里悲秋常作客","万里悲秋常に客と作り","ばんりひしゅうつねにかくとなり","故郷から遠く離れ、秋を悲しみながら長く旅暮らしをしている。","「客」は旅先に身を寄せる人。"],
+["百年多病独登台","百年多病独り台に登る","ひゃくねんたびょうひとりだいにのぼる","年を重ね病気も多い身で、一人高台に登っている。","百年は人生・老境を示す表現。"],
+["艱難苦恨繁霜鬢","艱難苦だ恨む霜鬢の繁きを","かんなんはなはだうらむそうびんのしげきを","苦難が重なり、白髪が増えてしまったことをつらく思う。","霜鬢＝霜のように白いもみあげ・髪。"],
+["潦倒新停濁酒杯","潦倒新たに停む濁酒の杯","ろうとうあらたにとどむだくしゅのはい","落ちぶれた身で、病気のため酒までやめることになった。","最後まで苦境が重なる。"]
+]},
+{id:"li",title:"秋浦歌（其十五・候補）",author:"李白",form:"五言絶句",topic:"愁いの深さを、白髪が三千丈にも伸びたという大げさな表現で描く。",tip:"「秋浦歌」は十七首ある。先生の指定だけでは第何首か特定できないため、以下は其十五の候補。授業資料で要照合。",source:"https://zh.wikisource.org/wiki/秋浦歌",lines:[
+["白髪三千丈","白髪三千丈","はくはつさんぜんじょう","白髪が三千丈もあるというほど、深く悩んでいる。","三千丈は実際の長さではなく誇張表現。"],
+["縁愁似箇長","愁ひに縁りて箇くの似く長し","うれいによりてかくのごとくながし","苦しい思いのせいで、こんなにも白髪が長くなったのだ。","「縁」＝〜によって。「箇く」＝このように。"],
+["不知明鏡裏","知らず明鏡の裏","しらずめいきょうのうち","鏡に映る自分の姿を見て、思わず不思議に感じる。","「不知」は「知らず」。"],
+["何処得秋霜","何れの処よりか秋霜を得たる","いずれのところよりかしゅうそうをえたる","いったいどこで、霜のような白髪を得てしまったのだろう。","秋霜＝白髪の比喩。文献に字句の異同がある。"]
+]},
+{id:"ryu",title:"秋風引",author:"劉禹錫",form:"五言絶句",topic:"秋風は誰にも届くはずなのに、寂しく故郷を離れている自分が真っ先にその音を感じ取る。",tip:"作者の孤独が、秋風に敏感な感覚として表現される。",source:"https://zh.wikisource.org/wiki/秋風引_(劉禹錫)",lines:[
+["何処秋風至","何れの処よりか秋風至る","いずれのところよりかしゅうふういたる","秋風はいったいどこから吹いてくるのか。","何処〜＝どこから・どこに、という疑問。"],
+["蕭蕭送雁群","蕭蕭として雁群を送る","しょうしょうとしてがんぐんをおくる","物寂しい音を立てながら、雁の群れを送り渡す。","蕭蕭は秋風の寂しい音。"],
+["朝来入庭樹","朝来庭樹に入り","ちょうらいていじゅにいり","朝になると秋風は庭の木々の間に吹き込んでくる。","庭樹は庭の木。"],
+["孤客最先聞","孤客最も先に聞く","こかくもっともさきにきく","故郷を離れた孤独な旅人が、誰より先に風音を聞く。","孤客とは故郷を離れた作者の境遇を表す。"]
+]},
+{id:"bai",title:"燕子楼 其一",author:"白居易",form:"七言絶句",topic:"燕子楼で一人暮らす女性の孤独な秋の長い夜を、その冷たさと時間の長さから描く。",tip:"「満窗（窓）」と「満床」など底本による字句の異同がある。学校教材の表記を優先。",source:"https://zh.wikisource.org/wiki/燕子樓三首",lines:[
+["満窗明月満簾霜","満窓の明月満簾の霜","まんそうのめいげつまんれんのしも","窓からは月光、すだれの周りには霜。冷え切った秋の夜。","異本に「満床明月」がある。学校教材で必ず照合。"],
+["被冷灯残払臥床","被冷ややかに灯残して臥床を払ふ","ひひややかにともしびのこりてがしょうをはらう","掛け布団は冷え、灯火は消えかかる。床を整えて一人で眠ろうとする。","冷たさと灯火の弱さで孤独を際立たせる。"],
+["燕子楼中霜月夜","燕子楼中霜月の夜","えんしろうちゅうそうげつのよる","燕子楼にいる、霜が降り月が照る寒い夜。","場所と夜の情景を改めて強調。"],
+["秋来只為一人長","秋来たりて只一人の為に長し","あききたりてただいちにんのためにながし","秋の夜は、この孤独な一人にとってとりわけ長く感じられる。","実際の夜の長さ以上に、孤独による主観的な長さを示す。"]
+]}
+];
+const scope=[
+["『史記会注考証』5頁1行〜6頁4行","本文未提供。白文・書き下し・読み・書き込みの照合待ち。"],
+["王維「九月九日憶山東兄弟」","暫定本文と練習を収録。学校の送り仮名に要照合。"],
+["杜甫「登高」","暫定本文と練習を収録。学校の送り仮名に要照合。"],
+["李白「秋浦歌」","其十五を候補表示。何首を扱うか未確認。"],
+["劉禹錫「秋風引」","暫定本文と練習を収録。学校の送り仮名に要照合。"],
+["白居易「燕子楼 其一」","暫定本文と練習を収録。原文に異同あり。"],
+["『体系漢文法演習』12〜17","本文未提供。白文・設問の照合待ち。"],
+["『体系漢文法演習』右下・左下","コラム本文未提供。推測による補完はしない。"],
+["授業中の漢文知識とプリント書き込み","写真・PDF待ち。先生の指示を最優先。"],
+["初見問題（少量）","資料照合後、本文と関連する句形から追加する。"]
+];
+const KEY="alts-kanbun-study-v1";
+function readState(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}}}
+let state=readState();
+if(!state.scores)state.scores={};
+let nav="home",current=poems[0].id,mode="study",testQueue=[],testIndex=0,revealed=false,studyRevealed={};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{}} 
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const items=()=>poems.flatMap(p=>p.lines.map((l,i)=>({p,i,l,key:p.id+"-"+i})));
+const status=(key)=>state.scores[key]||0;
+function metrics(){const a=items();return{all:a.length,known:a.filter(x=>status(x.key)===2).length,review:a.filter(x=>status(x.key)===1).length,untouched:a.filter(x=>status(x.key)===0).length};}
+function button(text,action,style){return '<button class="btn '+(style||"")+'" data-act="'+escapeHTML(action)+'">'+text+"</button>"}
+function top(kicker,title,desc){return '<div class="topline"><span class="eyebrow">'+kicker+'</span><span class="pill">暫定教材・照合待ち</span></div><h1 class="page-title">'+title+'</h1><p class="lead">'+desc+'</p>'}
+function navTo(name){nav=name;document.querySelectorAll("[data-nav]").forEach(x=>x.classList.toggle("active",x.dataset.nav===name));render();window.scrollTo({top:0,behavior:"instant"})}
+function home(){
+ const m=metrics(),pct=Math.round(m.known/m.all*100);
+ return top("FOCUSED LEARNING","短い時間で、確実に。","白文からの書き下し・読みを中心に、わかったところを飛ばして苦手だけを繰り返す。")+
+ '<div class="notice"><strong>このページは教材原本の照合前です。</strong> 漢詩の原文や訓読は複数の版があります。下の解答を学校で指定された正答として確定しないでください。『史記』・文法演習・コラム・授業書き込みは未収録です。</div>'+
+ '<div class="section"><div class="cards"><div class="card"><div class="metriclabel">暗記できた句</div><div class="metric mono">'+m.known+'<span style="font-size:15px;color:#9eabc1"> / '+m.all+'</span></div><div class="progress"><span style="width:'+pct+'%"></span></div><div class="metricmeta">この端末に保存</div></div><div class="card"><div class="metriclabel">もう一度確認</div><div class="metric mono" style="color:#bc761c">'+m.review+'</div><div class="metricmeta">間違えた・自信がない句</div></div><div class="card"><div class="metriclabel">未学習</div><div class="metric mono">'+m.untouched+'</div><div class="metricmeta">まずは一度、白文を見る</div></div></div></div>'+
+ '<div class="section"><div class="section-head"><h2 class="section-title">すぐに学習する</h2></div><div class="btnrow">'+button("白文暗記を始める →","goto-recall","primary")+button("苦手だけ演習","weak-test","ghost")+button("試験範囲を確認","goto-scope","")+'</div></div>'+
+ '<div class="section"><div class="section-head"><h2 class="section-title">漢詩 5題</h2><span class="helper">全篇は学校資料との照合前</span></div><div class="lesson-grid">'+poems.map(p=>'<button class="lesson" data-poem="'+p.id+'"><span class="tag ready">原文の候補あり</span><div class="lesson-title">'+escapeHTML(p.title)+'</div><div class="smallmeta">'+p.author+' ／ '+p.form+' ／ '+p.lines.length+'句</div></button>').join("")+'</div></div>'+
+ '<div class="section"><div class="section-head"><h2 class="section-title">先に確認する重要事項</h2></div><div class="card"><div class="listline"><span class="bullet">1</span><div>白文から書き下しを再現。<strong>読み方も書き下しと同時に覚える。</strong></div></div><div class="listline"><span class="bullet">2</span><div>漢詩の情景・心情を理解。「誰が、どこで、どう感じたか」を一言で説明する。</div></div><div class="listline"><span class="bullet">3</span><div>右下・左下のコラムと授業の手書き事項は、資料受領後に追加する。</div></div></div></div>';
+}
+function study(){
+ const p=poems.find(x=>x.id===current)||poems[0];
+ let a=top(mode==="study"?"UNDERSTAND THE TEXT":"ACTIVE RECALL",mode==="study"?"文章の意味をつかむ":"白文だけで思い出す",mode==="study"?"口語訳でもわかりにくいところを、一句ずつ普通の日本語で説明。":"書き下しと読みを頭の中で答えてから、解答を開いて自己判定。");
+ a+='<div class="study-switch">'+poems.map(x=>'<button class="'+(x.id===p.id?"active":"")+'" data-poem="'+x.id+'">'+escapeHTML(x.title)+'</button>').join("")+'</div>';
+ a+='<div class="study-panel"><div class="poem-head"><div class="eyebrow">'+escapeHTML(p.author)+' ・ '+p.form+'</div><h2>'+escapeHTML(p.title)+'</h2><p>全'+p.lines.length+'句 ／ 原典の異同・訓読は学校教材で要確認</p></div>';
+ a+='<div class="blurb"><strong>一言でいうと：</strong> '+escapeHTML(p.topic)+'<br><strong>ポイント：</strong> '+escapeHTML(p.tip)+'</div>';
+ a+='<div class="verse-list">'+p.lines.map((l,i)=>{
+ const k=p.id+"-"+i,isOpen=mode==="study"||!!studyRevealed[k],s=status(k);
+ let r='<article class="verse '+(isOpen?"open":"")+'"><div class="verse-top"><span class="verse-no">LINE '+String(i+1).padStart(2,"0")+' ／ '+(s===2?"✓ 習得":s===1?"↻ 復習":"未確認")+'</span><button class="link" data-toggle="'+k+'">'+(isOpen?"解答を隠す":"解答を見る")+'</button></div>';
+ r+='<p class="kanbun">'+escapeHTML(l[0])+'</p>';
+ if(isOpen)r+='<div class="answer"><div class="answer-grid"><div class="answer-label">書き下し（参考・暫定）</div><p class="kakikudashi">'+escapeHTML(l[1])+'</p><div class="answer-label">読み（参考・暫定）</div><p class="reading">'+escapeHTML(l[2])+'</p><div class="answer-label">普通の日本語でいうと</div><div class="translation">'+escapeHTML(l[3])+'</div><div class="answer-label">試験で押さえること</div><p class="plain">'+escapeHTML(l[4])+'</p></div><div class="btnrow verse-actions"><button class="btn green" data-rate="'+k+'" data-score="2">✓ できた</button><button class="btn warn" data-rate="'+k+'" data-score="1">↻ まだ不安</button></div></div>';
+ return r+'</article>';
+ }).join("")+'</div><p class="helper">出典参考：<a href="'+encodeURI(p.source)+'" target="_blank" rel="noopener noreferrer">古典本文を確認 ↗</a>。読み・訳・ポイントは学習用に編集した暫定解説です。</p></div>';
+ return a;
+}
+function resetTest(weakOnly){
+ testQueue=items().filter(x=>!weakOnly||status(x.key)!==2);
+ for(let i=testQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[testQueue[i],testQueue[j]]=[testQueue[j],testQueue[i]]}
+ testIndex=0;revealed=false;navTo("test");
+}
+function test(){
+ let a=top("PRACTICE","白文・実戦演習","答えを思い出してから開き、「できた」「もう一度」を選択。苦手が自動で記録されます。");
+ a+='<div class="btnrow" style="margin-bottom:18px">'+button("全句をランダム出題","new-test","") +button("未習得だけ出題","weak-test","ghost")+'</div>';
+ if(!testQueue.length)return a+'<div class="card"><h2>出題する句がありません</h2><p class="helper">新しい演習を開始してください。すべて習得済みなら、全句テストで再確認できます。</p></div>';
+ if(testIndex>=testQueue.length)return a+'<div class="test-card"><h2>今回の演習終了</h2><p class="helper">お疲れさまでした。間違えた句は「未習得だけ出題」で復習できます。</p>'+button("苦手だけもう一度","weak-test","primary")+'</div>';
+ const x=testQueue[testIndex],p=x.p,l=x.l;
+ a+='<div class="test-card"><div class="section-head"><span class="eyebrow">'+escapeHTML(p.title)+' / '+escapeHTML(p.author)+'</span><span class="helper mono">'+(testIndex+1)+' / '+testQueue.length+'</span></div><div class="progress"><span style="width:'+Math.round(testIndex/testQueue.length*100)+'%"></span></div><div class="prompt-title" style="margin-top:26px">白文から書き下し・読みを再現</div><div class="test-kanbun">'+escapeHTML(l[0])+'</div>';
+ if(revealed)a+='<div class="test-answer"><div class="answer-label">書き下し（暫定）</div><strong>'+escapeHTML(l[1])+'</strong><div class="answer-label" style="margin-top:14px">読み（暫定）</div>'+escapeHTML(l[2])+'<div class="answer-label" style="margin-top:14px">意味</div>'+escapeHTML(l[3])+'</div><div class="btnrow" style="margin-top:19px"><button class="btn green" data-testscore="2">✓ 正解・次へ</button><button class="btn warn" data-testscore="1">↻ 不正解・次へ</button></div>';
+ else a+='<div class="btnrow" style="justify-content:center">'+button("書き下し・読みを表示","reveal","primary")+'</div>';
+ a+='</div><p class="helper">完全自動採点ではありません。思い出した答えと参考解答を比べて、自己採点してください。</p>';
+ return a;
+}
+function scopeView(){
+ let a=top("OFFICIAL SCOPE","先生の指定した試験範囲","出題範囲は先生のコメントに基づいて記載。未提供の資料は必ず未収録と明示しています。");
+ a+='<div class="notice"><strong>最重要：</strong> 本文は白文で出題。『体系漢文法演習』は本文12〜17だけでなく右下・左下も範囲。授業中の書き込み・漢文知識も対象。初見は少量。</div>';
+ a+='<div class="section"><h2 class="section-title">網羅状況</h2><div class="card" style="margin-top:12px">'+scope.map((s,i)=>'<div class="listline"><span class="bullet">'+(i+1)+'</span><div><strong>'+escapeHTML(s[0])+'</strong><div class="smallmeta">'+escapeHTML(s[1])+'</div></div></div>').join("")+'</div></div>';
+ a+='<div class="section"><h2 class="section-title">教材を完成させるために必要なもの</h2><div class="card" style="margin-top:12px"><p class="plain">①『史記会注考証』の指定ページ、②『体系漢文法演習』12〜17の本文と左右下のコラム、③授業プリントの手書き箇所、④漢詩の教科書本文（特に秋浦歌の何首か・燕子楼の異文）を確認します。資料到着後に対応する箇所を置き換えます。</p></div></div>';
+ a+='<div class="section"><h2 class="section-title">学習履歴の管理</h2><div class="btnrow" style="margin-top:12px">'+button("履歴をJSONで保存","export","")+button("履歴を読み込む","import","")+button("端末の履歴を初期化","reset","warn")+'</div><input type="file" accept="application/json,.json" id="import-input" class="hidden"><p class="helper">端末のブラウザ保存領域を使用。プライベートモードやブラウザデータ削除で消える可能性があります。JSONバックアップ推奨。</p></div>';
+ a+='<div class="section"><h2 class="section-title">古典本文の参照先</h2><div class="card" style="margin-top:12px">'+poems.map(p=>'<div class="listline"><span class="bullet">↗</span><div><a href="'+encodeURI(p.source)+'" target="_blank" rel="noopener noreferrer">'+escapeHTML(p.author)+'『'+escapeHTML(p.title)+'』</a></div></div>').join("")+'</div></div>';
+ return a;
+}
+function render(){document.getElementById("view").innerHTML=nav==="home"?home():nav==="study"||nav==="recall"?study():nav==="test"?test():scopeView();}
+document.addEventListener("click",e=>{
+ const el=e.target.closest("button");if(!el)return;
+ if(el.dataset.nav){mode=el.dataset.nav==="recall"?"recall":"study";navTo(el.dataset.nav);return;}
+ if(el.dataset.poem){current=el.dataset.poem;studyRevealed={};navTo(mode==="recall"?"recall":"study");return;}
+ if(el.dataset.toggle){const k=el.dataset.toggle;studyRevealed[k]=!studyRevealed[k]&&mode!=="study";if(mode==="study")studyRevealed[k]=false;render();return;}
+ if(el.dataset.rate){state.scores[el.dataset.rate]=Number(el.dataset.score);save();render();return;}
+ if(el.dataset.testscore){state.scores[testQueue[testIndex].key]=Number(el.dataset.testscore);save();testIndex++;revealed=false;render();return;}
+ const act=el.dataset.act;
+ if(act==="goto-recall"){mode="recall";navTo("recall")}
+ if(act==="goto-scope")navTo("scope");
+ if(act==="reveal"){revealed=true;render()}
+ if(act==="new-test")resetTest(false);
+ if(act==="weak-test")resetTest(true);
+ if(act==="reset"&&confirm("この端末の学習履歴を削除します。よろしいですか？")){state={scores:{}};save();render()}
+ if(act==="export"){
+ const blob=new Blob([JSON.stringify({version:1,scores:state.scores,exportedAt:new Date().toISOString()},null,2)],{type:"application/json"});
+ const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download="kanbun-study-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);
+ }
+ if(act==="import")document.getElementById("import-input")?.click();
+});
+document.addEventListener("change",async e=>{
+ if(e.target.id!=="import-input"||!e.target.files?.[0])return;
+ try{let d=JSON.parse(await e.target.files[0].text());if(!d||d.version!==1||!d.scores||typeof d.scores!=="object"||Array.isArray(d.scores))throw Error();
+ let allowed=new Set(items().map(x=>x.key)),scores={};
+ for(const [k,v] of Object.entries(d.scores)){if(allowed.has(k)&&[0,1,2].includes(v))scores[k]=v;}
+ state.scores=scores;save();alert("学習履歴を読み込みました。");render();}
+ catch{alert("形式が正しいバックアップではありません。");}finally{e.target.value="";}
+});
+resetTest(false);navTo("home");
+</script>
+</body></html>
