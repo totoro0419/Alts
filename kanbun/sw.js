@@ -1,5 +1,5 @@
-const CACHE="alts-kanbun-v3";
-const ASSETS=["./","./index.html","./lessons.js","./enhancements.js"];
+const CACHE="alts-kanbun-v4";
+const ASSETS=["./","./index.html","./styles.css","./lessons.js","./poems.js","./columns.js","./app.js"];
 self.addEventListener("install",event=>{
  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
 });
