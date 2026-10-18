@@ -1,6 +1,6 @@
 # Sideworks — instructions for coding agents
 
-Read [README.md](./README.md) before modifying this repository. It defines the canonical publication policy.
+**Before every change:** read [README.md](./README.md) and this AGENTS.md. The root [index.html](./index.html) publicly shows the operational rules to humans and AI visitors. Its content must remain consistent with the canonical README. Do not skip these instructions even when a user only asks to create a page at a new path.
 
 ## Architecture (non-negotiable)
 
