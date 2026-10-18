@@ -9,7 +9,7 @@ function sections() {return state.dataset.chapters.flatMap(ch=>ch.sections.map(s
 function filteredSections() {return sections().filter(s=>(state.chapter==='all'||s.chapterId===state.chapter)&&(state.section==='all'||s.id===state.section)&&s.pageStart<=state.to&&s.pageEnd>=state.from);}
 function selectedParagraphs() {return filteredSections().flatMap(s=>s.paragraphs.filter(p=>p.page>=state.from&&p.page<=state.to));}
 function selectedTokens() {return selectedParagraphs().flatMap(p=>p.tokens).filter(t=>t.answer&&t.level<=state.level);}
-function updateProgress(){const tokens=selectedTokens();const total=tokens.length;const passed=tokens.filter(t=>state.passed[t.id]===true).length;const rate=total?Math.round(100*passed/total):0;byId('passed-count').textContent=passed;byId('total-count').textContent=total;byId('side-count').textContent=`${passed} / ${total} 合格`;byId('side-rate').textContent=`${rate}%`;byId('side-bar').style.width=`${rate}%`;
+function updateProgress(){const tokens=selectedTokens();const total=tokens.length;const passed=tokens.filter(t=>state.passed[t.id]===true).length;const rate=total?Math.round(100*passed/total):0;byId('passed-count').textContent=passed;byId('total-count').textContent=total;byId('side-count').textContent=`${passed} 合格 / ${total-passed} 未合格`;byId('remaining-count').textContent=total-passed;byId('side-rate').textContent=`${rate}%`;byId('side-bar').style.width=`${rate}%`;
 }
 function populate(select,items,desired){select.replaceChildren();for(const [value,label] of items){const option=new Option(label,value);select.add(option);}if(items.some(([v])=>String(v)===String(desired))) select.value=desired;else select.value=items[0]?.[0]??'';}
 function syncSelectors({chapterChanged=false,sectionChanged=false}={}){
@@ -31,7 +31,7 @@ function syncSelectors({chapterChanged=false,sectionChanged=false}={}){
 function appendAnswer(container, token, paragraph){
  const passed=state.passed[token.id]===true;
  // In review mode passed words are ordinary text, but can be tapped to undo the pass.
- if(state.mode==='weak'&&passed&&!state.revealed[token.id]){
+ if(state.mode==='weak'&&passed){
   const word=document.createElement('button');word.type='button';word.className='plain-passed';word.textContent=token.answer;word.title='合格済み：タップで合格解除';word.dataset.id=token.id;word.dataset.action='unpass';word.setAttribute('aria-label',`${token.answer}、合格済み。タップで合格解除`);container.append(word);return;
  }
  const btn=document.createElement('button');btn.type='button';btn.className='blank';btn.dataset.id=token.id;btn.dataset.action='cycle';btn.setAttribute('aria-label','隠された語句。タップで答えを表示');container.append(btn);updateBlank(btn,token);
@@ -59,10 +59,10 @@ function render(){if(!state.dataset)return;const target=byId('article');target.r
  if(state.mode==='weak'&&selectedTokens().every(t=>state.passed[t.id])){const e=document.createElement('div');e.className='empty';e.innerHTML='<strong>この範囲はすべて合格です ✓</strong>すべての語句は通常の文章で読めます。<br>「すべて学習」で合格済みの問題にも再挑戦できます。';target.append(e);}
  updateProgress();
 }
-function replaceWordControl(id){const token=tokenById.get(id);if(!token)return;const btn=Array.from(byId('article').querySelectorAll('[data-action="cycle"],[data-action="unpass"]')).find(x=>x.dataset.id===id);if(!btn)return;const fragment=document.createDocumentFragment();appendAnswer(fragment,token);const next=btn.nextSibling;
+function replaceWordControl(id){const token=tokenById.get(id);if(!token)return;const btn=Array.from(byId('article').querySelectorAll('[data-action="cycle"],[data-action="unpass"]')).find(x=>x.dataset.id===id);if(!btn)return;const fragment=document.createDocumentFragment();appendAnswer(fragment,token);const next=btn.nextSibling;const hadFocus=document.activeElement===btn;
  // Remove a previous explanation control and text after this target only, without rerendering the paragraph.
  let cursor=next;while(cursor instanceof HTMLElement && (cursor.dataset.id===id&&cursor.dataset.action==='explain'||cursor.dataset.explainFor===id)){const after=cursor.nextSibling;cursor.remove();cursor=after;}
- btn.replaceWith(fragment);
+ btn.replaceWith(fragment);if(hadFocus){const replacement=Array.from(byId('article').querySelectorAll('[data-action="cycle"],[data-action="unpass"]')).find(x=>x.dataset.id===id);replacement?.focus({preventScroll:true});}
 }
 function cycle(id, unpass=false){const t=tokenById.get(id);if(!t)return;
  if(unpass){state.passed[id]=false;state.revealed[id]=true;}
@@ -83,7 +83,7 @@ function wire(){byId('article').addEventListener('click',event=>{const b=event.t
  document.querySelectorAll('input[name="level"]').forEach(r=>r.addEventListener('change',e=>{state.level=+e.target.value;updateSettings();closeMenu();}));
  byId('full-mode').addEventListener('click',()=>changeMode('full'));byId('weak-mode').addEventListener('click',()=>changeMode('weak'));
  byId('reset').addEventListener('click',()=>{byId('reset-dialog').showModal();closeMenu();});
- byId('reset-dialog').addEventListener('close',()=>{if(byId('reset-dialog').returnValue!=='confirm')return;for(const t of selectedTokens()){delete state.passed[t.id];delete state.revealed[t.id];}state.expanded.clear();persist();render();});
+ byId('reset-dialog').addEventListener('close',()=>{if(byId('reset-dialog').returnValue!=='confirm')return;for(const p of selectedParagraphs()){for(const t of p.tokens){if(!t.answer)continue;delete state.passed[t.id];delete state.revealed[t.id];}}state.expanded.clear();persist();render();});
  byId('menu').addEventListener('click',()=>{state.mobileMenu=!state.mobileMenu;byId('sidebar').classList.toggle('open',state.mobileMenu);byId('overlay').hidden=!state.mobileMenu;byId('menu').setAttribute('aria-expanded',String(state.mobileMenu));});byId('overlay').addEventListener('click',closeMenu);document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
 }
 async function start(){try{state.dataset=await loadData();validate(state.dataset);const saved=readStored(STORAGE_KEY,{version:1,passed:{},revealed:{}});state.passed=saved.passed&&typeof saved.passed==='object'?saved.passed:{};state.revealed=saved.revealed&&typeof saved.revealed==='object'?saved.revealed:{};const settings=readStored(SETTINGS_KEY,{});
