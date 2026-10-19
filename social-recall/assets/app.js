@@ -40,7 +40,7 @@ function appendAnswer(container, token, paragraph){
 function appendExplanationControl(container,token){const b=document.createElement('button');b.type='button';b.className='explain-btn';b.dataset.action='explain';b.dataset.id=token.id;b.setAttribute('aria-expanded',String(state.expanded.has(token.id)));b.textContent=state.expanded.has(token.id)?'解説を閉じる':'解説';container.append(b);
  if(state.expanded.has(token.id)){const box=document.createElement('span');box.className='explain-box';box.dataset.explainFor=token.id;const strong=document.createElement('strong');strong.textContent=token.answer+'｜';box.append(strong,document.createTextNode(token.explanation));container.append(box);}
 }
-function updateBlank(btn,token){const shown=Boolean(state.revealed[token.id]);const passed=Boolean(state.passed[token.id]);btn.classList.toggle('is-open',shown);btn.classList.toggle('is-passed',shown&&passed);btn.replaceChildren();if(shown){btn.append(document.createTextNode(token.answer));if(passed){const c=document.createElement('span');c.className='check';c.textContent='✓';c.setAttribute('aria-hidden','true');btn.append(c);}}else btn.textContent='□'.repeat(Math.min(6,Math.max(3,token.answer.length)));
+function updateBlank(btn,token){const shown=Boolean(state.revealed[token.id]);const passed=Boolean(state.passed[token.id]);btn.classList.toggle('is-open',shown);btn.classList.toggle('is-passed',shown&&passed);btn.replaceChildren();if(shown){btn.append(document.createTextNode(token.answer));}else btn.textContent='□'.repeat(Math.min(6,Math.max(3,token.answer.length)));
  btn.setAttribute('aria-label',shown?`${token.answer}、${passed?'合格済み。タップで合格解除':'未合格。タップで合格'}`:'隠された語句。タップで答えを表示');btn.setAttribute('aria-pressed',String(passed));}
 let tokenById=new Map();
 function render(){if(!state.dataset)return;const target=byId('article');target.replaceChildren();tokenById=new Map(selectedTokens().map(t=>[t.id,t]));const chosen=filteredSections();const included=selectedParagraphs();const total=selectedTokens().length;
@@ -56,7 +56,7 @@ function render(){if(!state.dataset)return;const target=byId('article');target.r
    }section.append(para);number++;}
   target.append(section);
  }
- if(state.mode==='weak'&&selectedTokens().every(t=>state.passed[t.id])){const e=document.createElement('div');e.className='empty';e.innerHTML='<strong>この範囲はすべて合格です ✓</strong>すべての語句は通常の文章で読めます。<br>「すべて学習」で合格済みの問題にも再挑戦できます。';target.append(e);}
+ if(state.mode==='weak'&&selectedTokens().every(t=>state.passed[t.id])){const e=document.createElement('div');e.className='empty';e.innerHTML='<strong>この範囲はすべて合格です</strong>すべての語句は通常の文章で読めます。<br>「すべて学習」で合格済みの問題にも再挑戦できます。';target.append(e);}
  updateProgress();
 }
 function replaceWordControl(id){const token=tokenById.get(id);if(!token)return;const btn=Array.from(byId('article').querySelectorAll('[data-action="cycle"],[data-action="unpass"]')).find(x=>x.dataset.id===id);if(!btn)return;const fragment=document.createDocumentFragment();appendAnswer(fragment,token);const next=btn.nextSibling;const hadFocus=document.activeElement===btn;

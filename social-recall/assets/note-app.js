@@ -44,7 +44,6 @@ function createAnswer(t){
  const b=document.createElement('button');b.type='button';b.className='blank';b.dataset.id=t.id;b.dataset.action='cycle';const open=state.revealed[t.id]===true;
  b.classList.toggle('is-open',open);b.classList.toggle('is-passed',open&&passed);
  b.textContent=open?t.answer:'□'.repeat(Math.min(6,Math.max(3,[...t.answer].length)));
- if(open&&passed){const mark=document.createElement('span');mark.className='check';mark.setAttribute('aria-hidden','true');mark.textContent='✓';b.append(mark)}
  b.setAttribute('aria-pressed',String(passed));b.setAttribute('aria-label',open?`${t.answer} ${passed?'合格済み、タップで合格解除':'未合格、タップで合格'}`:'隠された語句、タップで答えを表示');return b;
 }
 function appendTarget(parent,t){const container=document.createElement('span');container.className='answer-unit';container.dataset.unit=t.id;container.append(createAnswer(t));
@@ -65,7 +64,7 @@ function render(){if(!state.data)return;
   target.append(section);
  }
  if(state.mode==='weak'&&tokens.length&&tokens.every(t=>state.passed[t.id])){
-  const done=document.createElement('div');done.className='empty';const strong=document.createElement('strong');strong.textContent='この範囲はすべて合格です ✓';done.append(strong,document.createTextNode('次に復習するときも、合格した語句は通常の文章として表示されます。'));target.append(done);
+  const done=document.createElement('div');done.className='empty';const strong=document.createElement('strong');strong.textContent='この範囲はすべて合格です';done.append(strong,document.createTextNode('次に復習するときも、合格した語句は通常の文章として表示されます。'));target.append(done);
  }
  updateProgress();
 }

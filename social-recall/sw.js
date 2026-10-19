@@ -1,6 +1,6 @@
 /* Social Recall: only this app's pages/assets and caches may be controlled. */
 const PROJECT_CACHE_PREFIX = 'sideworks:social-recall:';
-const CACHE_NAME = PROJECT_CACHE_PREFIX + 'offline-v4';
+const CACHE_NAME = PROJECT_CACHE_PREFIX + 'offline-v5';
 const ROOT = new URL(self.registration.scope);
 const CORE_FILES = [
   './', './index.html', './install.html', './note.html', './manifest.webmanifest', './assets/app.css', './assets/note.css',
