@@ -21,35 +21,54 @@
 @media(max-height:620px) and (max-width:780px){#yearBox{top:68px}#year{font-size:50px}#eventTitle{top:136px}#eventTitle h1{font-size:25px}#eventTitle p{display:none}#cast{top:52px}#bottom{padding-top:13px}#sides{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition-duration:0ms!important;animation:none!important}}
 
-/* OVERDRIVE — dedicated film, caption, and transport zones */
+/* Cinematic Overdrive / information belongs to dedicated safe zones */
+#stage{background:#03090f}
 #stage:before{background:none}#stage:after{box-shadow:none}
-#world{position:absolute;left:0;right:0;top:150px;bottom:186px;width:100%;height:calc(100% - 336px);display:block}
-#brand{top:12px;left:24px;gap:8px}#brand .monogram{width:30px;height:30px;font-size:15px}#brand strong{font-size:10px}#brand small{font-size:8px;margin-top:2px}
-#yearBox{left:24px;top:57px;max-width:135px}#year{font-size:51px}#yearSuffix{font-size:9px}#era{margin-top:5px;font-size:9px}
-#eventTitle{top:63px;left:clamp(170px,17vw,260px);right:32%;max-width:none;min-width:0}#eventTitle .stroke{display:none}#eventTitle h1{font-size:clamp(25px,3vw,43px);line-height:1.2}#eventTitle p{font-size:12px;margin:7px 0 0;line-height:1.3}
-#cast{top:59px;right:20px;max-width:30%;gap:6px}.person{padding:5px 7px;gap:7px;background:#101d2de8}.portrait{width:28px;height:28px;font-size:17px}.person .pname{font-size:11px}.person .pstate{display:none}
-#focusLabel{position:absolute;left:24px!important;right:24px;bottom:75px;top:auto!important;transform:none!important;max-width:none;min-width:0;min-height:94px;padding:12px 18px 12px 19px;border:1px solid #ffffff31;border-left:4px solid #ffd28a;background:#10233a;box-shadow:0 10px 24px #0007;filter:none;display:grid;grid-template-columns:minmax(110px,180px) 1fr;column-gap:20px;align-items:center}
-#focusLabel .marker{display:none}#focusLabel .focusTag{grid-column:1;grid-row:1;font-size:10px;letter-spacing:.08em;margin:0}#focusLabel .focusWord{grid-column:1;grid-row:2;font-size:clamp(15px,1.6vw,23px);line-height:1.3}#focusLabel .focusText{grid-column:2;grid-row:1/span 2;font-size:clamp(12px,1.1vw,15px);line-height:1.55;margin:0;color:#e4eaf3}
-#sides{display:none}#bottom{bottom:0;background:#08121e;box-shadow:none;height:73px;padding:8px 22px max(9px,env(safe-area-inset-bottom))}#progress{height:13px;margin:0 0 4px}#transport button{min-width:32px;height:31px}#play{width:44px!important;height:35px!important}#settings button{padding:7px 10px}
-#movieFrame{position:absolute;left:0;right:0;top:150px;bottom:186px;z-index:2;pointer-events:none;border-top:1px solid #cce5ff2b;border-bottom:1px solid #cce5ff2b;background:linear-gradient(0deg,#071320a0,transparent 23%,transparent 84%,#0713206b)}
-#unitLabels{position:absolute;inset:0;z-index:5;pointer-events:none}.unit-tag{position:absolute;white-space:nowrap;transform:translate(-50%,-100%);border:1px solid var(--accent);border-radius:5px;background:#071522eb;padding:6px 9px;font-size:clamp(11px,1vw,14px);font-weight:900;box-shadow:0 5px 16px #000b;transition:opacity .12s;color:#fffbf0}.unit-tag:before{content:'';display:inline-block;width:8px;height:8px;background:var(--accent);margin-right:7px;border-radius:2px;box-shadow:0 0 7px var(--accent)}.unit-tag:after{content:'';height:11px;position:absolute;top:100%;left:50%;border-left:1px solid var(--accent)}
-#dramatic{pointer-events:none;position:absolute;z-index:6;left:50%;top:43%;transform:translate(-50%,-50%) scale(.85);white-space:nowrap;opacity:0;font:900 clamp(36px,6vw,100px)/1 "Yu Gothic",sans-serif;color:#fff0d5;text-shadow:0 5px 0 #a6442d,0 8px 40px #ff822677;letter-spacing:.13em}#dramatic.live{opacity:1;transform:translate(-50%,-50%) scale(1);transition:opacity .12s,transform .15s}#dramatic.tail{opacity:0;transition:opacity .14s}
-@media(max-width:780px){#world{top:146px;bottom:169px;height:calc(100% - 315px)}#movieFrame{top:146px;bottom:169px}#brand{top:10px;left:11px}#cast{top:10px;right:7px;max-width:65%;gap:4px}.person{max-width:103px;padding:3px 5px}.person .pname{font-size:9px}.portrait{width:24px;height:24px;font-size:13px}#yearBox{top:60px;left:12px;max-width:94px}#year{font-size:41px}#era{font-size:8px}#eventTitle{top:77px;left:111px;right:9px;max-width:none}#eventTitle h1{font-size:clamp(19px,5.3vw,27px)}#eventTitle p{display:none}#focusLabel{left:10px!important;right:10px;bottom:67px;min-height:93px;padding:9px 13px;display:block;box-shadow:none}#focusLabel .focusTag{font-size:9px}#focusLabel .focusWord{font-size:15px;margin-top:3px}#focusLabel .focusText{font-size:11px;display:block;line-height:1.4;margin-top:4px}#bottom{height:67px;padding:5px 10px max(7px,env(safe-area-inset-bottom))}#progress{height:12px}#settings{gap:4px}#settings button{padding:6px 7px;font-size:10px}#transport{gap:4px}#transport button{min-width:27px;height:29px}#play{height:33px!important;width:38px!important}#dramatic{font-size:clamp(33px,10vw,63px)}.unit-tag{font-size:11px;padding:5px 7px}}
-@media(max-width:385px){#cast{top:7px}.person{max-width:93px}#eventTitle h1{font-size:18px}#focusLabel .focusText{font-size:10px}#settings button{padding:5px}#settings button span{margin-left:2px}}
-@media(max-height:620px){#world{top:112px;bottom:141px;height:calc(100% - 253px)}#movieFrame{top:112px;bottom:141px}#yearBox{top:40px}#year{font-size:31px}#era{display:none}#eventTitle{top:55px}#eventTitle h1{font-size:19px}#cast{top:5px}#focusLabel{bottom:57px;min-height:80px;padding:7px 12px}#bottom{height:57px}#progress{height:11px}}
+#world{position:absolute;left:0;right:0;top:154px;bottom:183px;width:100%;height:calc(100% - 337px);display:block;transform-origin:center center}
+#hud{z-index:4}#brand{top:15px;left:clamp(16px,3vw,44px);gap:8px}#brand .monogram{width:28px;height:28px;font-size:15px}#brand strong{font-size:10px}#brand small{font-size:8px;margin-top:2px}
+#yearBox{top:54px;left:clamp(16px,3vw,44px);max-width:175px}#year{font-size:clamp(42px,4.5vw,65px)}#yearSuffix{font-size:9px}#era{font-size:9px;margin-top:7px}
+#eventTitle{top:63px;left:clamp(190px,19vw,295px);right:32%;max-width:none;min-width:0}#eventTitle .stroke{display:none}#eventTitle h1{font-size:clamp(25px,3vw,47px);line-height:1.22;letter-spacing:.045em}#eventTitle p{margin:6px 0 0;font-size:clamp(10px,.95vw,14px);line-height:1.35;max-width:none;font-weight:600;color:#adc0d1}
+#cast{top:55px;right:clamp(10px,2vw,35px);max-width:29%;gap:6px;align-items:center} .person{padding:5px 8px;gap:7px;background:#0d1e2eea}.portrait{width:29px;height:29px;font-size:17px}.person .pname{font-size:11px}.person .pstate{display:none}
+#focusLabel{position:absolute;left:clamp(16px,3vw,44px)!important;right:clamp(16px,3vw,44px);bottom:73px;top:auto!important;transform:none!important;max-width:none;min-width:0;min-height:96px;padding:12px 18px 13px 20px;border:1px solid #b2c7d028;border-left:4px solid #e6ac5e;background:linear-gradient(100deg,#11283e,#0a1829 67%,#0c1725);box-shadow:0 10px 35px #0007;filter:none;display:grid;grid-template-columns:minmax(110px,170px) 1fr;column-gap:22px;align-items:center}
+#focusLabel .marker{display:none}#focusLabel .focusTag{grid-column:1;grid-row:1;font-size:10px;margin:0;color:#e3b777;letter-spacing:.09em}#focusLabel .focusWord{grid-column:1;grid-row:2;font:900 clamp(14px,1.5vw,21px)/1.2 'Yu Gothic',sans-serif;color:#fff3d9}#focusLabel .focusText{grid-column:2;grid-row:1/span 2;font-size:clamp(12px,1.1vw,16px);color:#e2e9f4;line-height:1.65;margin:0}
+#sides{display:none}#bottom{background:#080f1a;bottom:0;padding:7px clamp(16px,3vw,44px) max(9px,env(safe-area-inset-bottom));height:73px}#progress{margin:0 0 5px;height:13px}#transport button{height:31px;min-width:32px}#play{height:36px!important;width:44px!important}#controls{gap:6px}#settings button{padding:7px 11px}
+#unitLabels{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}.unit-tag{position:absolute;transform:translate(-50%,-100%);white-space:nowrap;border:1px solid color-mix(in srgb,var(--accent),transparent 25%);border-radius:6px;background:#07121ce8;color:#fff6e8;box-shadow:0 7px 22px #000b,0 0 20px color-mix(in srgb,var(--accent),transparent 82%);padding:6px 10px;display:flex;align-items:center;gap:7px;font-size:clamp(12px,1vw,15px);font-weight:900;letter-spacing:.03em;transition:opacity .13s}
+.unit-tag::before{content:'';width:8px;height:8px;flex:none;border-radius:2px;background:var(--accent);box-shadow:0 0 9px var(--accent)}.unit-tag::after{content:'';position:absolute;top:100%;left:50%;height:10px;width:1px;background:var(--accent);opacity:.7}
+#dramatic{position:absolute;z-index:6;pointer-events:none;top:45%;left:50%;transform:translate(-50%,-50%) scale(.85);text-align:center;white-space:nowrap;opacity:0;font:900 clamp(40px,6.5vw,108px)/1 'Yu Gothic',sans-serif;letter-spacing:.18em;color:#fff6dc;text-shadow:0 5px 0 #952d21,0 8px 38px #f36d2877,0 0 75px #ffd99e88;filter:drop-shadow(0 18px 15px #000c)}
+#dramatic.live{opacity:1;transform:translate(-50%,-50%) scale(1);transition:opacity .12s,transform .17s}#dramatic.tail{opacity:0;transition:opacity .16s}
+#movieFrame{position:absolute;left:0;right:0;top:154px;bottom:183px;z-index:2;pointer-events:none;border-top:1px solid #b2c6c21f;border-bottom:1px solid #b2c6c21f;background:linear-gradient(0deg,#091a29ad,transparent 22%,transparent 82%,#07132177)}
+@media(max-width:780px){#world{top:147px;bottom:170px;height:calc(100% - 317px)}#movieFrame{top:147px;bottom:170px}#brand{top:11px;left:12px}#cast{right:9px;top:12px;max-width:65%;gap:4px}.person{max-width:105px;padding:3px 5px}.person .pname{font-size:9px}.portrait{width:24px;height:24px;font-size:13px}#yearBox{left:13px;top:57px;max-width:94px}#year{font-size:41px}#yearSuffix{font-size:9px}#era{font-size:8px;margin-top:4px}#eventTitle{top:72px;left:115px;right:9px;max-width:none}#eventTitle h1{font-size:clamp(18px,5.3vw,26px);line-height:1.32}#eventTitle p{display:none}#focusLabel{bottom:66px;left:9px!important;right:9px;min-height:95px;padding:11px 13px 10px 14px;display:block;box-shadow:none}#focusLabel .focusTag{font-size:9px}#focusLabel .focusWord{font-size:15px;margin-top:4px}#focusLabel .focusText{display:block;font-size:11px;line-height:1.35;margin-top:4px}#bottom{height:66px;padding:3px 10px max(7px,env(safe-area-inset-bottom))}#progress{height:13px;margin-bottom:4px}#settings button{padding:6px 7px;font-size:10px}#transport{gap:4px}#transport button{height:29px;min-width:27px}#play{height:33px!important;width:39px!important}#dramatic{top:44%;font-size:clamp(34px,11vw,66px)}.unit-tag{font-size:11px;padding:5px 7px} }
+@media(max-width:385px){#cast{top:8px;max-width:65%}.person{max-width:94px}#yearBox{top:58px}#eventTitle{top:83px}#eventTitle h1{font-size:18px}#focusLabel .focusText{font-size:10px}#settings{gap:3px}#settings button{padding:5px}#settings button span{margin-left:2px}}
+@media(max-height:620px){#world{top:112px;bottom:145px;height:calc(100% - 257px)}#movieFrame{top:112px;bottom:145px}#brand{top:5px}#yearBox{top:41px}#year{font-size:32px}#era{display:none}#eventTitle{top:57px}#eventTitle h1{font-size:19px}#cast{top:5px}#focusLabel{bottom:57px;min-height:84px;padding:7px 12px}#focusLabel .focusText{font-size:10px}#bottom{height:57px}#progress{height:11px}}
 @media(prefers-reduced-motion:reduce){#dramatic{transition:none!important}.unit-tag{transition:none!important}}
+
+/* One-clock cinematic: stage labels track units; event results are explicit and persist. */
+#outcome{position:absolute;z-index:7;left:50%;bottom:calc(73px + 104px + 8px);transform:translate(-50%,12px);opacity:0;pointer-events:none;transition:opacity .14s ease,transform .18s ease;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;max-width:min(840px,94vw);padding:10px 19px;background:linear-gradient(103deg,#080e16ef,#192737ef);border:1px solid #eac58a7e;border-radius:4px;box-shadow:0 15px 30px #000a;white-space:nowrap}
+#outcome.show{opacity:1;transform:translate(-50%,0)}
+#outcome .stamp{font-size:10px;color:#101921;background:#edbf73;letter-spacing:.12em;padding:4px 6px;font-weight:900}
+#outcome strong{font-size:clamp(14px,2vw,24px);font-weight:900;color:#fff0c5}
+#outcome small{font-size:clamp(11px,1.2vw,15px);font-weight:800;color:#d7e5ee}
+#outcome em{font-size:11px;font-style:normal;letter-spacing:.05em;color:#c4b89e}
+#outcome .vs-arrow{color:#efa86a;font-size:18px}
+#dramatic{top:41%;font-size:clamp(28px,4.8vw,70px);opacity:0!important}
+#dramatic.live{opacity:.6!important}
+#unitLabels .unit-tag{transition:opacity .18s ease;will-change:top,left;box-shadow:0 3px 14px #000a;background:#061322f2;color:#fffef5;letter-spacing:.04em;border-radius:5px}
+@media(max-width:780px){#outcome{bottom:calc(66px + 95px + 3px);padding:6px 9px;gap:5px 7px;max-width:96vw;white-space:normal;line-height:1.3}#outcome strong{font-size:13px}#outcome small{font-size:10px}#outcome em{display:none}#outcome .stamp{font-size:9px}}
+@media(max-height:620px){#outcome{bottom:calc(57px + 84px + 3px);padding:5px 8px}#outcome em{display:none}}
+@media(prefers-reduced-motion:reduce){#outcome,#unitLabels .unit-tag{transition:none!important}}
+
 </style>
 </head>
 <body>
 <div id="stage"><canvas id="world" aria-label="日本地図の上を軍隊と船団が移動する連続歴史アニメーション"></canvas>
- <div id="movieFrame"></div><div id="unitLabels" aria-hidden="true"></div><div id="dramatic" aria-hidden="true"></div>
+ <div id="movieFrame"></div><div id="outcome" role="status" aria-live="polite"></div><div id="unitLabels" aria-hidden="true"></div><div id="dramatic" aria-hidden="true"></div>
  <div id="hud"><div id="brand"><div class="monogram">覇</div><div><strong>GENPEI</strong><small>THE RISE & FALL · 935—1185</small></div></div>
  <div id="yearBox"><span id="year">935</span><span id="yearSuffix">CE</span><div id="era">平安の戦乱</div></div>
  <div id="eventTitle"><div class="stroke"></div><h1 id="eventHead">東国、蜂起。</h1><p id="eventSub">武士が、歴史を動かし始める。</p></div><div id="cast"></div>
  <div id="focusLabel"><div class="marker"></div><div class="focusTag" id="focusTag">戦況</div><div class="focusWord" id="focusWord">将門の勢力が広がる</div><div class="focusText" id="focusText">東国で独自の勢力を築く。</div></div>
  <div id="sides"><div class="side left"><em>WEST / 平氏</em><span id="sideA">朝廷軍</span></div><span class="vs">VS</span><div class="side right"><em>EAST / 源氏</em><span id="sideB">将門軍</span></div></div></div>
- <div id="bottom"><input id="progress" type="range" min="0" max="1000" step="1" value="0" aria-label="映像の進行位置"><div id="controls"><div id="transport"><button id="rew" title="10秒戻る" aria-label="10秒戻る">↶</button><button id="play" title="再生または停止" aria-label="再生">▶</button><button id="fwd" title="10秒進む" aria-label="10秒進む">↷</button><span class="time" id="timeText">00:00 / 00:00</span></div><div id="settings"><span id="sources"><a href="https://www.archives.go.jp/exhibition/digital/heikemonogatari/contents/history.html" target="_blank" rel="noopener">史料・年表 ↗</a> · 進軍・勢力圏は模式表現</span><button id="speed" title="再生速度">速度 <span>1.0×</span></button><button id="fx" title="演出の強さ">演出 <span>強</span></button><button id="sound" aria-label="効果音オン・オフ">音 <span>ON</span></button></div></div></div>
- <div id="intro"><div id="introInner"><div class="eyebrow">A JAPANESE HISTORY CINEMATIC</div><div class="hero">覇権のゆくえ</div><div class="dek">武士の台頭から、平家滅亡まで。<br>250年の争乱を、ひとつの映像で。</div><button id="start">▶　物語を再生</button><span class="mininote">効果音あり（再生開始時に有効）・連続フラッシュなし ／ WebGL2使用</span></div></div>
+ <div id="bottom"><input id="progress" type="range" min="0" max="1000" step="1" value="0" aria-label="映像の進行位置"><div id="controls"><div id="transport"><button id="rew" title="10秒戻る" aria-label="10秒戻る">↶</button><button id="play" title="再生または停止" aria-label="再生">▶</button><button id="fwd" title="10秒進む" aria-label="10秒進む">↷</button><span class="time" id="timeText">00:00 / 00:00</span></div><div id="settings"><span id="sources"><a href="https://www.archives.go.jp/exhibition/digital/heikemonogatari/contents/history.html" target="_blank" rel="noopener">史料・年表 ↗</a> · 進軍・勢力圏は模式表現</span><button id="speed" title="再生速度">速度 <span>1.0×</span></button><button id="fx" title="演出の強さ">演出 <span>強</span></button><button id="sound" title="効果音を切り替える" aria-label="効果音オン・オフ">音 <span>ON</span></button></div></div></div>
+ <div id="intro"><div id="introInner"><div class="eyebrow">A JAPANESE HISTORY CINEMATIC</div><div class="hero">覇権のゆくえ</div><div class="dek">武士の台頭から、平家滅亡まで。<br>250年の争乱を、ひとつの映像で。</div><button id="start">▶　物語を再生</button><span class="mininote">効果音あり（再生時に有効）・連続フラッシュなし ／ WebGL2使用</span></div></div>
  <div id="fallback"><strong>WebGL2を利用できません</strong><p>Chrome等、WebGL2に対応したブラウザで開いてください。</p></div>
 </div>
 <script>
@@ -95,6 +114,34 @@ const B=[
  {y:1185,d:6.3,era:'物語の終幕',head:'武士の時代へ。',sub:'平氏滅亡。東国の頼朝が政治・軍事の主導権を固める。',tag:'1185 / 東国',word:'平家、滅亡。',text:'この後、頼朝の武家政権が本格化する。',loc:'kamakura',span:5.6,cast:['yori'],a:'平氏滅亡',b:'頼朝の勢力',units:[['genji','army','kamakura','kamakura',74]],impact:0}
 ];
 let total=0;for(const b of B){b.d=Number(Math.max(2.5,Math.min(4.6,b.d*(b.impact?.72:.57))).toFixed(2));b.start=total;total+=b.d;}const TOTAL=total;
+// Verified winner/loser is author-provided per event. No procedural winner inference.
+const OUTCOMES={
+ 0:{win:'朝廷軍',lose:'平将門軍',w:[1],l:[0],note:'将門の乱、鎮圧'},
+ 1:{win:'朝廷軍',lose:'藤原純友軍',w:[1],l:[0],note:'純友の乱、鎮圧'},
+ 3:{win:'源頼義らの朝廷軍',lose:'安倍氏',w:[0],l:[1],note:'前九年合戦、終結'},
+ 4:{win:'源義家方',lose:'対立勢力',w:[0],l:[1],note:'後三年合戦、終結'},
+ 6:{win:'後白河天皇方',lose:'崇徳上皇方',w:[0,1],l:[2],note:'清盛・義朝が共闘'},
+ 7:{win:'平清盛方',lose:'源義朝方',w:[0],l:[1],note:'源義朝は敗北'},
+ 11:{win:'平清盛',lose:'後白河院',w:[0],l:[1],note:'政変で政治的主導権を掌握',political:true},
+ 12:{win:'平氏軍',lose:'以仁王・源頼政方',w:[0],l:[1],note:'宇治で平氏方が勝利'},
+ 13:{win:'平氏方',lose:'源頼朝方',w:[1],l:[0],note:'石橋山、頼朝は敗走'},
+ 14:{win:'頼朝方が勢力を維持',lose:'平氏軍は撤退',w:[0],l:[1],note:'富士川では本格的な会戦に至らず',political:true},
+ 16:{win:'木曾義仲軍',lose:'平氏軍',w:[0],l:[1],note:'倶利伽羅峠、平氏敗退'},
+ 18:{win:'木曾義仲方',lose:'後白河院方',w:[0],l:[1],note:'法住寺を襲撃',political:true},
+ 19:{win:'頼朝方（義経・範頼）',lose:'木曾義仲軍',w:[1],l:[0],note:'宇治川・粟津、義仲敗死'},
+ 20:{win:'源氏軍',lose:'平氏軍',w:[1],l:[0],note:'一ノ谷、平氏が海へ退く'},
+ 21:{win:'義経軍',lose:'平氏軍',w:[0],l:[1],note:'屋島、平氏が西へ後退'},
+ 22:{win:'源氏船団',lose:'平氏船団',w:[1],l:[0],note:'壇ノ浦、平氏政権が滅亡'}
+};
+// Multiple overlapping actions are alive together on one clock; they are not scene changes.
+function activeActions(sec){const res=[];for(let i=0;i<B.length;i++){
+ const b=B[i],enter=b.start-.65,leave=b.start+b.d+.95;
+ if(sec<enter||sec>leave)continue;
+ const fadeIn=smooth((sec-enter)/.85),fadeOut=smooth((leave-sec)/1.1);
+ res.push({b,k:i,p:clamp((sec-b.start)/b.d,0,1),weight:fadeIn*fadeOut});
+ }return res;}
+
+// Continuous narration cues share the timeline; actual voice tracks are intentionally not loaded yet.
 const NARRATION_CUES=B.map((b,index)=>({index,start:b.start,end:b.start+b.d,title:b.head,script:b.sub}));
 window.GENPEI_NARRATION_CUES=NARRATION_CUES;
 const VSH=`#version 300 es
@@ -103,9 +150,23 @@ layout(location=0) in vec3 aP;layout(location=1) in vec4 aC;
 uniform mat4 uVP;out vec4 vC;out vec3 vWorld;
 void main(){gl_Position=uVP*vec4(aP,1.);vC=aC;vWorld=aP;}`;
 const FSH=`#version 300 es
-precision highp float;in vec4 vC;in vec3 vWorld;uniform float uTime;uniform int uSea;out vec4 FragColor;
-void main(){vec3 color=vC.rgb;if(uSea==1){float line=sin(vWorld.x*10.+vWorld.z*6.+uTime*.17)*sin(vWorld.x*8.-vWorld.z*11.);float isles=sin(vWorld.x*1.2+vWorld.z*.3)*sin(vWorld.z*1.8);color=vec3(.029,.12,.19)+.012*line+.013*isles;}
- float fog=clamp(length(vWorld.xz)*.018,0.,.32);color=mix(color,vec3(.035,.085,.13),fog);FragColor=vec4(color,vC.a);}`;
+precision highp float;
+in vec4 vC;in vec3 vWorld;uniform float uTime;uniform int uSea;out vec4 FragColor;
+void main(){
+ vec3 color=vC.rgb;
+ float grain=sin(vWorld.x*13.7+vWorld.z*4.2)*sin(vWorld.z*19.1-vWorld.x*2.8);
+ if(uSea==1){float current=sin(vWorld.x*9.+vWorld.z*6.+uTime*.24)*sin(vWorld.x*7.-vWorld.z*12.);
+   color=vec3(.020,.115,.186)+.010*current+.007*grain;}
+ else {vec3 n=normalize(cross(dFdx(vWorld),dFdy(vWorld)));
+   float light=.54+.46*abs(dot(n,normalize(vec3(.42,.88,.33))));
+   color=color*(.74+.33*light)+vec3(.018,.021,.012)*grain;
+   float ridges=smoothstep(.12,.51,vWorld.y);
+   color=mix(color,vec3(.57,.53,.39),ridges*.22);
+ }
+ float fog=clamp(length(vWorld.xz)*.014,0.,.23);
+ color=mix(color,vec3(.025,.083,.115),fog);
+ FragColor=vec4(color,vC.a);
+}`;
 const PVSH=`#version 300 es
 precision highp float;layout(location=0) in vec3 aP;layout(location=1) in vec4 aC;layout(location=2) in vec2 aInfo;
 uniform mat4 uVP;uniform float uScale;out vec4 vC;flat out int vType;
@@ -145,44 +206,155 @@ function ll(v){const p=typeof v==='string'?LOC[v]:v;return [(p[0]-136)*.88,.145,
 const particles=[],routes=[],points=[];
 function addPt(x,y,z,c,size,kind,alpha=1){points.push(x,y,z,c[0],c[1],c[2],alpha,size,kind)}
 function route(from,to,color,phase){let a=ll(from),b=ll(to),dx=b[0]-a[0],dz=b[2]-a[2];for(let i=0;i<17;i++){let p0=i/17,p1=(i+1)/17;if(p0>phase)break;p1=Math.min(p1,phase);let h=t=>.15+Math.sin(Math.PI*t)*(.08+.13*Math.min(1,Math.hypot(dx,dz)/4));for(let [t,al] of [[p0,.6],[p1,.85]])routes.push(lerp(a[0],b[0],t),h(t),lerp(a[2],b[2],t),color[0],color[1],color[2],al)} }
-function unit(t,u,beat,i){let [side,kind,origin,dest,count]=u;const co=C[side],s=ll(origin),e=ll(dest),p=smooth((t-.08-i*.035)/.77),x=lerp(s[0],e[0],p),z=lerp(s[2],e[2],p),dir=Math.atan2(e[2]-s[2],e[0]-s[0]),c=Math.cos(dir),si=Math.sin(dir);route(origin,dest,co,p);if(kind==='palace'){for(let n=0;n<14;n++){let a=n*Math.PI*2/14;addPt(x+Math.cos(a)*.17,.20,z+Math.sin(a)*.17,co,12,2,.92)}addPt(x,.42,z,co,23,4);return {x,y:.4,z}}
+const props=[];
+function triple(a,b,c,color,alpha=1){for(const v of [a,b,c])props.push(v[0],v[1],v[2],color[0],color[1],color[2],alpha)}
+function quad(a,b,c,d,color,alpha=1){triple(a,b,c,color,alpha);triple(a,c,d,color,alpha)}
+function warModel(x,z,side,kind,dir,alpha=1){
+ const col=C[side],c=Math.cos(dir),s=Math.sin(dir);
+ const at=(a,b,y)=>[x+a*c-b*s,y,z+a*s+b*c];
+ if(kind==='fleet'){
+  const l=.115,w=.055;
+  quad(at(-l,-w,.135),at(l,-w,.135),at(l,w,.135),at(-l,w,.135),[.34,.28,.24],alpha);
+  quad(at(-l,-w,.135),at(l,-w,.135),at(l*.74,0,.078),at(-l*.74,0,.078),[.18,.19,.22],alpha);
+  quad(at(-l,w,.135),at(l,w,.135),at(l*.74,0,.078),at(-l*.74,0,.078),[.25,.22,.20],alpha);
+  triple(at(-.045,0,.16),at(.047,0,.17),at(-.045,0,.41),[.94,.87,.67],alpha);
+  triple(at(-.048,0,.18),at(-.052,0,.42),at(-.105,0,.36),col,alpha);
+ }else{
+  triple(at(-.035,0,.11),at(.035,0,.11),at(0,0,.32),col,alpha);
+  triple(at(-.025,.013,.22),at(.095,.013,.30),at(-.025,.013,.43),[.92,.77,.55],alpha);
+  triple(at(-.026,.018,.42),at(.080,.018,.31),at(.09,.018,.39),col,alpha);
+ }
+}
+
+function unit(t,u,beat,i,opt={}){let [side,kind,origin,dest,count]=u;
+const co=C[side],s=ll(origin),e=ll(dest),p=smooth((t-.04-i*.03)/.86);
+let x=lerp(s[0],e[0],p),z=lerp(s[2],e[2],p);
+const result=opt.result||null,rout=smooth((t-.61)/.35),lost=!!(result&&result.l.includes(i)),won=!!(result&&result.w.includes(i));
+const impactPt=ll(beat.loc);
+if(lost){const dx=s[0]-impactPt[0],dz=s[2]-impactPt[2],len=Math.hypot(dx,dz);
+const vx=len>.1?dx/len:(i%2?1:-1),vz=len>.1?dz/len:(i%2?-.42:.35);
+x+=vx*rout*.82;z+=vz*rout*.82;
+}else if(won){const dx=impactPt[0]-s[0],dz=impactPt[2]-s[2],len=Math.hypot(dx,dz)||1;
+x+=dx/len*rout*.24;z+=dz/len*rout*.24;}
+const alpha=(opt.alpha??1)*(lost?(1-.69*rout):1);
+const dir=Math.atan2(e[2]-s[2],e[0]-s[0]),c=Math.cos(dir),si=Math.sin(dir);
+if(opt.main)route(origin,dest,co,Math.min(1,p));if(kind==='palace'){for(let n=0;n<14;n++){let a=n*Math.PI*2/14;addPt(x+Math.cos(a)*.17,.20,z+Math.sin(a)*.17,co,12,2,.92*alpha)}addPt(x,.42,z,co,23,4,alpha);return {x,y:.4,z}}
 // Soldiers and ships occupy a *formation*; one flag is never used to stand for a whole army.
-const n=kind==='fleet'?Math.min(16,Math.max(8,Math.round(count*.17))):Math.min(75,Math.max(16,Math.round(count*.66))),row=Math.ceil(Math.sqrt(n));for(let k=0;k<n;k++){let pitch=kind==='fleet'?.26:.088;let xx=((k%row)-(row-1)/2)*pitch,zz=(Math.floor(k/row)-Math.ceil(n/row)/2)*pitch;let jitter=Math.sin(k*16.82)*.014;let px=x+xx*c-zz*si+jitter,pz=z+xx*si+zz*c;addPt(px,.175,pz,co,kind==='fleet'?21:11,kind==='fleet'?1:0,.94)}
-addPt(x,.29,z,co,kind==='fleet'?21:23,4);return {x,y:.35,z};}
+const n=kind==='fleet'?Math.min(16,Math.max(8,Math.round(count*.17))):Math.min(75,Math.max(16,Math.round(count*.66))),row=Math.ceil(Math.sqrt(n));for(let k=0;k<n;k++){let pitch=kind==='fleet'?.26:.088;let xx=((k%row)-(row-1)/2)*pitch,zz=(Math.floor(k/row)-Math.ceil(n/row)/2)*pitch;let jitter=Math.sin(k*16.82)*.014;let px=x+xx*c-zz*si+jitter,pz=z+xx*si+zz*c;addPt(px,.175,pz,co,kind==='fleet'?21:11,kind==='fleet'?1:0,.94*alpha);if(kind==='fleet'&&k%2===0)warModel(px,pz,side,kind,dir,alpha);else if(kind!=='fleet'&&k%8===0)warModel(px,pz,side,kind,dir,alpha)}
+addPt(x,.29,z,co,kind==='fleet'?21:23,4,alpha);return {x,y:.35,z};}
 function ring(x,z,phase,c,size){if(phase<=0)return;let radius=size*(.15+phase*.8);for(let i=0;i<64;i++){let a=i*2*Math.PI/64,b=(i+1)*2*Math.PI/64;for(const v of [a,b])routes.push(x+radius*Math.cos(v),.19,z+radius*Math.sin(v),c[0],c[1],c[2],(1-phase)*.75)}}
 function impact(t,b,x,z,speed){if(!b.impact||state.fx===0)return;let life=(t-.67)/.23;if(life<0||life>1)return;const strength=b.impact;for(let r=0;r<strength;r++)ring(x,z,life,C.court,.52+r*.24);if(state.fx===1)return;
+// Directional shock rays are attached to the battlefield, not the entire viewport.
 for(let a=0;a<16;a++){const angle=a*Math.PI/8,inner=.15+life*.13,outer=inner+(1-life)*(.55+strength*.16);for(const dist of [inner,outer])routes.push(x+Math.cos(angle)*dist,.33+Math.sin(life*Math.PI)*.26,z+Math.sin(angle)*dist,1,.77,.41,(1-life)*.94)}
 for(let i=0;i<Math.min(80,15+strength*17);i++){let a=i*2.399963,rad=(.12+life*(.6+strength*.21))*(.35+.65*(i%11)/11);let px=x+Math.cos(a)*rad,pz=z+Math.sin(a)*rad;let py=.15+.22*Math.sin(life*Math.PI)+(i%7)*.027;addPt(px,py,pz,i%3?C.court:C.heike,Math.max(3,15*(1-life)),3,1-life)}}
 const state={sec:0,playing:false,speed:1,fx:window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:2,sound:true,prevFrame:0,beat:-1,drag:false};
+// Unit-to-commander assignments are explicit to prevent invented identities.
 const LEADERS=[['masakado',null],['sumitomo',null],['yorinobu'],['yoriyoshi',null],['yoshiie',null],['shirakawa'],['kiyomori','yoshitomo',null],['kiyomori','yoshitomo'],['kiyomori'],[null,'tokuko'],['kiyomori','goshirakawa'],['kiyomori','goshirakawa'],[null,'yorimasa'],['yori',null],['yori',null],['munemori'],['yoshinaka','munemori'],['munemori','yoshinaka'],['yoshinaka','goshirakawa'],['yoshinaka','yoshitsune'],[null,'yoshitsune'],['yoshitsune','munemori'],['munemori','yoshitsune'],['yori']];
-const tags=new Map();
-function updateUnitTags(b,k,positions,vp){const box=$('unitLabels'),view=canvas.getBoundingClientRect(),used=[],shown=new Set();for(let i=0;i<Math.min(positions.length,3);i++){const u=b.units[i],leader=LEADERS[k]?.[i]||null;const name=leader?P[leader][0]:(u[1]==='palace'?'朝廷・政権':u[0]==='heike'?'平氏軍':u[0]==='genji'?'源氏軍':u[0]==='rebel'?'反乱勢力':u[0]==='yoshinaka'?'義仲軍':'朝廷軍');let key=leader||u[0]+'-'+i,el=tags.get(key);if(!el){el=document.createElement('div');el.className='unit-tag';box.appendChild(el);tags.set(key,el);}el.textContent=name+(u[1]==='fleet'?' ⚓':'');el.style.setProperty('--accent',hex[u[0]]||hex.court);let pt=project([positions[i].x,positions[i].y+.25,positions[i].z],vp,width,height);let x=pt.x+view.left,y=pt.y+view.top;if(!pt.visible||x<35||x>width-35||y<view.top+12||y>view.bottom-12){el.style.opacity='0';continue;}x=clamp(x,70,width-70);y-=8;let tagW=Math.min(150,name.length*15+35);for(let j=0;j<5;j++){if(!used.some(q=>Math.abs(q.x-x)<(q.w+tagW)/2+8&&Math.abs(q.y-y)<45))break;y-=44;}if(y<view.top+45){el.style.opacity='0';continue;}used.push({x,y,w:tagW});el.style.left=x+'px';el.style.top=y+'px';el.style.opacity='1';shown.add(key);}for(const [key,el]of tags)if(!shown.has(key))el.style.opacity='0';}
-const dramatic=$('dramatic');function updateDramatic(b,p){let on=state.fx!==0&&!!b.impact&&p>.67&&p<.82;dramatic.classList.toggle('live',on);dramatic.classList.toggle('tail',!on);if(on)dramatic.textContent=b.impact>=3?'最終決戦':b.impact>=2?'激 突':'衝 突';}
-let audio=null,noise=null;
-function initSound(){if(!state.sound)return;try{audio ||= new (window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();if(!noise){noise=audio.createBuffer(1,Math.round(audio.sampleRate*.25),audio.sampleRate);let d=noise.getChannelData(0),n=32911;for(let i=0;i<d.length;i++){n=(n*1664525+1013904223)>>>0;d[i]=(n/2147483648-1)*.6;}}}catch(e){state.sound=false;syncSound();}}
-function cue(type){if(!state.sound||!audio||audio.state!=='running')return;try{let t=audio.currentTime,o=audio.createOscillator(),g=audio.createGain(),f=audio.createBiquadFilter();o.type=type==='impact'?'sawtooth':'triangle';f.type='lowpass';f.frequency.setValueAtTime(type==='impact'?500:1200,t);f.frequency.exponentialRampToValueAtTime(type==='impact'?65:280,t+.3);o.frequency.setValueAtTime(type==='impact'?145:620,t);o.frequency.exponentialRampToValueAtTime(type==='impact'?45:110,t+.32);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(type==='impact'?.12:.05,t+.016);g.gain.exponentialRampToValueAtTime(.0001,t+.36);o.connect(f);f.connect(g);g.connect(audio.destination);o.start(t);o.stop(t+.4);if(type==='impact'&&noise){let n=audio.createBufferSource(),ng=audio.createGain(),nf=audio.createBiquadFilter();n.buffer=noise;nf.type='bandpass';nf.frequency.value=290;ng.gain.setValueAtTime(.042,t);ng.gain.exponentialRampToValueAtTime(.0001,t+.24);n.connect(nf);nf.connect(ng);ng.connect(audio.destination);n.start(t);n.stop(t+.25);}}catch(e){}}
-function syncSound(){const el=$('sound');el.querySelector('span').textContent=state.sound?'ON':'OFF';el.setAttribute('aria-pressed',String(state.sound));}syncSound();let soundedImpact=-1;
+const tagNodes=new Map();const prevTags=new Map();
+function updateUnitTags(candidates,vp,mainIndex){
+ const box=$('unitLabels'),view=canvas.getBoundingClientRect(),occupied=[],shown=new Set();
+ const best=new Map();for(const c of candidates){
+   const key=c.leader||`${c.u[0]}-${c.index}`;
+   if(!best.has(key)|| (c.main?2:0)+c.alpha > (best.get(key).main?2:0)+best.get(key).alpha)best.set(key,{...c,key});
+ }
+ let order=[...best.values()].sort((a,b)=>(Number(b.main)-Number(a.main))||b.alpha-a.alpha).slice(0,width<600?2:3);
+ for(let i=0;i<order.length;i++){
+   const o=order[i],{u,pos,leader,key}=o;
+   const base=leader?P[leader][0]:(u[0]==='heike'?'平氏':u[0]==='genji'?'源氏':u[0]==='yoshinaka'?'義仲':u[0]==='court'?'朝廷':'反乱勢力');
+   const name=(base+(u[1]==='fleet'?' 船団':u[1]==='palace'?' 政権':' 軍'));
+   let el=tagNodes.get(key);if(!el){el=document.createElement('div');el.className='unit-tag';box.appendChild(el);tagNodes.set(key,el);}
+   el.textContent=name;el.style.setProperty('--accent',hex[u[0]]||hex.court);
+   let pt=project([pos.x,pos.y+.21,pos.z],vp,width,height);
+   const canvasLeft=view.left,canvasTop=view.top;
+   let x=clamp(pt.x+canvasLeft,canvasLeft+67,canvasLeft+width-67),y=clamp(pt.y+canvasTop-12,canvasTop+41,canvasTop+height-17);
+   const rectW=Math.min(168,name.length*13+42),rectH=35;
+   for(let j=0;j<7;j++){
+    if(!occupied.some(r=>Math.abs(r.x-x)<(r.w+rectW)*.5+5&&Math.abs(r.y-y)<rectH+6))break;
+    const dy=rectH+6; y=j%2===0?y-dy:y+dy;
+    y=clamp(y,canvasTop+41,canvasTop+height-17);
+   }
+   if(occupied.some(r=>Math.abs(r.x-x)<(r.w+rectW)*.5+5&&Math.abs(r.y-y)<rectH+6)){x=clamp(canvasLeft+width-95,canvasLeft+67,canvasLeft+width-67);y=canvasTop+45+i*40;}
+   occupied.push({x,y,w:rectW});
+   const prev=prevTags.get(key);
+   // Stable labels stay attached across consecutive actions without a one-frame reset.
+   if(prev&&Math.abs(prev.x-x)<280&&Math.abs(prev.y-y)<170){const smoothN=.22;x=lerp(prev.x,x,smoothN);y=lerp(prev.y,y,smoothN);}
+   prevTags.set(key,{x,y});el.style.left=x+'px';el.style.top=y+'px';el.style.opacity='1';shown.add(key);
+ }
+ for(const [key,el]of tagNodes)if(!shown.has(key)){el.style.opacity='0';prevTags.delete(key);}
+}
+
+const dramatic=$('dramatic');function updateDramatic(b,p){const on=state.fx!==0&&!!b.impact&&p>.67&&p<.82;dramatic.classList.toggle('live',on);dramatic.classList.toggle('tail',!on);if(on)dramatic.textContent=b.impact>=3?'最終決戦':b.impact>=2?'激 突':'衝 突';}
+const outcomeEl=$('outcome');
+function updateOutcome(sec,k,p){
+ let outcome=OUTCOMES[k],ref=B[k],age=p;
+ if((!outcome||p<.675)&&k>0){let prev=B[k-1];let until=prev.start+prev.d+.42;if(sec<until&&OUTCOMES[k-1]){outcome=OUTCOMES[k-1];ref=prev;age=1;}}
+ const active=!!outcome&&(age>=.675)&&(sec<ref.start+ref.d+.42);
+ outcomeEl.classList.toggle('show',active);
+ if(active){const id=outcome.win+'|'+outcome.lose;if(outcomeEl.dataset.id!==id){outcomeEl.dataset.id=id;outcomeEl.innerHTML='<span class="stamp">'+(outcome.political?'勢力変化':'決 着')+'</span><strong>'+outcome.win+'</strong><span class="vs-arrow"> ➜ </span><small>'+outcome.lose+' 敗退</small><em>'+outcome.note+'</em>';}}
+}
+
+// Web Audio uses one shared clock so a later voice track can synchronize at absolute playback seconds.
+let audio=null,noiseBuffer=null;function initSound(){if(!state.sound)return;try{audio ||= new (window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();if(!noiseBuffer){noiseBuffer=audio.createBuffer(1,audio.sampleRate*.26,audio.sampleRate);let d=noiseBuffer.getChannelData(0),s=3241;for(let i=0;i<d.length;i++){s=(s*1664525+1013904223)>>>0;d[i]=(s/2147483648-1)*.65;}}}catch(e){state.sound=false;syncSound();}}
+function cue(type){if(!state.sound||!audio||audio.state!=='running')return;try{let start=audio.currentTime,os=audio.createOscillator(),g=audio.createGain(),f=audio.createBiquadFilter();os.type=type==='impact'?'sawtooth':'triangle';f.type='lowpass';f.frequency.setValueAtTime(type==='impact'?500:1200,start);f.frequency.exponentialRampToValueAtTime(type==='impact'?65:280,start+.32);os.frequency.setValueAtTime(type==='impact'?145:620,start);os.frequency.exponentialRampToValueAtTime(type==='impact'?45:110,start+.34);g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(type==='impact'?.125:.050,start+.017);g.gain.exponentialRampToValueAtTime(.0001,start+.4);os.connect(f);f.connect(g);g.connect(audio.destination);os.start(start);os.stop(start+.43);
+if(type==='impact'&&noiseBuffer){let n=audio.createBufferSource(),ng=audio.createGain(),nf=audio.createBiquadFilter();n.buffer=noiseBuffer;nf.type='bandpass';nf.frequency.value=280;ng.gain.setValueAtTime(.045,start);ng.gain.exponentialRampToValueAtTime(.0001,start+.24);n.connect(nf);nf.connect(ng);ng.connect(audio.destination);n.start(start);n.stop(start+.25);}}catch(e){}}
+function syncSound(){const s=$('sound');s.querySelector('span').textContent=state.sound?'ON':'OFF';s.setAttribute('aria-pressed',state.sound?'true':'false');}syncSound();
+let soundedImpact=-1;
 const castNodes={};function updateCast(b){const box=$('cast');for(const key of Object.keys(castNodes)){if(!b.cast.includes(key)){castNodes[key].classList.add('hiding');castNodes[key].setAttribute('aria-hidden','true');}}
 for(const key of b.cast.slice(0,2)){if(!castNodes[key]){const [name,initial,side,status]=P[key];let d=document.createElement('div');d.className='person';d.dataset.person=key;d.innerHTML=`<div class="portrait" style="color:${hex[side]}">${initial}</div><div><div class="pname">${name}</div><div class="pstate">${status}</div></div>`;box.appendChild(d);castNodes[key]=d;}castNodes[key].classList.remove('hiding');castNodes[key].removeAttribute('aria-hidden');box.appendChild(castNodes[key]);}
 setTimeout(()=>{for(const [key,el] of Object.entries(castNodes))if(el.classList.contains('hiding')){el.remove();delete castNodes[key];}},300)}
 function sceneAt(sec){let k=B.length-1;for(let i=0;i<B.length;i++)if(sec<B[i].start+B[i].d){k=i;break;}return {b:B[k],k,p:clamp((sec-B[k].start)/B[k].d,0,1)}}
 function updateUi(b,k){if(state.beat===k)return;if(state.beat>=0&&state.playing)cue('move');state.beat=k;$('year').textContent=b.y;$('era').textContent=b.era;$('eventHead').textContent=b.head;$('eventSub').textContent=b.sub;$('focusTag').textContent=b.tag;$('focusWord').textContent=b.word;$('focusText').textContent=b.text;$('sideA').textContent=b.a;$('sideB').textContent=b.b;updateCast(b)}
 let width=1,height=1,dpr=1;function resize(){const rect=canvas.getBoundingClientRect();width=Math.max(1,rect.width);height=Math.max(1,rect.height);dpr=Math.min(window.devicePixelRatio||1,width<800?1.35:1.8);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);gl.viewport(0,0,canvas.width,canvas.height)}resize();window.addEventListener('resize',resize);
-function camera(t){let {b,k,p}=sceneAt(t),v=smooth(p/.23),prev=B[Math.max(0,k-1)];let p0=ll(prev.loc),p1=ll(b.loc),x=lerp(p0[0],p1[0],v),z=lerp(p0[2],p1[2],v),span=lerp(prev.span,b.span,v);
-const dive=p<.28?lerp(1.22,.72,smooth(p/.28)):p<.48?lerp(.72,.58,smooth((p-.28)/.2)):p<.80?.58:lerp(.58,.88,smooth((p-.8)/.2));
-span*=dive;if(k===0){x=p1[0];z=p1[2];span=b.span*dive;}
-// Account for HUD and safe caption area: focal target lives right of title, in the upper-middle of the world view.
-let mobile=width<780;let centerX=x,centerZ=z;
-let eye=[centerX+span*.69,span*.92,centerZ+span*1.18];let at=[centerX,0,centerZ];let view=lookAt(eye,at),aspect=width/height;let wide=span*(mobile?.80:1.04),high=wide/aspect;let proj=ortho(-wide,wide,-high,high,-180,180);return {vp:matMul(proj,view),span,focus:ll(b.loc),b,k,p};}
-function draw(sec){let {vp,span,focus,b,k,p}=camera(sec);let w=width,h=height;gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(.018,.055,.083,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+function camera(t){
+ const {b,k,p}=sceneAt(t);
+ const anchors=B.map(q=>({t:q.start+q.d*.46,pos:ll(q.loc),span:q.span*.66}));
+ // Map transitions can begin before the next event text. Adjacent splines share velocity at knots.
+ let j=0;while(j<anchors.length-2&&t>anchors[j+1].t)j++;
+ const A=anchors[j],D=anchors[Math.min(j+1,anchors.length-1)];
+ const t0=anchors[Math.max(0,j-1)].t,t3=anchors[Math.min(anchors.length-1,j+2)].t;
+ const a0=anchors[Math.max(0,j-1)],a3=anchors[Math.min(anchors.length-1,j+2)];
+ const delta=Math.max(.0001,D.t-A.t),u=clamp((t-A.t)/delta,0,1);
+ const herm=(key,axis)=>{const v0=key(A,axis),v1=key(D,axis);
+ const m0=(key(D,axis)-key(a0,axis))/Math.max(.01,D.t-t0);
+ const m1=(key(a3,axis)-key(A,axis))/Math.max(.01,t3-A.t);
+ const h00=2*u*u*u-3*u*u+1,h10=u*u*u-2*u*u+u,h01=-2*u*u*u+3*u*u,h11=u*u*u-u*u;
+ return h00*v0+h10*delta*m0+h01*v1+h11*delta*m1;};
+ // Before/after first anchor ease into camera without resetting its position.
+ let x=herm((z,i)=>z.pos[i],0),z=herm((z,i)=>z.pos[i],2),span=herm(z=>z.span,0);
+ const inTransit=Math.sin(Math.PI*u);
+ const dist=Math.hypot(A.pos[0]-D.pos[0],A.pos[2]-D.pos[2]);
+ span*=1+Math.min(.52,dist*.045)*inTransit*inTransit;
+ // Slow moving camera within a location; local gaze never freezes between events.
+ x+=Math.sin(t*.39)*.038*span;z+=Math.cos(t*.31)*.025*span;
+ let eye=[x+span*.69,span*.92,z+span*1.18],at=[x,0,z];
+ let view=lookAt(eye,at),aspect=width/height;
+ let wide=span*(width<780?.8:1.04),high=wide/aspect;
+ let proj=ortho(-wide,wide,-high,high,-180,180);
+ return {vp:matMul(proj,view),span,focus:ll(b.loc),b,k,p};
+}
+function draw(sec){
+let {vp,span,focus,b,k,p}=camera(sec);
+gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(.015,.043,.073,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
 drawShape(sea,gl.TRIANGLES,vp,1,sec);drawShape(terrain,gl.TRIANGLES,vp,0,sec);drawShape(mountains,gl.TRIANGLES,vp,0,sec);drawShape(walls,gl.LINES,vp,0,sec);drawShape(landmarks,gl.TRIANGLES,vp,0,sec);
-routes.length=0;points.length=0;const unitPositions=[];for(const [i,u] of b.units.entries()){unitPositions.push(unit(p,u,b,i));}
-// When squads are converging, the focus label follows the point of contact rather than an arbitrary place name.
-let impactLoc=ll(b.loc),[ex,ey,ez]=impactLoc;if(b.units.length>1&&b.impact)impact(p,b,ex,ez,state.speed);drawShape(routes,gl.LINES,vp,0,sec);gl.disable(gl.DEPTH_TEST);drawPoint(points,vp,clamp(7/span,.74,2.6)*(width<780?.82:1));gl.enable(gl.DEPTH_TEST);
-// Position the callout by projecting the same world-space anchor used for the action.
-updateUnitTags(b,k,unitPositions,vp);updateDramatic(b,p);
-// One short effect at the collision, not a perpetual blink. Camera displacement is never added to text.
-if(state.fx&&b.impact&&p>.64&&p<.73&&state.playing){let j=(p-.64)/.09;let magnitude=(1-j)*(state.fx===2?Math.min(b.impact,3)*2.55:1.0);let dx=Math.sin(sec*111)*magnitude,dy=Math.cos(sec*133)*magnitude;canvas.style.transform=`translate(${dx}px,${dy}px)`;}else canvas.style.transform='';
+routes.length=0;points.length=0;props.length=0;
+const candidates=[];
+for(const a of activeActions(sec)){
+ const outcome=OUTCOMES[a.k]||null,arr=[];
+ for(const [i,u] of a.b.units.entries()){
+ const pos=unit(a.p,u,a.b,i,{alpha:a.weight,main:a.k===k,result:outcome});arr.push(pos);
+ const leader=LEADERS[a.k]?.[i]||null;
+ candidates.push({u,pos,leader,beat:a.k,index:i,alpha:a.weight,main:a.k===k});
+ }
+ // Impact is not replaced by a static success label; a defeat changes the formation itself.
+ if(a.b.impact&&a.k===k){const pp=ll(a.b.loc);impact(a.p,a.b,pp[0],pp[2],state.speed);}
+}
+drawShape(routes,gl.LINES,vp,0,sec);drawShape(props,gl.TRIANGLES,vp,0,sec);
+gl.disable(gl.DEPTH_TEST);drawPoint(points,vp,clamp(7/span,.74,2.6)*(width<780?.82:1));gl.enable(gl.DEPTH_TEST);
+updateUnitTags(candidates,vp,k);
+updateDramatic(b,p);
+updateOutcome(sec,k,p);
+if(state.fx&&b.impact&&p>.63&&p<.715&&state.playing){let j=(p-.63)/.085,magnitude=(1-j)*(state.fx===2?Math.min(b.impact,3)*2.3:1);canvas.style.transform=`translate(${Math.sin(sec*111)*magnitude}px,${Math.cos(sec*133)*magnitude}px)`;}else canvas.style.transform='';
 const pr=sec/TOTAL*1000;$('progress').value=Math.round(pr);$('progress').style.setProperty('--pct',pr/10+'%');$('timeText').textContent=fmt(sec)+' / '+fmt(TOTAL);updateUi(b,k);
 }
 function fmt(t){let m=Math.floor(t/60),s=Math.floor(t%60);return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
