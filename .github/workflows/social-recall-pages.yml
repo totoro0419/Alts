@@ -35,6 +35,11 @@ jobs:
           test -f social-recall/assets/app.js
           test -f social-recall/assets/data.json
           node --check social-recall/assets/app.js
+          test -f social-recall/note.html
+          test -f social-recall/assets/note.css
+          test -f social-recall/assets/note-app.js
+          test -f social-recall/assets/note-data.json
+          node --check social-recall/assets/note-app.js
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -48,6 +53,17 @@ jobs:
                   for p in section['paragraphs']:
                       assert section['pageStart'] <= p['page'] <= section['pageEnd']
           print('Validated',len(token_list),'recall targets')
+          note=json.loads(Path('social-recall/assets/note-data.json').read_text())
+          note_tokens=[t for c in note['chapters'] for s in c['sections'] for p in s['paragraphs'] for t in p['tokens'] if 'answer' in t]
+          assert len(note_tokens)==note['counts']['total']==357
+          assert len({t['id'] for t in note_tokens})==len(note_tokens)
+          assert sum(t['level']==1 for t in note_tokens)==note['counts']['basic']==299
+          assert all(t['level'] in (1,2) for t in note_tokens)
+          for chapter in note['chapters']:
+              for section in chapter['sections']:
+                  for p in section['paragraphs']:
+                      assert section['pageStart'] <= p['page'] <= section['pageEnd']
+          print('Validated',len(note_tokens),'notebook recall targets')
           PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -73,10 +89,15 @@ jobs:
             sleep 6
           done
           test "${ok}" -eq 1
-          for asset in "assets/app.css" "assets/app.js" "assets/data.json"; do
+          for asset in "assets/app.css" "assets/app.js" "assets/data.json" "assets/note.css" "assets/note-app.js" "assets/note-data.json"; do
             curl --fail --location --silent --show-error --max-time 15 "${URL}${asset}" -o /tmp/social-recall-asset
             test -s /tmp/social-recall-asset
             echo "LIVE verified: ${asset}"
           done
-          curl --fail --location --silent --show-error --max-time 15 "${URL}" | grep -q "Social Recall"
+          curl --fail --location --silent --show-error --max-time 15 "${URL}note.html" -o /tmp/social-recall-note-page.html
+          grep -q "Social Recall" /tmp/social-recall-note-page.html
+          grep -q "note-app.js" /tmp/social-recall-note-page.html
+          echo "LIVE verified: ${URL}note.html (direct navigation)"
+          curl --fail --location --silent --show-error --max-time 15 "${URL}" -o /tmp/social-recall-page-second.html
+          grep -q "Social Recall" /tmp/social-recall-page-second.html
           echo "LIVE verified: ${URL} (including a second direct request)"
