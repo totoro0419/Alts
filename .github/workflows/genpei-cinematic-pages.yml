@@ -1,0 +1,76 @@
+name: Publish Genpei Cinematic
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'genpei-cinematic/**'
+      - '.github/workflows/genpei-cinematic-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate isolated HTML application
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s genpei-cinematic/index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class Scripts(HTMLParser):
+              def __init__(self): super().__init__(); self.active=False; self.scripts=[]
+              def handle_starttag(self, tag, attrs):
+                  if tag=='script': self.active=True; self.scripts.append('')
+              def handle_endtag(self, tag):
+                  if tag=='script': self.active=False
+              def handle_data(self, data):
+                  if self.active: self.scripts[-1]+=data
+          s=Path('genpei-cinematic/index.html').read_text()
+          p=Scripts();p.feed(s)
+          assert len(p.scripts)==2
+          assert 'TERRAIN' in p.scripts[0] and 'WebGL2' in p.scripts[1]
+          assert '平将門' in s and '壇ノ浦' in s
+          assert not any(x in s for x in ['https://cdn.','http://cdn.','<script src='])
+          Path('/tmp/genpei-renderer.js').write_text(p.scripts[1])
+          print('PASS: standalone project HTML and scripts')
+          PY
+          node --check /tmp/genpei-renderer.js
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify public page
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://totoro0419.github.io/Alts/genpei-cinematic/"
+          for attempt in {1..18}; do
+            if curl --fail --location --silent --show-error --max-time 15 "$URL" -o /tmp/genpei-live.html; then
+              if grep -q "GENPEI // 覇権のゆくえ" /tmp/genpei-live.html && grep -q "independent WebGL2 cinematic renderer" /tmp/genpei-live.html; then
+                echo "LIVE verified: $URL"
+                exit 0
+              fi
+            fi
+            sleep 7
+          done
+          echo "::error::Published page unavailable or mismatched"
+          exit 1
