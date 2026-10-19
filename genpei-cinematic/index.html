@@ -342,7 +342,7 @@ const candidates=[];
 for(const a of activeActions(sec)){
  const outcome=OUTCOMES[a.k]||null,arr=[];
  for(const [i,u] of a.b.units.entries()){
- const pos=unit(a.p,u,a.b,i,{alpha:a.weight,main:a.k===k,result:outcome});arr.push(pos);
+ const motionPhase=clamp((sec-(a.b.start-.55))/(a.b.d+1.0),0,1);const pos=unit(motionPhase,u,a.b,i,{alpha:a.weight,main:a.k===k,result:outcome});arr.push(pos);
  const leader=LEADERS[a.k]?.[i]||null;
  candidates.push({u,pos,leader,beat:a.k,index:i,alpha:a.weight,main:a.k===k});
  }
