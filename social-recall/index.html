@@ -13,6 +13,7 @@
 <meta name="description" content="文章を読みながら歴史の重要語句をタップして覚える。3段階の難易度と未合格だけの反復復習に対応。">
 <title>Social Recall — 日本史</title>
 <link rel="stylesheet" href="./assets/app.css">
+<link rel="stylesheet" href="./assets/note.css">
 <script type="module" src="./assets/app.js"></script>
 <script type="module" src="./assets/pwa.js"></script>
 </head>
@@ -36,6 +37,7 @@
  <header class="topbar"><button class="menu-button" id="menu" type="button" aria-label="学習設定を開く" aria-controls="sidebar" aria-expanded="false">☷</button><span class="top-label">日本史 ｜ 古代・中世</span><a class="install-shortcut" id="install-link" href="./install.html">アプリを入れる ↗</a><div class="top-right"><span class="live-dot" aria-hidden="true"></span> 学習の進捗は自動保存</div></header>
  <main class="main" id="material">
   <div class="main-inner">
+   <nav class="collection-tabs" aria-label="教材の切り替え"><a class="collection-tab" href="./" aria-current="page">教科書 <span>3 LEVELS</span></a><a class="collection-tab" href="./note.html">ノート <span>2 LEVELS</span></a></nav>
    <div class="hero"><div><div class="eyebrow"><span class="bar-mark"></span> ACTIVE RECALL / JAPANESE HISTORY</div><h1>歴史を、文章で覚える。</h1><p>文章の流れを読み、隠された重要語句をタップして確認。<br class="only-desktop">覚えた箇所を合格にすると、苦手復習から少しずつ消えていきます。</p></div></div>
    <section class="controls" aria-label="学習モード"><div class="mode-picker" role="group" aria-label="出題モード"><button id="full-mode" type="button" class="active" aria-pressed="true">すべて学習</button><button id="weak-mode" type="button" aria-pressed="false">未合格だけ</button></div><div class="progress-pill"><span id="passed-count">0</span><span class="progress-div">/</span><span id="total-count">0</span><span class="progress-unit"> 合格</span><span class="remaining-pill">未合格 <span id="remaining-count">0</span></span></div></section>
    <div class="instructions"><span class="instruction-icon" aria-hidden="true">⌁</span><div><strong>タップで答えを表示 → もう一度タップで合格 ✓</strong><p>合格済みをタップすると合格解除できます。説明のある語句には「解説」が現れます。</p></div></div>

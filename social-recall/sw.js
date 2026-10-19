@@ -1,10 +1,10 @@
 /* Social Recall: only this app's pages/assets and caches may be controlled. */
 const PROJECT_CACHE_PREFIX = 'sideworks:social-recall:';
-const CACHE_NAME = PROJECT_CACHE_PREFIX + 'offline-v3';
+const CACHE_NAME = PROJECT_CACHE_PREFIX + 'offline-v4';
 const ROOT = new URL(self.registration.scope);
 const CORE_FILES = [
-  './', './index.html', './install.html', './manifest.webmanifest', './assets/app.css',
-  './assets/app.js', './assets/pwa.js', './assets/data.json',
+  './', './index.html', './install.html', './note.html', './manifest.webmanifest', './assets/app.css', './assets/note.css',
+  './assets/app.js', './assets/pwa.js', './assets/data.json', './assets/note-app.js', './assets/note-data.json',
   './assets/icons/icon-192.png', './assets/icons/icon-512.png',
   './assets/icons/maskable-512.png', './assets/icons/apple-touch-icon.png'
 ];
@@ -35,8 +35,8 @@ self.addEventListener('fetch', event => {
   if (!isNavigation && !CORE_URLS.has(url.origin + url.pathname)) return;
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_NAME);
-    const key = isNavigation && url.pathname !== new URL('./install.html', ROOT).pathname
-      ? OFFLINE_PAGE : new URL(url.pathname, ROOT.origin).href;
+    const keepPage = url.pathname === new URL('./install.html', ROOT).pathname || url.pathname === new URL('./note.html', ROOT).pathname;
+    const key = isNavigation && !keepPage ? OFFLINE_PAGE : new URL(url.pathname, ROOT.origin).href;
     try {
       const fresh = await fetch(request);
       if (!fresh.ok) throw new Error('HTTP ' + fresh.status);

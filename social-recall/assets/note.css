@@ -1,0 +1,9 @@
+/* Shared tab strip; styles are scoped to Social Recall only. */
+.collection-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;background:#e9efea;padding:6px;border-radius:13px;margin:0 0 30px}
+.collection-tab{display:flex;align-items:center;justify-content:center;gap:10px;min-height:46px;border-radius:10px;text-decoration:none;color:#5c7465;font-size:14px;font-weight:750;transition:background .15s}
+.collection-tab span{font-size:9px;letter-spacing:.08em;opacity:.8}
+.collection-tab[aria-current="page"]{background:#fff;color:#236149;box-shadow:0 2px 9px #17351c12}
+.collection-tab:not([aria-current]):hover{background:#f4f8f4}
+.collection-tab:focus-visible{outline:3px solid #539a7a;outline-offset:2px}
+.answer-unit{display:contents}
+@media(max-width:520px){.collection-tabs{margin-bottom:24px}.collection-tab{font-size:13px;gap:5px;min-height:43px}.collection-tab span{font-size:8px}}
