@@ -111,7 +111,7 @@ async function check(){
   const reg=await navigator.serviceWorker.register('./sw.js',{scope:'./'});
   const active=reg.active||reg.waiting||reg.installing;
   set('worker-status',active&&reg.scope===location.origin+EXPECTED_SCOPE?'正常 · 専用範囲':'登録処理中');
-  const cache=await caches.open('sideworks:social-recall:offline-v5');
+  const cache=await caches.open('sideworks:social-recall:offline-v6');
   const paths=['./index.html','./assets/app.js','./assets/app.css','./assets/data.json'];
   const present=await Promise.all(paths.map(path=>cache.match(new URL(path,location.href).href)));
   set('offline-status',present.every(Boolean)?'教材を保存済み':'初回ダウンロード・更新中');

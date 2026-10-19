@@ -3,11 +3,11 @@
 const STORAGE_KEY='sideworks:social-recall:notes:progress:v1';
 const SETTINGS_KEY='sideworks:social-recall:notes:settings:v1';
 const $=id=>document.getElementById(id);
-const state={data:null,passed:{},revealed:{},expanded:new Set(),level:1,mode:'full',chapter:'all',section:'all',from:20,to:35,mobileMenu:false};
+const state={data:null,passed:{},revealed:{},expanded:new Set(),level:1,mode:'full',chapter:'all',section:'all',from:20,to:35,mobileMenu:false,showPassed:false};
 let tokenIndex=new Map();
 function saved(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}}
 function writeProgress(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({version:1,passed:state.passed,revealed:state.revealed}));$('save-status').textContent='ノートの学習状況をこの端末に保存しました。';}catch{$('save-status').textContent='保存できません。ブラウザの設定を確認してください。';}}
-function writeSettings(){try{localStorage.setItem(SETTINGS_KEY,JSON.stringify({level:state.level,mode:state.mode,chapter:state.chapter,section:state.section,from:state.from,to:state.to}))}catch{}}
+function writeSettings(){try{localStorage.setItem(SETTINGS_KEY,JSON.stringify({level:state.level,mode:state.mode,chapter:state.chapter,section:state.section,from:state.from,to:state.to,showPassed:state.showPassed}))}catch{}}
 function sections(){return state.data.chapters.flatMap(ch=>ch.sections.map(s=>({...s,chapterId:ch.id})));}
 function visibleSections(){return sections().filter(s=>(state.chapter==='all'||s.chapterId===state.chapter)&&(state.section==='all'||s.id===state.section)&&s.pageStart<=state.to&&s.pageEnd>=state.from)}
 function visibleParagraphs(){return visibleSections().flatMap(s=>s.paragraphs.filter(p=>p.page>=state.from&&p.page<=state.to))}
@@ -27,6 +27,7 @@ function syncControls({chapterChanged=false,sectionChanged=false}={}){
  state.from=Math.max(lo,Math.min(state.from,hi));state.to=Math.max(state.from,Math.min(state.to,hi));
  const pages=Array.from({length:hi-lo+1},(_,i)=>[String(lo+i),`p.${lo+i}`]);
  populate($('from-page'),pages,String(state.from));populate($('to-page'),pages,String(state.to));
+ $('show-passed').checked=state.showPassed;
  document.querySelectorAll('input[name="level"]').forEach(el=>el.checked=+el.value===state.level);
  for(const [id,value] of [['full-mode',state.mode==='full'],['weak-mode',state.mode==='weak']]){$(id).classList.toggle('active',value);$(id).setAttribute('aria-pressed',String(value));}
 }
@@ -41,13 +42,13 @@ function createAnswer(t){
  if(state.mode==='weak'&&passed){
   const w=document.createElement('button');w.type='button';w.className='plain-passed';w.dataset.id=t.id;w.dataset.action='unpass';w.textContent=t.answer;w.title='合格解除する';w.setAttribute('aria-label',`${t.answer} 合格済み。タップで合格解除`);return w;
  }
- const b=document.createElement('button');b.type='button';b.className='blank';b.dataset.id=t.id;b.dataset.action='cycle';const open=state.revealed[t.id]===true;
+ const b=document.createElement('button');b.type='button';b.className='blank';b.dataset.id=t.id;b.dataset.action='cycle';const open=state.revealed[t.id]===true||(state.showPassed&&passed);
  b.classList.toggle('is-open',open);b.classList.toggle('is-passed',open&&passed);
  b.textContent=open?t.answer:'□'.repeat(Math.min(6,Math.max(3,[...t.answer].length)));
  b.setAttribute('aria-pressed',String(passed));b.setAttribute('aria-label',open?`${t.answer} ${passed?'合格済み、タップで合格解除':'未合格、タップで合格'}`:'隠された語句、タップで答えを表示');return b;
 }
 function appendTarget(parent,t){const container=document.createElement('span');container.className='answer-unit';container.dataset.unit=t.id;container.append(createAnswer(t));
- if(t.explanation&&state.revealed[t.id]){
+ if(t.explanation&&(state.revealed[t.id]||(state.showPassed&&state.passed[t.id]))){
   const b=document.createElement('button');b.className='explain-btn';b.type='button';b.dataset.id=t.id;b.dataset.action='explain';b.setAttribute('aria-expanded',String(state.expanded.has(t.id)));b.textContent=state.expanded.has(t.id)?'解説を閉じる':'解説';container.append(b);
   if(state.expanded.has(t.id)){const note=document.createElement('span');note.className='explain-box';note.append(document.createTextNode(t.answer+'｜'+t.explanation));container.append(note);}
  }parent.append(container);
@@ -71,10 +72,10 @@ function render(){if(!state.data)return;
 function refreshUnit(id){const unit=[...$('article').querySelectorAll('.answer-unit')].find(x=>x.dataset.unit===id);if(!unit)return;const replacement=document.createDocumentFragment();appendTarget(replacement,tokenIndex.get(id));const hadFocus=unit.contains(document.activeElement);unit.replaceWith(replacement);if(hadFocus){const match=[...$('article').querySelectorAll('.answer-unit')].find(x=>x.dataset.unit===id);match?.querySelector('button')?.focus({preventScroll:true});}}
 function cycle(id,unpass=false){if(!tokenIndex.has(id))return;
  if(unpass){state.passed[id]=false;state.revealed[id]=true;}
- else if(state.revealed[id]!==true){state.revealed[id]=true;}
- else{state.passed[id]=!Boolean(state.passed[id]);}
+ else if(state.revealed[id]!==true&&!(state.showPassed&&state.passed[id])){state.revealed[id]=true;}
+ else{state.passed[id]=!Boolean(state.passed[id]);state.revealed[id]=true;}
  state.expanded.delete(id);writeProgress();refreshUnit(id);updateProgress();}
-function explain(id){const t=tokenIndex.get(id);if(!t?.explanation||!state.revealed[id])return;state.expanded.has(id)?state.expanded.delete(id):state.expanded.add(id);refreshUnit(id)}
+function explain(id){const t=tokenIndex.get(id);if(!t?.explanation||!(state.revealed[id]||(state.showPassed&&state.passed[id])))return;state.expanded.has(id)?state.expanded.delete(id):state.expanded.add(id);refreshUnit(id)}
 function closeMenu(){state.mobileMenu=false;$('sidebar').classList.remove('open');$('overlay').hidden=true;$('menu').setAttribute('aria-expanded','false')}
 function updateSettings(){writeSettings();syncControls();state.expanded.clear();render()}
 function selectMode(mode){if(state.mode===mode)return;state.mode=mode;for(const t of visibleTokens())delete state.revealed[t.id];state.expanded.clear();writeProgress();updateSettings()}
@@ -86,6 +87,7 @@ function wire(){
  $('to-page').addEventListener('change',event=>{state.to=+event.target.value;if(state.to<state.from)state.from=state.to;updateSettings();closeMenu()});
  document.querySelectorAll('input[name="level"]').forEach(el=>el.addEventListener('change',event=>{state.level=+event.target.value;updateSettings();closeMenu()}));
  $('full-mode').addEventListener('click',()=>selectMode('full'));$('weak-mode').addEventListener('click',()=>selectMode('weak'));
+ $('show-passed').addEventListener('change',event=>{state.showPassed=event.target.checked;state.expanded.clear();writeSettings();if(state.mode==='full'){const y=window.scrollY;render();window.scrollTo(0,y);}});
  $('reset').addEventListener('click',()=>{$('reset-dialog').showModal();closeMenu()});
  $('reset-dialog').addEventListener('close',()=>{if($('reset-dialog').returnValue!=='confirm')return;for(const p of visibleParagraphs())for(const t of p.tokens)if(t.answer){delete state.passed[t.id];delete state.revealed[t.id]};state.expanded.clear();writeProgress();render()});
  $('menu').addEventListener('click',()=>{state.mobileMenu=!state.mobileMenu;$('sidebar').classList.toggle('open',state.mobileMenu);$('overlay').hidden=!state.mobileMenu;$('menu').setAttribute('aria-expanded',String(state.mobileMenu))});
@@ -95,7 +97,7 @@ function validate(data){if(!data?.chapters?.length)throw Error('ノートの章�
 async function start(){try{
  const res=await fetch('./assets/note-data.json');if(!res.ok)throw Error('教材データを取得できません (HTTP '+res.status+')');state.data=await res.json();validate(state.data);
  const progress=saved(STORAGE_KEY,{});state.passed=progress.passed&&typeof progress.passed==='object'?progress.passed:{};state.revealed=progress.revealed&&typeof progress.revealed==='object'?progress.revealed:{};
- const settings=saved(SETTINGS_KEY,{});state.level=[1,2].includes(+settings.level)?+settings.level:1;state.mode=['full','weak'].includes(settings.mode)?settings.mode:'full';state.chapter=state.data.chapters.some(c=>c.id===settings.chapter)?settings.chapter:'all';state.section=sections().some(s=>s.id===settings.section)?settings.section:'all';state.from=Number.isInteger(settings.from)?settings.from:20;state.to=Number.isInteger(settings.to)?settings.to:35;
+ const settings=saved(SETTINGS_KEY,{});state.level=[1,2].includes(+settings.level)?+settings.level:1;state.mode=['full','weak'].includes(settings.mode)?settings.mode:'full';state.showPassed=settings.showPassed===true;state.chapter=state.data.chapters.some(c=>c.id===settings.chapter)?settings.chapter:'all';state.section=sections().some(s=>s.id===settings.section)?settings.section:'all';state.from=Number.isInteger(settings.from)?settings.from:20;state.to=Number.isInteger(settings.to)?settings.to:35;
  syncControls();wire();render();
  }catch(e){$('article').textContent='ノート教材を読み込めませんでした。'+e.message;console.error(e);}}
 start();
