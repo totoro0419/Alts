@@ -71,7 +71,7 @@ jobs:
             >"$MATH_OUTPUT" 2>/tmp/math-exam-book-smoke.err || true
           MATH_RESULT="$(python3 -c 'import re,sys,html; s=open(sys.argv[1],encoding="utf-8").read(); m=re.search(r"<pre id=.result.>([^<]*)</pre>",s); print(html.unescape(m.group(1)).splitlines()[0].strip() if m else "MISSING")' "$MATH_OUTPUT")"
           echo "Math textbook browser result: $MATH_RESULT"
-          if [[ "$MATH_RESULT" != "PASS 13 / 13" ]]; then
+          if [[ "$MATH_RESULT" != "PASS 16 / 16" ]]; then
             echo "::error::Math textbook smoke failed; blocking publication"
             grep -A 18 -B 2 '<pre id="result">' "$MATH_OUTPUT" || true
             tail -30 /tmp/math-exam-book-smoke.err || true
