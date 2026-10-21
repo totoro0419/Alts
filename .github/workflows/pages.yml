@@ -77,7 +77,7 @@ jobs:
             tail -30 /tmp/math-exam-book-smoke.err || true
             exit 1
           fi
-          echo "Verified math textbook smoke: $MATH_RESULT
+          echo "Verified math textbook smoke: $MATH_RESULT"
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload static site
