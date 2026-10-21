@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111827">
+<meta name="description" content="高校数学・試験対策の体系的な教科書。チェバ・メネラウス・方べき、四面体、三角関数、直線のなす角、最大最小を公式から応用まで解説。">
+<title>数学試験対策 教科書｜構造で解く</title>
+<link rel="stylesheet" href="./assets/style.css">
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']},startup:{typeset:true}};
+</script>
+<script defer src="./assets/chapters-geometry.js"></script>
+<script defer src="./assets/chapters-solid.js"></script>
+<script defer src="./assets/chapters-trig.js"></script>
+<script defer src="./assets/chapters-advanced.js"></script>
+<script defer src="./assets/app.js"></script>
+<script defer id="mathjax-js" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<div class="layout" id="layout">
+<aside class="sidebar" id="sidebar">
+  <div class="sidebrand"><span class="brand-logo">∑</span><div><strong>数学試験対策</strong><small>STRUCTURAL MATH</small></div></div>
+  <div class="search-wrap"><label for="search">教材内検索</label><input id="search" type="search" placeholder="例：メネラウス、合成、体積" autocomplete="off"></div>
+  <nav id="side-nav" aria-label="目次"></nav>
+  <div class="sidefoot"><div id="progress-summary" aria-live="polite"></div><p>公式より、使う条件を理解する。</p><a href="./#guide">この教材の使い方</a></div>
+</aside>
+<div class="main-area">
+  <header class="topbar"><button id="menu-toggle" class="icon-button" type="button" aria-label="目次を開く" aria-expanded="false">☰</button><span>MATHEMATICS / EXAM EDITION</span><div class="top-actions"><button type="button" id="print-btn">印刷</button><button type="button" id="theme-btn" title="配色を切り替え">◐</button></div></header>
+  <main id="page" tabindex="-1"><div class="loading">教材を読み込み中…</div></main>
+  <footer class="page-footer"><span>数学試験対策 ｜ 数学Ⅲを除く</span><span>参照資料：授業問題7枚／高校数学の基本定理</span></footer>
+</div>
+</div>
+<script>document.documentElement.classList.add('js-enabled')</script>
+<noscript><p style="padding:24px">このWeb教科書は目次表示にJavaScriptを使用します。ブラウザーのJavaScriptを有効にしてください。</p></noscript>
+</body></html>
