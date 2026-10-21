@@ -32,6 +32,11 @@
    d.getElementById("theme-btn")?.click();
    check("theme switch works",d.body.classList.contains("dark"));
    check("solution details included",d.querySelectorAll("details").length>=1);
+   check("geometry diagram exists",w.EXAM_BOOK_CHAPTERS[0].html.includes("class=\"diagram\""));
+   iframe.style.width="360px";await pause(250);
+   check("mobile navigation control appears",w.getComputedStyle(d.getElementById("menu-toggle")).display!=="none");
+   d.getElementById("menu-toggle").click();
+   check("mobile sidebar can open",d.getElementById("layout").classList.contains("menu-open"));
    done();
  }catch(e){report.textContent="FAIL "+tests.filter(t=>t.pass).length+" / "+Math.max(tests.length,13)+"\n"+String(e)+"\n"+tests.map(t=>(t.pass?"✓":"✗")+" "+t.name).join("\n");}
 })();
