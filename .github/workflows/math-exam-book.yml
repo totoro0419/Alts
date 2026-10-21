@@ -1,0 +1,66 @@
+name: Publish Math Textbook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'math-exam-book/**'
+      - '.github/workflows/math-exam-book.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Verify math textbook in headless Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f math-exam-book/index.html
+          test -f math-exam-book/assets/app.js
+          SITE_ROOT="$(dirname "$GITHUB_WORKSPACE")"
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory "$SITE_ROOT" >/tmp/math-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          sleep 2
+          BROWSER="$(command -v google-chrome || command -v chromium || true)"
+          if [[ -z "$BROWSER" ]]; then
+            echo "::error::Headless Chrome unavailable"
+            exit 1
+          fi
+          timeout 80 "$BROWSER" --headless=new --no-sandbox --disable-gpu \
+            --disable-dev-shm-usage --no-first-run --disable-background-networking \
+            --virtual-time-budget=25000 --dump-dom \
+            "http://127.0.0.1:8765/Alts/math-exam-book/smoke.html" \
+            >/tmp/math-smoke.dom 2>/tmp/math-smoke.err || true
+          RESULT="$(python3 -c 'import re,sys,html; s=open(sys.argv[1],encoding="utf-8").read(); m=re.search(r"<pre id=.result.>([^<]*)</pre>",s); print(html.unescape(m.group(1)).splitlines()[0].strip() if m else "MISSING")' /tmp/math-smoke.dom)"
+          echo "Math browser test: $RESULT"
+          if [[ "$RESULT" != "PASS 16 / 16" ]]; then
+            echo "::error::Math textbook browser test failed"
+            grep -A 24 -B 2 '<pre id="result">' /tmp/math-smoke.dom || true
+            tail -35 /tmp/math-smoke.err || true
+            exit 1
+          fi
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
