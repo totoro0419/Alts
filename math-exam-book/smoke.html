@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Math textbook smoke checks</title></head>
+<body><h1>Math textbook browser smoke</h1><pre id="result">WAITING</pre><iframe id="site" src="./index.html#guide" title="教材の検査対象" style="width:800px;height:500px"></iframe>
+<script>
+(async function(){
+ const tests=[];
+ const report=document.getElementById("result");
+ const iframe=document.getElementById("site");
+ const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+ const check=(name,condition)=>{tests.push({name,pass:!!condition});};
+ const done=()=>{let ok=tests.filter(t=>t.pass).length;report.textContent=(ok===tests.length?"PASS ":"FAIL ")+ok+" / "+tests.length+"\n"+tests.map(t=>(t.pass?"✓":"✗")+" "+t.name).join("\n");};
+ try{
+   for(let i=0;i<50;i++){await pause(180);if(iframe.contentDocument?.querySelector("#side-nav a")&&iframe.contentWindow?.EXAM_BOOK_CHAPTERS?.length)break;}
+   const w=iframe.contentWindow;
+   const d=iframe.contentDocument;
+   check("chapter data loaded",w.EXAM_BOOK_CHAPTERS?.length===13);
+   check("guide initial render",d.querySelector("#page h1")?.textContent.includes("構造で解く"));
+   check("navigation has 13 lessons plus guide",d.querySelectorAll("#side-nav a").length===14);
+   check("local project stylesheet attached",Array.from(d.querySelectorAll('link[rel="stylesheet"]')).some(n=>n.href.includes("/Alts/math-exam-book/assets/style.css")));
+   w.location.hash="#tetra-volume";
+   await pause(240);
+   check("hash chapter navigation",d.querySelector(".chapter-header h1")?.textContent.includes("四面体の体積"));
+   check("chapter math content exists",d.querySelectorAll(".mathline").length>=3);
+   d.getElementById("complete-btn")?.click();
+   check("progress button works",d.getElementById("complete-btn")?.dataset.done==="true");
+   check("progress storage is namespaced",(w.localStorage.getItem("sideworks:math-exam-book:completed")||"").includes("tetra-volume"));
+   w.location.hash="#trig-formulas";await pause(240);
+   check("next chapter renders",d.querySelector(".chapter-header h1")?.textContent.includes("加法"));
+   check("nav current chapter highlighted",d.querySelector('#side-nav a.active')?.getAttribute("href")==="#trig-formulas");
+   const search=d.getElementById("search");search.value="方べき";search.dispatchEvent(new Event("input",{bubbles:true}));await pause(150);
+   check("search filters chapter list",d.querySelectorAll("#side-nav a").length>=2&&d.querySelectorAll("#side-nav a").length<14);
+   d.getElementById("theme-btn")?.click();
+   check("theme switch works",d.body.classList.contains("dark"));
+   check("solution details included",d.querySelectorAll("details").length>=1);
+   done();
+ }catch(e){report.textContent="FAIL "+tests.filter(t=>t.pass).length+" / "+Math.max(tests.length,13)+"\n"+String(e)+"\n"+tests.map(t=>(t.pass?"✓":"✗")+" "+t.name).join("\n");}
+})();
+</script></body></html>
