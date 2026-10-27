@@ -1,0 +1,144 @@
+name: Publish English 1501-1600 Study Guide
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'english-1501-1600/**'
+      - '.github/workflows/english-1501-1600-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Verify isolated guide, navigation and responsive search
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s english-1501-1600/index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          import re
+          s = Path("english-1501-1600/index.html").read_text(encoding="utf-8")
+          class Inspector(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.ids=[]; self.links=[]
+              def handle_starttag(self, tag, attrs):
+                  a=dict(attrs)
+                  if "id" in a: self.ids.append(a["id"])
+                  if "href" in a and a["href"].startswith("#"): self.links.append(a["href"][1:])
+          p=Inspector();p.feed(s)
+          assert len(p.ids)==len(set(p.ids)), "Duplicate DOM IDs"
+          assert all(link in p.ids for link in p.links), "Broken hash links"
+          ids=[int(v.split("-")[1]) for v in p.ids if re.fullmatch(r"vocab-[0-9]+",v)]
+          assert sorted(ids)==list(range(1501,1601)), "Word coverage 1501-1600"
+          assert all(f"ch{i}" in p.ids for i in range(1,7)), "Missing chapter"
+          assert "<meta charset=\"utf-8\"" in s.lower()
+          js=re.search(r"<script>(.*?)</script>",s,re.S)
+          assert js is not None, "Missing inline JS"
+          Path("/tmp/english-guide-app.js").write_text(js.group(1), encoding="utf-8")
+          print("PASS: 100 words, six chapters, all internal links")
+          PY
+          node --check /tmp/english-guide-app.js
+          cat > english-1501-1600/__ci_smoke.html <<'HTML'
+          <!doctype html><html lang="ja"><meta charset="utf-8"><title>Smoke test</title>
+          <pre id="result">RUNNING</pre><script>
+          (async () => {
+            const out=document.getElementById('result');
+            const results=[];
+            try {
+              for (const width of [390,768,1440]) {
+                const iframe=document.createElement('iframe');
+                iframe.style.cssText='width:'+width+'px;height:1000px;display:block;border:0';
+                iframe.src='./index.html';
+                document.body.appendChild(iframe);
+                await new Promise((resolve,reject)=>{
+                  iframe.onload=resolve;
+                  iframe.onerror=()=>reject(new Error('Frame load at '+width));
+                });
+                const d=iframe.contentDocument;
+                const w=iframe.contentWindow;
+                if (!d || !d.title.includes('1501')) throw Error('Wrong page at '+width);
+                const viewport=w.innerWidth;
+                const actual=Math.max(d.documentElement.scrollWidth,d.body.scrollWidth);
+                if (actual>viewport+2) throw Error('Horizontal overflow '+width+': '+actual+' > '+viewport);
+                const anchors=[...d.querySelectorAll('a[href^="#"]')];
+                if (!anchors.every(a=>d.getElementById(a.getAttribute('href').slice(1)))) throw Error('Broken link at '+width);
+                const input=d.getElementById('q');
+                input.value='comprise';
+                input.dispatchEvent(new w.Event('input',{bubbles:true}));
+                if (!d.getElementById('search-state').textContent.includes('一致項目')) throw Error('Search not working at '+width);
+                if (!d.querySelector('.entry.hidden')) throw Error('Search did not filter at '+width);
+                d.getElementById('clear').click();
+                if (d.querySelector('.entry.hidden') || input.value) throw Error('Search reset failed at '+width);
+                results.push('PASS '+width+'px: layout, links, search, reset');
+                iframe.remove();
+              }
+              out.textContent='PASS 3 / 3\n'+results.join('\n');
+            } catch (e) {
+              out.textContent='FAIL: '+(e&&e.stack||e);
+            }
+          })();
+          </script></html>
+          HTML
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory . >/tmp/english-guide-server.log 2>&1 &
+          PID=$!
+          trap 'kill "$PID" 2>/dev/null || true; rm -f english-1501-1600/__ci_smoke.html' EXIT
+          sleep 2
+          CHROME="$(command -v google-chrome || command -v chromium || true)"
+          if [[ -z "$CHROME" ]]; then echo "::error::Chrome unavailable"; exit 1; fi
+          timeout 80 "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage \
+            --no-first-run --disable-background-networking --virtual-time-budget=19000 \
+            --window-size=1500,1200 --dump-dom \
+            "http://127.0.0.1:8765/english-1501-1600/__ci_smoke.html" \
+            > /tmp/english-guide-smoke.dom 2>/tmp/english-guide-chrome.err || true
+          python3 - <<'PY'
+          import html,re
+          s=open("/tmp/english-guide-smoke.dom",encoding="utf-8").read()
+          m=re.search(r'<pre id="result">([^<]*)</pre>',s)
+          result=html.unescape(m.group(1)) if m else "MISSING"
+          print(result)
+          assert result.startswith("PASS 3 / 3"), "Chrome smoke failed"
+          PY
+          rm english-1501-1600/__ci_smoke.html
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify public URL
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://totoro0419.github.io/Alts/english-1501-1600/"
+          for attempt in {1..18}; do
+            if curl --fail --location --silent --show-error --max-time 15 "$URL" -o /tmp/english-guide-live.html; then
+              if grep -q 'id="ch6"' /tmp/english-guide-live.html && grep -q 'id="vocab-1600"' /tmp/english-guide-live.html; then
+                echo "LIVE verified: $URL"
+                exit 0
+              fi
+            fi
+            sleep 6
+          done
+          echo "::error::GitHub Pages public URL not verified"
+          exit 1
