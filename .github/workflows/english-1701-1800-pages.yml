@@ -1,0 +1,90 @@
+name: Publish English 1701-1800 Study Guide
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'english-1701-1800/**'
+      - '.github/workflows/english-1701-1800-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: https://totoro0419.github.io/Alts/english-1701-1800/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate standalone HTML and study data
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, re
+          from pathlib import Path
+          from html.parser import HTMLParser
+          path = Path('english-1701-1800/index.html')
+          html = path.read_text(encoding='utf-8')
+          assert '<meta charset="UTF-8">' in html
+          assert html.strip().endswith('</html>')
+          assert '<script src=' not in html and '<link rel="stylesheet"' not in html
+          data_match = re.search(r'const DATA=(\[.*?\]);\s*const CAT=', html, re.S)
+          assert data_match, 'Study data missing'
+          data = json.loads(data_match.group(1))
+          assert len(data) == 82, 'Study item count mismatch'
+          assert len({item['id'] for item in data}) == 82, 'Duplicate item ids'
+          assert len({item['n'] for item in data}) == 62, 'Vocabulary count mismatch'
+          assert all(1701 <= item['n'] <= 1800 for item in data), 'Word out of scope'
+          assert sum(item['l'] == 3 for item in data) == 39, 'Priority count mismatch'
+          assert all('[[' in item['p'] and ']]' in item['p'] for item in data), 'Unanswerable item'
+          class IDs(HTMLParser):
+              def __init__(self): super().__init__(); self.ids = []
+              def handle_starttag(self, tag, attrs):
+                  a = dict(attrs)
+                  if 'id' in a: self.ids.append(a['id'])
+          parser = IDs()
+          parser.feed(html)
+          assert len(parser.ids) == len(set(parser.ids)), 'Duplicate element ids'
+          assert all(i in parser.ids for i in ('tabs','search','only3','study','revealall','groups'))
+          js = re.search(r'<script>(.*?)</script>', html, re.S)
+          assert js, 'Inline JavaScript missing'
+          Path('/tmp/english-1701-1800.js').write_text(js.group(1), encoding='utf-8')
+          print('PASS: 82 items / 62 words / 39 priority items')
+          PY
+          node --check /tmp/english-1701-1800.js
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload all independent publications
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify published study page
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://totoro0419.github.io/Alts/english-1701-1800/"
+          for attempt in {1..15}; do
+            if curl --fail --location --silent --show-error --max-time 15 "$URL" -o /tmp/english-1701-1800-live.html; then
+              if grep -q '重要語法・空所補充チェック' /tmp/english-1701-1800-live.html && grep -q '"id":"r082"' /tmp/english-1701-1800-live.html; then
+                echo "LIVE verified: $URL"
+                exit 0
+              fi
+            fi
+            sleep 6
+          done
+          echo "::error::GitHub Pages URL not verified"
+          exit 1
