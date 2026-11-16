@@ -1,0 +1,91 @@
+name: Publish English 1801-1900 Study Guide
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'english-1801-1900/**'
+      - '.github/workflows/english-1801-1900-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: https://totoro0419.github.io/Alts/english-1801-1900/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate standalone HTML and study data
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          s = Path('english-1801-1900/index.html').read_text(encoding='utf-8')
+          assert '1801–1900' in s and s.strip().endswith('</html>')
+          assert '<script src=' not in s and '<link rel=' not in s
+          m = re.search(r'const DATA=(\[.*?\]);\s*const CAT=', s, re.S)
+          assert m, 'Dataset missing'
+          items = json.loads(m.group(1))
+          assert len(items) == 65, 'Expected 65 memory points'
+          assert len({x['n'] for x in items}) == 50, 'Expected 50 selected words'
+          assert sum(x['l'] == 3 for x in items) == 28, 'Expected 28 priority points'
+          assert all(1801 <= x['n'] <= 1900 for x in items)
+          assert len({x['id'] for x in items}) == len(items)
+          assert all('[[' in x['p'] and ']]' in x['p'] for x in items)
+          class Inspector(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.ids = []
+              def handle_starttag(self, tag, attrs):
+                  a = dict(attrs)
+                  if 'id' in a:
+                      self.ids.append(a['id'])
+          ins = Inspector()
+          ins.feed(s)
+          assert len(ins.ids) == len(set(ins.ids))
+          assert {'tabs','search','only3','study','revealall','groups'} <= set(ins.ids)
+          js = re.search(r'<script>(.*?)</script>',s,re.S)
+          assert js
+          Path('/tmp/english-1801-1900.js').write_text(js.group(1),encoding='utf-8')
+          print('PASS: complete standalone HTML, 100 words analyzed, 65 points selected')
+          PY
+          node --check /tmp/english-1801-1900.js
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload all independent publications
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify public page
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://totoro0419.github.io/Alts/english-1801-1900/"
+          for attempt in {1..18}; do
+            if curl --fail --location --silent --show-error --max-time 20 "$URL" -o /tmp/english-1801-1900-live.html; then
+              if grep -q 'VOCABULARY CLOZE TEST · 1801–1900' /tmp/english-1801-1900-live.html && grep -q '"id":"r065"' /tmp/english-1801-1900-live.html; then
+                echo "LIVE verified: $URL"
+                exit 0
+              fi
+            fi
+            sleep 6
+          done
+          echo "::error::Public URL verification failed"
+          exit 1
