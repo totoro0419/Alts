@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#11151a">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>ひび割れ画面シミュレーション</title>
+<style>
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;background:#000;color:#f5f5f5;font-family:system-ui,sans-serif;overflow:hidden}button,label{-webkit-tap-highlight-color:transparent} [hidden]{display:none!important}
+#setup{position:fixed;inset:0;display:grid;place-items:center;padding:24px;background:#11151a;overflow:auto}.panel{max-width:400px;width:100%;padding:28px;border:1px solid #343a42;border-radius:20px;background:#1c2229}h1{font-size:24px;margin:0 0 12px}p{color:#c3cbd4;line-height:1.7;margin:0 0 22px}.pick,button{display:block;text-align:center;width:100%;padding:14px;border:0;border-radius:12px;font:inherit;font-weight:650;cursor:pointer}.pick{background:#edf2f9;color:#151b23}button{background:#343c46;color:#fff;margin-top:10px}button:disabled{opacity:.4;cursor:default}input[type=file]{position:absolute;width:1px;height:1px;opacity:0}label:focus-within{outline:2px solid #9bc5ff;outline-offset:4px}#status{margin-top:12px;font-size:13px;overflow-wrap:anywhere;color:#c3cbd4}#stage{position:fixed;inset:0;background:#000;touch-action:manipulation;user-select:none;-webkit-user-select:none;cursor:pointer;overflow:hidden}#photo{width:100%;height:100%;display:block;object-fit:contain;pointer-events:none;-webkit-user-drag:none}#crack{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}#reset{position:absolute;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));width:auto;font-size:12px;padding:9px 12px;background:#282828;color:#ddd;opacity:.65;margin:0;z-index:2}
+#stage,#stage *{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}#stage:focus{outline:none}#stage:focus-visible{outline:none}.count-label{display:block;margin-top:18px;font-size:14px;color:#dce3eb}#limit{display:block;width:100%;margin-top:6px;padding:12px;border:1px solid #505a66;border-radius:10px;background:#11151a;color:#fff;font:inherit}#limit:invalid{border-color:#f28b82}
+</style>
+</head>
+<body>
+<main id="setup"><div class="panel"><h1>ひび割れ画面</h1><p>画像を選択して表示を開始してください。指定した回数のタッチで、画像が黒いひび割れ画面に変わります。</p><label class="pick">画像を選ぶ<input id="file" type="file" accept="image/*"></label><div id="status" aria-live="polite">画像未選択</div><label class="count-label" for="limit">ひび割れるまでのタッチ回数</label><input id="limit" type="number" inputmode="numeric" min="1" max="9999" step="1" value="3" required><button id="start" disabled>表示を開始</button><button id="full" disabled>全画面で開始</button><button id="install" hidden>ホーム画面に追加</button><div id="offline" style="font-size:12px;color:#aeb8c4;margin-top:12px" aria-live="polite"></div></div></main>
+<div id="stage" hidden role="button" tabindex="0" aria-label="画像表示。3回タッチでひび割れ画面に切り替え">
+<img id="photo" alt="選択した画像" draggable="false"><canvas id="crack" hidden></canvas><button id="reset" hidden>リセット</button>
+</div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id), file=$('file'), photo=$('photo'), stage=$('stage'), canvas=$('crack'), reset=$('reset'), limit=$('limit');
+let url=null, ready=false, count=0, target=3, broken=false, hit={x:.5,y:.5};
+function syncButtons(){const disabled=!ready||!limit.validity.valid;$('start').disabled=$('full').disabled=disabled;}
+limit.addEventListener('input',syncButtons);
+file.addEventListener('change',()=>{
+ const f=file.files[0];if(!f)return;
+ ready=false;$('start').disabled=$('full').disabled=true;
+ if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(f);
+ const selected=url;photo.onload=()=>{if(url!==selected)return;ready=true;$('status').textContent=f.name;syncButtons();};
+ photo.onerror=()=>{if(url!==selected)return;$('status').textContent='画像を読み込めませんでした。別の画像を選択してください。';};photo.src=selected;
+});
+function begin(full){if(!ready||!limit.validity.valid)return;target=limit.valueAsNumber;stage.setAttribute('aria-label',`画像表示。${target}回タッチでひび割れ画面に切り替え`);count=0;broken=false;photo.hidden=false;canvas.hidden=true;reset.hidden=true;$('setup').hidden=true;stage.hidden=false;stage.focus({preventScroll:true});if(full){try{const fn=stage.requestFullscreen||stage.webkitRequestFullscreen;if(fn)Promise.resolve(fn.call(stage)).catch(()=>{});}catch(e){}}}
+$('start').addEventListener('click',()=>begin(false));$('full').addEventListener('click',()=>begin(true));
+function tap(x,y){if(broken)return;count++;if(count!==target)return;hit={x:Math.max(0,Math.min(1,x)),y:Math.max(0,Math.min(1,y))};broken=true;photo.hidden=true;canvas.hidden=false;draw();reset.hidden=false;stage.setAttribute('aria-label','ひび割れ画面');}
+stage.addEventListener('click',e=>{if(e.target===reset)return;const r=stage.getBoundingClientRect();tap((e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height);});
+stage.addEventListener('keydown',e=>{if(e.target===stage&&(e.key==='Enter'||e.key===' ')){e.preventDefault();if(!e.repeat)tap(.5,.5);}});
+function clear(){broken=false;count=0;stage.hidden=true;canvas.hidden=true;reset.hidden=true;photo.hidden=false;$('setup').hidden=false;stage.setAttribute('aria-label',`画像表示。${target}回タッチでひび割れ画面に切り替え`);if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});}
+reset.addEventListener('click',e=>{e.stopPropagation();clear();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!stage.hidden)clear();});
+function draw(){if(!broken)return;const rect=stage.getBoundingClientRect(),w=rect.width,h=rect.height;if(!w||!h)return;const d=Math.min(devicePixelRatio||1,3);canvas.width=Math.round(w*d);canvas.height=Math.round(h*d);const c=canvas.getContext('2d');c.scale(d,d);c.fillStyle='#000';c.fillRect(0,0,w,h);
+ let seed=81872;const rnd=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};const ox=w*hit.x,oy=h*hit.y,di=Math.hypot(w,h),s=Math.max(.7,Math.min(w,h)/480);
+ function path(points,alpha,width){c.beginPath();points.forEach((p,i)=>i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]));c.strokeStyle=`rgba(199,209,215,${alpha})`;c.lineWidth=width*s;c.lineJoin='miter';c.stroke();}
+ const rays=[];const n=13;const offset=rnd()*6.28;
+ for(let i=0;i<n;i++){const a=offset+i*6.283/n+(rnd()-.5)*.25;let x=ox,y=oy;const pts=[[x,y]];for(let j=0;j<11;j++){const len=di*(.038+rnd()*.07)*(1+j*.045);const b=a+(rnd()-.5)*.65;x+=Math.cos(b)*len;y+=Math.sin(b)*len;pts.push([x,y]);if(j>1&&(x< -20||x>w+20||y< -20||y>h+20))break;}rays.push(pts);path(pts,.26+rnd()*.42,.55+rnd()*.55);if(i%3===0)path(pts.map(p=>[p[0]+1*s,p[1]-.6*s]),.1,.5);
+ for(let j=1;j<pts.length-1;j++){if(rnd()>.65)continue;const p=pts[j],b=a+(rnd()>.5?1:-1)*(.45+rnd()*.75),l=di*(.025+rnd()*.08);const q=[p[0]+Math.cos(b)*l*.45,p[1]+Math.sin(b)*l*.45];path([p,q,[q[0]+Math.cos(b+.32)*l*.65,q[1]+Math.sin(b+.32)*l*.65]],.18+rnd()*.36,.5+rnd()*.4);}}
+ for(let ring=0;ring<4;ring++){const r=(8+ring*13)*s;for(let i=0;i<n;i++){if(rnd()<.22)continue;const a=offset+i*6.283/n,b=offset+(i+1)*6.283/n;const r1=r*(.75+rnd()*.45),r2=r*(.75+rnd()*.45);path([[ox+Math.cos(a)*r1,oy+Math.sin(a)*r1],[ox+Math.cos((a+b)/2)*r*.82,oy+Math.sin((a+b)/2)*r*.82],[ox+Math.cos(b)*r2,oy+Math.sin(b)*r2]],.25+rnd()*.4,.55+rnd()*.45);}}
+ c.fillStyle='rgba(227,234,239,.8)';c.beginPath();c.arc(ox,oy,1.35*s,0,Math.PI*2);c.fill();
+}
+let installPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('install').hidden=false;});
+$('install').addEventListener('click',async()=>{if(!installPrompt)return;const prompt=installPrompt;installPrompt=null;$('install').hidden=true;try{await prompt.prompt();await prompt.userChoice;}catch(e){}});
+window.addEventListener('appinstalled',()=>{$('install').hidden=true;installPrompt=null;});
+if('serviceWorker' in navigator && window.isSecureContext){navigator.serviceWorker.register('./sw.js').then(()=>navigator.serviceWorker.ready).then(()=>{$('offline').textContent='オフライン利用の準備完了';}).catch(()=>{$('offline').textContent='オフライン準備に失敗しました。';});}else{$('offline').textContent='PWAとして追加するにはHTTPSで開いてください。';}
+window.addEventListener('resize',draw);document.addEventListener('fullscreenchange',draw);
+</script>
+</body></html>

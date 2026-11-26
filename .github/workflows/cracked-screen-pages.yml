@@ -1,0 +1,74 @@
+name: Publish Cracked Screen PWA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'cracked-screen/**'
+      - '.github/workflows/cracked-screen-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: https://totoro0419.github.io/Alts/cracked-screen/
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate PWA assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, re, struct
+          from pathlib import Path
+          p = Path('cracked-screen')
+          html = (p/'index.html').read_text()
+          manifest = json.loads((p/'manifest.webmanifest').read_text())
+          assert manifest['scope'] == manifest['start_url'] == './'
+          for icon in manifest['icons']:
+              data = (p/icon['src']).read_bytes()
+              assert data[:8] == bytes.fromhex('89504e470d0a1a0a')
+              assert 'x'.join(map(str, struct.unpack('>II', data[16:24]))) == icon['sizes']
+          assert "register('./sw.js')" in html
+          assert '-webkit-tap-highlight-color:transparent' in html
+          Path('/tmp/cracked-screen.js').write_text(re.search(r'<script>(.*?)</script>', html, re.S).group(1))
+          PY
+          node --check /tmp/cracked-screen.js
+          node --check cracked-screen/sw.js
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - uses: actions/deploy-pages@v4
+        id: deployment
+      - name: Verify public files
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://totoro0419.github.io/Alts/cracked-screen/"
+          for attempt in {1..15}; do
+            ok=1
+            for f in index.html manifest.webmanifest sw.js icon-192.png icon-512.png; do
+              if ! curl -fsSL --max-time 15 "${base}${f}" -o "/tmp/cracked-live-${f}" || ! cmp -s "cracked-screen/${f}" "/tmp/cracked-live-${f}"; then
+                ok=0
+                break
+              fi
+            done
+            if [ "$ok" = 1 ] && curl -fsSL --max-time 15 "$base" -o /tmp/cracked-live-root && cmp -s cracked-screen/index.html /tmp/cracked-live-root; then
+              echo "LIVE verified: $base"
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
