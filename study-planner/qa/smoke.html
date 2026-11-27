@@ -1,0 +1,36 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><title>Planner UI QA</title><pre id="result">RUNNING</pre><script>
+(async()=>{
+const output=document.querySelector('#result'),results=[];const check=(label,ok)=>{results.push((ok?'PASS ':'FAIL ')+label);if(!ok)throw new Error(label)};
+const frame=document.createElement('iframe');frame.style.cssText='border:0;display:block';document.body.append(frame);
+const load=()=>new Promise((resolve,reject)=>{frame.onload=()=>resolve(frame.contentDocument);frame.onerror=reject;frame.src='./index.html?qa=layout'});
+const key='sideworks:study-planner:v1';
+try{
+localStorage.removeItem(key);
+for(const [width,height] of [[777,1164],[1164,777],[800,600],[390,844]]){
+frame.style.width=width+'px';frame.style.height=height+'px';
+let doc=await load(),win=frame.contentWindow;const qs=s=>doc.querySelector(s);const selected=qs('.day-nav select');check(width+'x'+height+' date navigation',selected.options.length===13);
+let fits=0,maxOverflow=0;
+for(let day=0;day<13;day++){
+const select=qs('.day-nav select');select.value=String(day);select.dispatchEvent(new win.Event('change',{bubbles:true}));
+const bottom=qs('#screen .day').getBoundingClientRect().bottom,top=qs('.timer').getBoundingClientRect().top;
+maxOverflow=Math.max(maxOverflow,bottom-top);if(bottom<=top+1)fits++;
+check(width+'x'+height+' day '+(day+1)+' no horizontal overflow',doc.documentElement.scrollWidth<=win.innerWidth+1);
+}
+if(width===777||width===1164)check(width+'x'+height+' all 13 days fit above timer (max overflow '+Math.round(maxOverflow)+'px)',fits===13);
+else results.push('INFO '+width+'x'+height+' '+fits+'/13 fit, max overflow '+Math.round(maxOverflow)+'px; normal vertical scroll allowed');
+if(width===777){
+let select=qs('.day-nav select');select.value='2';select.dispatchEvent(new win.Event('change',{bubbles:true}));
+const before=qs('#summary').textContent;const checkbox=qs('#screen .task input');checkbox.click();check('checkbox updates completion',qs('#summary').textContent!==before&&qs('#screen .task input').checked);
+let stored=JSON.parse(localStorage.getItem(key));check('checkbox persisted',stored.tasks.some(t=>t.id==='t2-0'&&t.done));
+doc=await load();let sel=qs('.day-nav select');sel.value='2';sel.dispatchEvent(new win.Event('change',{bubbles:true}));check('completion survives refresh',qs('#screen .task input').checked);
+qs('#screen .task-actions button').click();check('edit dialog opens',qs('#editor').open);qs('#editMin').value='151';qs('#editForm').requestSubmit();check('edit saves duration',JSON.parse(localStorage.getItem(key)).tasks.some(t=>t.id==='t2-0'&&t.min===151));
+qs('#timerStart').click();check('timer starts',qs('#timerStart').textContent==='一時停止');qs('#timerStart').click();check('timer pauses',qs('#timerStart').textContent==='再開');qs('#timerSave').click();check('timer records',qs('#timerSave').disabled);
+qs('[data-view="stats"]').click();check('stats accessible',qs('#screen .bar-row')!==null);
+qs('[data-view="all"]').click();check('all dates accessible',doc.querySelectorAll('#screen .day').length===13);
+localStorage.removeItem(key);
+}
+}
+output.textContent='PASS\n'+results.join('\n');
+}catch(e){output.textContent='FAIL '+e.message+'\n'+results.join('\n')}finally{localStorage.removeItem(key)}
+})();
+</script></html>

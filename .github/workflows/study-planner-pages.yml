@@ -58,6 +58,28 @@ jobs:
           assert '<div class="task' in s
           print('Planner rendered successfully')
           PY
+      - name: Tablet layout and interaction regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          SITE_ROOT="$(dirname "$GITHUB_WORKSPACE")"
+          cp study-planner/qa/smoke.html study-planner/.ui-smoke.html
+          python3 -m http.server 8766 --bind 127.0.0.1 --directory "$SITE_ROOT" >/tmp/planner-ui-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true; rm -f study-planner/.ui-smoke.html' EXIT
+          sleep 1
+          BROWSER="$(command -v google-chrome || command -v chromium)"
+          timeout 50 "$BROWSER" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --window-size=1400,1300 --virtual-time-budget=12000 --dump-dom http://127.0.0.1:8766/Alts/study-planner/.ui-smoke.html >/tmp/planner-ui-dom.html
+          python3 - <<'PY'
+          import html,re
+          from pathlib import Path
+          s=Path('/tmp/planner-ui-dom.html').read_text()
+          m=re.search(r'<pre id="result">(.*?)</pre>',s,re.S)
+          assert m, 'Missing QA result'
+          result=html.unescape(m.group(1))
+          print(result)
+          assert result.startswith('PASS\n'), result
+          PY
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
