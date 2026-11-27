@@ -1,0 +1,86 @@
+name: Publish Study Planner
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'study-planner/**'
+      - '.github/workflows/study-planner-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: https://totoro0419.github.io/Alts/study-planner/
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate study planner
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,re
+          from pathlib import Path
+          p=Path('study-planner')
+          html=(p/'index.html').read_text()
+          data=json.loads(re.search(r'const seed=(.*);\nconst dates=',html).group(1))
+          assert len(data)==13 and sum(len(d[2]) for d in data)==61
+          assert sum(t[2] for d in data for t in d[2])==4660
+          manifest=json.loads((p/'manifest.webmanifest').read_text())
+          assert manifest['scope']==manifest['start_url']=='./'
+          assert all((p/i['src']).is_file() for i in manifest['icons'])
+          Path('/tmp/study-planner.js').write_text(re.search(r'<script>(.*?)</script>',html,re.S).group(1))
+          PY
+          node --check /tmp/study-planner.js
+          node --check study-planner/sw.js
+          SITE_ROOT="$(dirname "$GITHUB_WORKSPACE")"
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory "$SITE_ROOT" >/tmp/planner-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          sleep 1
+          BROWSER="$(command -v google-chrome || command -v chromium)"
+          timeout 45 "$BROWSER" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --window-size=390,844 --virtual-time-budget=2500 --dump-dom http://127.0.0.1:8765/Alts/study-planner/ >/tmp/planner-dom.html
+          python3 - <<'PY'
+          from pathlib import Path
+          s=Path('/tmp/planner-dom.html').read_text()
+          assert '<section class="day' in s
+          assert '61</strong>' in s
+          assert '<div class="task' in s
+          print('Planner rendered successfully')
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - uses: actions/deploy-pages@v4
+        id: deployment
+      - name: Verify public URL and assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://totoro0419.github.io/Alts/study-planner/"
+          for attempt in {1..15}; do
+            ok=1
+            for f in index.html manifest.webmanifest sw.js icon.svg; do
+              if ! curl -fsSL --max-time 15 "${base}${f}" -o "/tmp/planner-live-${f}" || ! cmp -s "study-planner/${f}" "/tmp/planner-live-${f}"; then
+                ok=0
+                break
+              fi
+            done
+            if [ "$ok" = 1 ] && curl -fsSL --max-time 15 "$base" -o /tmp/planner-live-root && cmp -s study-planner/index.html /tmp/planner-live-root; then
+              echo "LIVE verified: $base"
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
