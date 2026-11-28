@@ -35,11 +35,18 @@ jobs:
           p=Path('study-planner')
           html=(p/'index.html').read_text()
           data=json.loads(re.search(r'const seed=(.*);\nconst dates=',html).group(1))
-          assert len(data)==13 and sum(len(d[2]) for d in data)==65
-          assert sum(t[2] for d in data for t in d[2])==4870
+          assert len(data)==13 and sum(len(d[2]) for d in data)==66
+          assert sum(t[2] for d in data for t in d[2])==4950
           keys=[(i,*t) for i,d in enumerate(data) for t in d[2]]
           assert len(keys)==len(set(keys)), 'duplicate seed tasks'
           assert all(not t[1].startswith(t[0]+'：') for d in data for t in d[2]), 'redundant subject prefix'
+          history=json.loads((p/'qa/history-video-plan.json').read_text())
+          assert [v['number'] for v in history['lectures']]==list(range(63,89))
+          assert [k for g in history['groups'] for k in range(g['start'],g['end']+1)]==list(range(65,89))
+          assert sum(g['seconds'] for g in history['groups'])==sum(v['seconds'] for v in history['lectures'] if v['number']>=65)==40452
+          for g in history['groups']:
+              assert g['video']==(g['seconds']+119)//120 and g['min']==g['video']+g['memorize']
+              assert data[g['day']][2][g['j']][0]=='日本史' and data[g['day']][2][g['j']][2]==g['min']
           manifest=json.loads((p/'manifest.webmanifest').read_text())
           assert manifest['scope']==manifest['start_url']=='./'
           assert all((p/i['src']).is_file() for i in manifest['icons'])
@@ -57,7 +64,7 @@ jobs:
           from pathlib import Path
           s=Path('/tmp/planner-dom.html').read_text()
           assert '<section class="day' in s
-          assert '65</strong>' in s
+          assert '66</strong>' in s
           assert '<div class="task' in s
           print('Planner rendered successfully')
           PY

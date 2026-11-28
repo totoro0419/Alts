@@ -1,0 +1,355 @@
+{
+  "sourceCatalog": "https://github.com/totoro0419/curiveo/blob/main/data/source-catalogs/humanities.json",
+  "durationSource": "https://github.com/totoro0419/curiveo/blob/main/src/data/video-durations.json",
+  "durationBlob": "f99e1013243fbb8178e44634cb4ea767560872fe",
+  "sourceCatalogBlob": "477bf88890eb44c74ae7809caba918729810582c",
+  "statusBlob": "c3b735c1761cd1796d25a76cfc04975c1d43cace",
+  "official": "https://mundisensei.com/lesson-videos-japan/",
+  "watchedThrough": 64,
+  "assumedRate": 2,
+  "lectures": [
+    {
+      "number": 63,
+      "id": "H0th-NDH_jM",
+      "title": "063 南北朝時代　日本史ストーリーノート第08話",
+      "seconds": 1403,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 64,
+      "id": "J5CMEQKbmG0",
+      "title": "064 守護大名と国人一揆（教科書123）　日本史ストーリーノート第08話",
+      "seconds": 1896,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 65,
+      "id": "agqYEiDMmpM",
+      "title": "065 室町幕府（教科書124）　日本史ストーリーノート第08話",
+      "seconds": 1910,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 66,
+      "id": "VNakt8tQK9c",
+      "title": "066 室町幕府の機構（教科書125）　日本史ストーリーノート第08話",
+      "seconds": 1413,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 67,
+      "id": "JSOAK6Qrh0w",
+      "title": "067 室町幕府の動揺（教科書132）　日本史ストーリーノート第08話",
+      "seconds": 1650,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 68,
+      "id": "eX6P0--UvXE",
+      "title": "068 応仁の乱　日本史ストーリーノート第08話",
+      "seconds": 1606,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 69,
+      "id": "qy8U0CKVzwg",
+      "title": "069 惣村の形成と土一揆（教科書131）　日本史ストーリーノート第08話",
+      "seconds": 1621,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 70,
+      "id": "K1wsms6SErI",
+      "title": "070 農業の発達・商工業の発達　日本史ストーリーノート第08話",
+      "seconds": 1957,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 71,
+      "id": "3RkxoTR_ySE",
+      "title": "071 東アジア情勢の変化（教科書127）　日本史ストーリーノート第08話",
+      "seconds": 2301,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 72,
+      "id": "NmS7R2oFjIY",
+      "title": "072 朝鮮・琉球・蝦夷ヶ島（教科書129）　日本史ストーリーノート第08話",
+      "seconds": 1544,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 73,
+      "id": "UpLoxRf2Db4",
+      "title": "073 室町文化①南北朝文化（教科書139）　日本史ストーリーノート第08話",
+      "seconds": 1243,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 74,
+      "id": "z3zKnAGSIZM",
+      "title": "074 室町文化②北山文化（教科書141）　日本史ストーリーノート第08話",
+      "seconds": 1246,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 75,
+      "id": "_egmYpYPNZc",
+      "title": "075 室町文化③東山文化（教科書142）　日本史ストーリーノート第08話",
+      "seconds": 1869,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 76,
+      "id": "jvogJOm1-Y8",
+      "title": "076 室町文化④庶民文化・地方文化（教科書145）　日本史ストーリーノート第08話",
+      "seconds": 1481,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 77,
+      "id": "vjBSN6pM3nU",
+      "title": "077 　室町文化⑤新仏教の発展（教科書147）　日本史ストーリーノート第08話",
+      "seconds": 1363,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 78,
+      "id": "S5QdgJ9Qlu4",
+      "title": "078 　戦国時代のはじまり（教科書147）　日本史ストーリーノート第09話",
+      "seconds": 1430,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 79,
+      "id": "doe2xs8wtfc",
+      "title": "079 　戦国大名の成長（教科書148）　日本史ストーリーノート第09話",
+      "seconds": 1969,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 80,
+      "id": "O2c1xPfc4Jo",
+      "title": "080 　戦国大名の分国支配（教科書149）　日本史ストーリーノート第09話",
+      "seconds": 1604,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 81,
+      "id": "WpSQkFnYr2k",
+      "title": "081　都市の発展と町衆　日本史ストーリーノート第09話",
+      "seconds": 1186,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 82,
+      "id": "KjKN7K-MoQQ",
+      "title": "082　ヨーロッパ人の東アジア進出（教科書156）　日本史ストーリーノート第09話",
+      "seconds": 1883,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 83,
+      "id": "SShKCxLbfno",
+      "title": "083　織田信長の統一事業（教科書158）　日本史ストーリーノート第09話",
+      "seconds": 1788,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 84,
+      "id": "DqOG-o-JVHA",
+      "title": "084　秀吉による天下統一（教科書160）　日本史ストーリーノート第09話",
+      "seconds": 1833,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 85,
+      "id": "-EQNvGyt-v4",
+      "title": "085　秀吉の重要政策（教科書162）　日本史ストーリーノート第09話",
+      "seconds": 1861,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 86,
+      "id": "JJ51UfWPKoA",
+      "title": "086　秀吉の外交政策　日本史ストーリーノート第09話",
+      "seconds": 1819,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 87,
+      "id": "BwPuH6lNpHQ",
+      "title": "087　桃山文化（教科書165）　日本史ストーリーノート第09話",
+      "seconds": 1967,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    },
+    {
+      "number": 88,
+      "id": "Sd5fqJH4SHA",
+      "title": "088　町衆の生活と南蛮文化（教科書168）　日本史ストーリーノート第09話",
+      "seconds": 1908,
+      "status": "verified@2026-11-13T14:25:37.182000+00:00"
+    }
+  ],
+  "groups": [
+    {
+      "day": 2,
+      "j": 5,
+      "start": 65,
+      "end": 67,
+      "topic": "室町幕府・機構・動揺",
+      "memorize": 18,
+      "seconds": 4973,
+      "video": 42,
+      "min": 60
+    },
+    {
+      "day": 3,
+      "j": 4,
+      "start": 68,
+      "end": 69,
+      "topic": "応仁の乱・惣村と土一揆",
+      "memorize": 18,
+      "seconds": 3227,
+      "video": 27,
+      "min": 45
+    },
+    {
+      "day": 4,
+      "j": 4,
+      "start": 70,
+      "end": 71,
+      "topic": "産業・東アジア情勢",
+      "memorize": 14,
+      "seconds": 4258,
+      "video": 36,
+      "min": 50
+    },
+    {
+      "day": 5,
+      "j": 4,
+      "start": 72,
+      "end": 74,
+      "topic": "朝鮮・琉球・蝦夷ヶ島／南北朝・北山文化",
+      "memorize": 16,
+      "seconds": 4033,
+      "video": 34,
+      "min": 50
+    },
+    {
+      "day": 6,
+      "j": 7,
+      "start": 75,
+      "end": 75,
+      "topic": "東山文化",
+      "memorize": 14,
+      "seconds": 1869,
+      "video": 16,
+      "min": 30
+    },
+    {
+      "day": 7,
+      "j": 2,
+      "start": 76,
+      "end": 80,
+      "topic": "庶民・地方文化、新仏教、戦国大名",
+      "memorize": 24,
+      "seconds": 7847,
+      "video": 66,
+      "min": 90
+    },
+    {
+      "day": 8,
+      "j": 4,
+      "start": 81,
+      "end": 85,
+      "topic": "都市・欧州進出・信長・秀吉の統一と政策",
+      "memorize": 18,
+      "seconds": 8551,
+      "video": 72,
+      "min": 90
+    },
+    {
+      "day": 9,
+      "j": 6,
+      "start": 86,
+      "end": 88,
+      "topic": "秀吉の外交・桃山文化・南蛮文化",
+      "memorize": 22,
+      "seconds": 5694,
+      "video": 48,
+      "min": 70
+    }
+  ],
+  "daily": [
+    {
+      "date": "11/27（金）",
+      "total": 160,
+      "history": 0
+    },
+    {
+      "date": "11/28（土）",
+      "total": 420,
+      "history": 30
+    },
+    {
+      "date": "11/29（日）",
+      "total": 540,
+      "history": 60
+    },
+    {
+      "date": "11/30（月）",
+      "total": 345,
+      "history": 45
+    },
+    {
+      "date": "12/1（火）",
+      "total": 350,
+      "history": 50
+    },
+    {
+      "date": "12/2（水）",
+      "total": 360,
+      "history": 50
+    },
+    {
+      "date": "12/3（木）",
+      "total": 540,
+      "history": 30
+    },
+    {
+      "date": "12/4（金）",
+      "total": 435,
+      "history": 90
+    },
+    {
+      "date": "12/5（土）",
+      "total": 450,
+      "history": 90
+    },
+    {
+      "date": "12/6（日）",
+      "total": 540,
+      "history": 70
+    },
+    {
+      "date": "12/7（月）",
+      "total": 445,
+      "history": 60
+    },
+    {
+      "date": "12/8（火）",
+      "total": 365,
+      "history": 150
+    },
+    {
+      "date": "12/9（水）",
+      "total": 0,
+      "history": 0
+    }
+  ],
+  "historyTotal": 725,
+  "videoSeconds": 40452,
+  "videoBudget": 341,
+  "initialMemorize": 144
+}
