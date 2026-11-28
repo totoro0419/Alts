@@ -82,6 +82,15 @@ header button{font-size:12px}
 @media(max-width:599px){.multi-nav{flex-wrap:wrap}.multi-nav select:first-of-type{order:-2;flex:1 1 50%}.multi-nav select:last-of-type{order:-1;flex:1 1 25%}.multi-nav button{flex:1}.overview-grid .task .desc{font-size:14px}}
 }
 
+@media screen and (min-width:900px) and (max-height:780px){
+header{padding:6px 16px;margin-bottom:3px}
+header>div{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:16px;align-items:center;width:100%}
+header .eyebrow{grid-column:1;grid-row:1;margin-bottom:1px}
+header h1{grid-column:1;grid-row:2}
+header .muted{grid-column:2;grid-row:1 / span 2;margin:0}
+.day-head{padding-block:4px}
+.progress{margin-block:3px}
+}
 </style></head><body><main><header><div><p class="eyebrow">STUDY PLANNER / 2026</p><h1>期末試験までの学習計画</h1><p class="muted">11/27 — 12/9　｜　13科目</p></div></header><div id="notice" role="status"></div><div id="summary" class="summary"></div><div class="progress"><span id="progress"></span></div><nav class="nav" aria-label="表示"><button data-view="day" aria-pressed="true">今日・日別</button><button data-view="multi" aria-pressed="false">複数日</button><button data-view="all" aria-pressed="false">全日程</button><button data-view="stats" aria-pressed="false">進捗</button><button data-view="settings" aria-pressed="false">設定</button><span class="spacer"></span><button id="today">今日へ</button></nav><div id="screen"></div></main>
 <dialog id="editor"><form id="editForm"><h2 id="editorTitle">予定を編集</h2><label>日付<select id="editDate"></select></label><label>科目<input id="editSubject" type="text" required maxlength="30"></label><label>やること<input id="editDesc" type="text" required maxlength="160"></label><label>想定時間（分）<input id="editMin" type="number" min="1" max="600" required></label><div class="buttons"><button class="primary" type="submit">保存</button><button type="button" id="split">①②に分割</button><button type="button" id="delete" class="danger">削除</button><button type="button" id="cancel">閉じる</button></div></form></dialog>
 <script>

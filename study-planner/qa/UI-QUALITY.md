@@ -20,3 +20,5 @@ Audit found no exact duplicate initial rows; clarified overlapping exercise/revi
 
 ## Japanese history revision (Curiveo)
 Official syllabus 063–088; user reports watched through 064. 065–088 exactly once, at assumed 2×. Curiveo catalog IDs matched with recorded seconds; duration status may be expired, so source values are reference, not fresh playback verification. Separate initial recall and subsequent marked-only rounds. New December 3 task, three modest reductions in existing overlapping review/confirmation blocks (physics 15m, English II 20m and 40m); existing completed/custom tasks retained by migration. No private device storage inspected. See history-video-plan.json for data provenance and exact coverage.
+
+Initial 1164×777 regression failed by 13 CSS px after adding an eighth Thursday task. Compact landscape header puts subtitle alongside title and reduces noninteractive whitespace, retaining 48×48 control targets. Re-run unchanged acceptance checks.
