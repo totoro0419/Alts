@@ -37,6 +37,9 @@ jobs:
           data=json.loads(re.search(r'const seed=(.*);\nconst dates=',html).group(1))
           assert len(data)==13 and sum(len(d[2]) for d in data)==65
           assert sum(t[2] for d in data for t in d[2])==4870
+          keys=[(i,*t) for i,d in enumerate(data) for t in d[2]]
+          assert len(keys)==len(set(keys)), 'duplicate seed tasks'
+          assert all(not t[1].startswith(t[0]+'：') for d in data for t in d[2]), 'redundant subject prefix'
           manifest=json.loads((p/'manifest.webmanifest').read_text())
           assert manifest['scope']==manifest['start_url']=='./'
           assert all((p/i['src']).is_file() for i in manifest['icons'])

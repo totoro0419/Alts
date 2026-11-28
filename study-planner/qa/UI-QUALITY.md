@@ -14,3 +14,6 @@ User requests larger controls and no timer. Remove timer panel and execution cod
 
 ## December 3 holiday and removal of printing
 December 3 is a full day off. Baseline increases from 330 to 510 minutes; 30 minutes flexible margin is not a task. Preserve completed/edited tasks and migrate untouched tasks from v1/v2 to v3. Remove print controls, duplicated print DOM, generation and styles. No timer added. Runtime checks include holiday migration, label, total, and removal of print. Manual device test remains unverified.
+
+## Duplicate and scope cleanup
+Audit found no exact duplicate initial rows; clarified overlapping exercise/review ranges and removed repeated subject prefixes. 65 original stable task IDs and 4,870 minutes remain unchanged. Intentional ①② and recall rounds are retained; numbered access ranges are ordinal positions, not textbook problem numbers. v4 migration changes only untouched incomplete tasks. New identical task creation is rejected. Settings offers confirmation-based cleanup of exact same-day/subject/description/duration duplicates, preserving completion and max historical recorded time. Tests cover seed uniqueness, migration, rendered labels and cleanup persistence. Actual user-local storage and physical-device operation are not accessible.
