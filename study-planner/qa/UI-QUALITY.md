@@ -11,3 +11,6 @@ User requests larger controls and no timer. Remove timer panel and execution cod
 
 ## Multi-day and recall review
 2/3/5/7-day overview and full overview retain direct checkboxes and link to full daily editing. Recall rounds use paper marks, no flashcard contents are invented. Estimated times shrink as marked items decrease; adjust to actual difficulty. Existing unmodified incomplete tasks migrate to revised wording; edited/completed tasks remain unchanged, two new review tasks added once. Original storage key retained. New baseline 63 tasks / 4690 minutes. Browser QA adds overview, migration and review presence checks. Manual physical-device touch and print rendering remain unverified.
+
+## December 3 holiday and removal of printing
+December 3 is a full day off. Baseline increases from 330 to 510 minutes; 30 minutes flexible margin is not a task. Preserve completed/edited tasks and migrate untouched tasks from v1/v2 to v3. Remove print controls, duplicated print DOM, generation and styles. No timer added. Runtime checks include holiday migration, label, total, and removal of print. Manual device test remains unverified.
